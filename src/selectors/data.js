@@ -18,3 +18,13 @@ export const selectedParcel = createSelector(
         return null;
     }
 );
+
+export const getSelectedTree = createSelector(
+    [getParcels, getSelectedParcel],
+    (parcels, selectedParcelId) => {
+        if(selectedParcelId){
+            return parcels.getIn([selectedParcelId,selectedParcelId.arbres.]);
+        }
+        return null;
+    }
+);

@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import * as uuid from "uuid";
-import {addParcelSuccess, addParcelFailure, addParcel, setParcels, editParcel, editParcelSuccess, editParcelFailure} from "../actions/data";
+import {addParcelSuccess, addParcelFailure, addParcel, setParcels, editParcel, editParcelSuccess, editParcelFailure, deleteTree, deleteTreeSuccess, deleteTreeFailure} from "../actions/data";
 
 const config = {
     apiKey: "AIzaSyC7JXmQ0tZDmPu1myxCYwX8L6s39tXhVLk",
@@ -60,6 +60,7 @@ export function deleteParcelByIdThunk(parcelId) {
         // render(objToArray(parcel), "Tout");
     }
 }
+
 export function editParcelByIdThunk(parcelId, parcelAttr) {
     /**
      * @param {Function} dispatch
@@ -79,5 +80,21 @@ export function editParcelByIdThunk(parcelId, parcelAttr) {
                 dispatch(editParcelFailure())
             });
         }
+    }
+}
+
+export function deleteTreeByIdThunk(parcelId, treeId) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(deleteTree());
+        database.ref(`/parcelles/${parcelId}/arbres/${treeId}`).remove().then((e) => {
+            dispatch(deleteTreeSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(deleteTreeFailure())
+        });
     }
 }

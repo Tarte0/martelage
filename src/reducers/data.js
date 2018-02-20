@@ -15,7 +15,8 @@ const initialState = () => {
         parcels: Map(),
         savingParcel: false,
         editingParcelSuccess: false,
-        selectedParcel: ""
+        selectedParcel: "",
+        selectedTree : ""
     });
 };
 

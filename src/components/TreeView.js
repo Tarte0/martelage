@@ -1,14 +1,16 @@
 // @flow
 import React from 'react';
 import {Card, Col, Row, Table, Button} from 'antd';
-import  TreeGraph from './TreeGraph'
+import TreeGraph from './TreeGraph';
 import TreeList from '../containers/TreeList';
-class ParcelList extends React.Component {
+class TreeView extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {};
     }
+
+
 
     render() {
         const {selectedParcel} = this.props;
@@ -19,14 +21,20 @@ class ParcelList extends React.Component {
                     {selectedParcel ?
                         <div>
                             <Row>
-                                <Col span={10}>
-                                    <p>nom : {selectedParcel.get("nom")}</p>
-                                    <p>lieu : {selectedParcel.get("lieu")}</p>
-                                    <p>surface : {selectedParcel.get("surface")} ha</p>
-                                    <TreeGraph trees={arbres}/>
+                                <Col span={24}>
+                                <p>nom : {selectedParcel.get("nom")}</p>
+                                <p>lieu : {selectedParcel.get("lieu")}</p>
+                                <p>surface : {selectedParcel.get("surface")} ha</p>
                                 </Col>
-                                <Col span={14}>
-                                    <TreeList/>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <TreeList expended={true}/>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                <TreeGraph trees={arbres}/>
                                 </Col>
                             </Row>
 
@@ -39,6 +47,6 @@ class ParcelList extends React.Component {
     }
 }
 
-ParcelList.propTypes = {};
+TreeView.propTypes = {};
 
-export default ParcelList;
+export default TreeView;
