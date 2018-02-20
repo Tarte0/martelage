@@ -10,7 +10,7 @@ import {
     EDIT_PARCEL_FAILURE
 } from "../actions/data";
 
-const initialState = () => {
+export const initialState = () => {
     return Map({
         parcels: Map(),
         savingParcel: false,

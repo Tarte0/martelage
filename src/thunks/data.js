@@ -37,6 +37,7 @@ export function getParcels(store) {
      */
     database.ref('/parcelles/').on('value', function (snapshot) {
         const parcels = snapshot.val();
+        console.log(parcels)
         store.dispatch(setParcels(parcels));
         // render(objToArray(parcel), "Tout");
     });
