@@ -3,7 +3,7 @@ import { Map, List,fromJS } from 'immutable';
 import fixture from '../fixture/data.json'
 import {initialState} from '../../src/reducers/data'
 import {getSelectedTrees} from '../../src/selectors/data'
-describe('Analytics getPlayerEvents selector ', () => {
+describe('Martelage get selected trees ', () => {
     let state;
 
     beforeEach(() => {
@@ -11,7 +11,7 @@ describe('Analytics getPlayerEvents selector ', () => {
         state = state.setIn(['data','parcels'], fromJS(fixture))
     });
 
-    it('returns List of events about a player', () => {
+    it('returns trees with id', () => {
 
         expect(getSelectedTrees(state).length).to.be.equals(0);
 

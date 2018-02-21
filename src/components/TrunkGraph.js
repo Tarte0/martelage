@@ -13,7 +13,6 @@ class TrunkGraph extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         return <div className="trunkchart" ref={(el) => (this.el = el)} />;
     }
 }

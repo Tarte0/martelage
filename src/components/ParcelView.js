@@ -3,6 +3,7 @@ import React from 'react';
 import {Card, Col, Row, Table, Button} from 'antd';
 import  TreeGraph from './TreeGraph'
 import TreeList from '../containers/TreeList';
+import TrunkGraph from "./TrunkGraph";
 class ParcelList extends React.Component {
 
     constructor(props) {
@@ -24,6 +25,7 @@ class ParcelList extends React.Component {
                                     <p>lieu : {selectedParcel.get("lieu")}</p>
                                     <p>surface : {selectedParcel.get("surface")} ha</p>
                                     <TreeGraph trees={arbres}/>
+
                                 </Col>
                                 <Col span={14}>
                                     <TreeList/>

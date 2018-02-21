@@ -1,0 +1,290 @@
+[
+  {
+    "coord": {
+      "x": 38.35,
+      "y": 26.54
+    },
+    "diametre": "30",
+    "essence": "Epicéa",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "297",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "",
+      "oeuvre": "100"
+    }
+  },
+  {
+    "coord": {
+      "x": 53.7,
+      "y": 26.07
+    },
+    "diametre": "20",
+    "essence": "Sapin",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "18",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "100",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 53.13,
+      "y": 27.81
+    },
+    "diametre": "35",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "2",
+    "numero": "306",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 16.51,
+      "y": 6.84
+    },
+    "diametre": "30",
+    "essence": "Sapin",
+    "etat": "v",
+    "noteEcologique": "4",
+    "numero": "330",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "",
+      "oeuvre": "100"
+    }
+  },
+  {
+    "coord": {
+      "x": 47.48,
+      "y": 57.78
+    },
+    "diametre": "35",
+    "essence": "Epicéa",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "224",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "",
+      "oeuvre": "100"
+    }
+  },
+  {
+    "coord": {
+      "x": 28.21,
+      "y": 52.69
+    },
+    "diametre": "50",
+    "essence": "Epicéa",
+    "etat": "mp",
+    "noteEcologique": "8",
+    "numero": "230",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "",
+      "oeuvre": "100"
+    }
+  },
+  {
+    "coord": {
+      "x": 20.53,
+      "y": 30.1
+    },
+    "diametre": "30",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "3",
+    "numero": "291",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 48.08,
+      "y": 11.18
+    },
+    "diametre": "30",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "3",
+    "numero": "354",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 37.4,
+      "y": 41.85
+    },
+    "diametre": "25",
+    "essence": "Epicéa",
+    "etat": "v",
+    "noteEcologique": "2",
+    "numero": "272",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "",
+      "oeuvre": "100"
+    }
+  },
+  {
+    "coord": {
+      "x": 40.32,
+      "y": 34.84
+    },
+    "diametre": "15",
+    "essence": "Epicéa",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "276",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "100",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 59.7,
+      "y": 70.25
+    },
+    "diametre": "55",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "167",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": "100"
+    }
+  },
+  {
+    "coord": {
+      "x": 19.38,
+      "y": 39.33
+    },
+    "diametre": "15",
+    "essence": "Sapin",
+    "etat": "mp",
+    "noteEcologique": "3",
+    "numero": "250",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "100",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 93,
+      "y": 48.72
+    },
+    "diametre": "25",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "5",
+    "numero": "85",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 21.99,
+      "y": 13.23
+    },
+    "diametre": "45",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "332",
+    "utilisationBois": {
+      "chauffage": "64",
+      "industrie": "",
+      "oeuvre": "36"
+    }
+  },
+  {
+    "coord": {
+      "x": 60.25,
+      "y": 27.18
+    },
+    "diametre": "35",
+    "essence": "Frêne",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "51",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 98.22,
+      "y": 56.71
+    },
+    "diametre": "15",
+    "essence": "Epicéa",
+    "etat": "v",
+    "noteEcologique": "3",
+    "numero": "94",
+    "utilisationBois": {
+      "chauffage": "",
+      "industrie": "100",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 35.29,
+      "y": 13.91
+    },
+    "diametre": "15",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "0",
+    "numero": "351",
+    "utilisationBois": {
+      "chauffage": "100",
+      "industrie": "",
+      "oeuvre": ""
+    }
+  },
+  {
+    "coord": {
+      "x": 34.81,
+      "y": 27.2
+    },
+    "diametre": "45",
+    "essence": "Hêtre",
+    "etat": "v",
+    "noteEcologique": "6",
+    "numero": "295",
+    "utilisationBois": {
+      "chauffage": "50",
+      "industrie": "",
+      "oeuvre": "50"
+    }
+  }
+]
