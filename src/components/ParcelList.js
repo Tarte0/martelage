@@ -8,15 +8,24 @@ const data = {
     surface: 0.0
 };
 
-const EditableCell = (editable, value, onChange) => (
+const EditableCell = (editable, value, onChange, isNumerical) => (
     <div>
         {editable
-            ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => onChange(e.target.value)}/>
+            ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => { if(isNumerical){
+                if(Number(e.target.value) ){
+
+                    onChange(Number(e.target.value))
+                }
+            }else{
+                onChange(e.target.value)
+
+            }
+            }}/>
             : value
         }
     </div>
 );
-
+const numericalKeys = ['surface'];
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {
         if (next.editingParcelSuccess && !this.props.editingParcelSuccess) {
@@ -55,7 +64,7 @@ class ParcelList extends React.Component {
                                         this.state.edit === index ? this.state.editedData[k] : record[k],
                                         (value) => {
                                             this.setState({editedData: {...this.state.editedData, [k]: value}})
-                                        }),
+                                        },numericalKeys.indexOf(k) > -1),
                                 key: k
                             })).concat([
                             {

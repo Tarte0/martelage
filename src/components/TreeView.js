@@ -2,6 +2,7 @@
 import React from 'react';
 import {Card, Col, Row, Table, Button} from 'antd';
 import TreeGraph from './TreeGraph';
+import TrunkGraph from './TrunkGraph';
 import TreeList from '../containers/TreeList';
 class TreeView extends React.Component {
 
@@ -9,7 +10,6 @@ class TreeView extends React.Component {
         super(props);
         this.state = {};
     }
-
 
 
     render() {
@@ -22,9 +22,9 @@ class TreeView extends React.Component {
                         <div>
                             <Row>
                                 <Col span={24}>
-                                <p>nom : {selectedParcel.get("nom")}</p>
-                                <p>lieu : {selectedParcel.get("lieu")}</p>
-                                <p>surface : {selectedParcel.get("surface")} ha</p>
+                                    <p>nom : {selectedParcel.get("nom")}</p>
+                                    <p>lieu : {selectedParcel.get("lieu")}</p>
+                                    <p>surface : {selectedParcel.get("surface")} ha</p>
                                 </Col>
                             </Row>
                             <Row>
@@ -34,7 +34,10 @@ class TreeView extends React.Component {
                             </Row>
                             <Row>
                                 <Col span={12}>
-                                <TreeGraph trees={arbres}/>
+                                    <TreeGraph trees={arbres}/>
+                                </Col>
+                                <Col span={12}>
+                                    <TrunkGraph trees={arbres}/>
                                 </Col>
                             </Row>
 

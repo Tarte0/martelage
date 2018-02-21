@@ -2,17 +2,45 @@
 import React from 'react';
 import {Card, Col, Row, Table, Button, Popconfirm} from 'antd';
 import {List} from 'immutable';
+
+const EditableCell = (editable, value, onChange, isNumerical) => (
+    <div>
+        {editable
+            ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => {
+                if (isNumerical) {
+                    if (Number(e.target.value)) {
+
+                        onChange(Number(e.target.value))
+                    }
+                } else {
+                    onChange(e.target.value)
+
+                }
+            }}/>
+            : value
+        }
+    </div>
+);
+const numericalKeys = ['numero', 'diametre', 'noteEcologique', 'x', 'y', 'chauffage', 'industrie', 'oeuvre'];
+
 class TreeList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            success: null,
+            edit: null,
+            editedData: {
+                nom: '',
+                lieu: '',
+                surface: ''
+            }
+        };
     }
 
-    getColumns(arbres) {
-        const essences = List(arbres.map((e) => e.essence)).groupBy((e) => e).keySeq().toJS();
-        const etats = List(arbres.map((e) => e.etat)).groupBy((e) => e).keySeq().toJS();
-        console.log(essences);
+    getColumns() {
+        const essences = List(this.props.selectedTrees.map((e) => e.essence)).groupBy((e) => e).keySeq().toJS();
+        const etats = List(this.props.selectedTrees.map((e) => e.etat)).groupBy((e) => e).keySeq().toJS();
         return [
             {
                 title: "numero",
@@ -31,11 +59,10 @@ class TreeList extends React.Component {
                 dataIndex: "essence",
                 key: "essence",
                 sorter: (a, b) => a.essence.localeCompare(b.essence),
-                filters:
-                    essences.map((essence) => ({
-                        text: essence,
-                        value: essence
-                    })),
+                filters: essences.map((essence) => ({
+                    text: essence,
+                    value: essence
+                })),
                 onFilter: (value, record) => record.essence == value,
                 filterMultiple: true
             },
@@ -44,11 +71,10 @@ class TreeList extends React.Component {
                 dataIndex: "etat",
                 key: "etat",
                 sorter: (a, b) => a.etat.localeCompare(b.etat),
-                filters:
-                    etats.map((etat) => ({
-                        text: etat,
-                        value: etat
-                    })),
+                filters: etats.map((etat) => ({
+                    text: etat,
+                    value: etat
+                })),
                 onFilter: (value, record) => record.etat == value,
                 filterMultiple: true
             },
@@ -93,53 +119,79 @@ class TreeList extends React.Component {
                                 dataIndex: "utilisationBois.oeuvre",
                                 key: "utilisationBois.oeuvre",
                                 sorter: (a, b) => a.utilisationBois.oeuvre - b.utilisationBois.oeuvre
-                            },
-                            {
-                                title: "selectionner",
-                                key: "select",
-                                render: (index, record, ind) => (
-                                    <Button icon="pie-chart"
-                                            onClick={() => {
-                                                console.log(record);
-                                                this.props.selectTree(record.id);
-                                            }}
-                                    />)
-                            },
-                            {
-                                title: "supprimer",
-                                key: "delete",
-                                render: (index, record, ind) => (
-                                    <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={()=>{
-                                        this.props.deleteTree(this.state.selectedParcel, record.id)
-                                    }} okText="oui" cancelText="non">
-                                        <Button icon="delete" type="danger" />
-                                    </Popconfirm>)
-                            },
+                            }
                         ]
-                    }
+                    },
+                    {
+                        title: "selectionner",
+                        key: "select",
+                        render: (index, record, ind) => (
+                            <Button icon="pie-chart"
+                                    onClick={() => {
+                                        this.props.selectTree(record.id);
+                                    }}
+                            />)
+                    },
+                    {
+                        title: "modifier",
+                        key: "edit",
+                        render: (index, record, ind) => (
+                            this.state.edit === ind ?
+                                <div>
+                                    <Button icon="close"
+                                            onClick={() => {
+                                                this.setState({edit: null});
+                                            }}
+                                    /> <Button icon="save"
+                                               onClick={() => {
+                                                   this.setState({edit: ind});
+                                                   this.props.editParcel(record.id, this.state.editedData)
+                                               }}
+                                /></div>
+                                :
+                                <div>
+                                    <Button icon="edit"
+                                            onClick={() => {
+                                                this.setState({edit: ind, success: null});
+                                                this.setState({editedData: {...record}});
+                                            }}
+                                    >{this.props.editingParcelSuccess && this.state.success === ind ?
+                                        <Icon type="check" style={{color: "green"}}/> : ""}</Button>
+                                </div>)
+                    },
+                    {
+                        title: "supprimer",
+                        key: "delete",
+                        render: (index, record, ind) => (
+                            <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {
+                                this.props.deleteTree(this.props.selectedParcel.get("id"), record.id)
+                            }} okText="oui" cancelText="non">
+                                <Button icon="delete" type="danger"/>
+                            </Popconfirm>)
+                    },
                 ] : []
         )
 
     }
 
-    handleTableChange(){
+    handleTableChange() {
 
     }
 
     render() {
-        const {selectedParcel} = this.props;
-        let arbres = selectedParcel ? selectedParcel.has("arbres") ? selectedParcel.get("arbres").toList().toJS() : [] : [];
+
         return (
             <div>
                 <div>
                     <Table
-                        locale={{emptyText: 'Aucun arbre',
+                        locale={{
+                            emptyText: 'Aucun arbre',
                             filterTitle: 'Filtre',
                             filterConfirm: 'Ok',
                             filterReset: 'Reset',
                         }}
-                        dataSource={arbres}
-                        columns={this.getColumns(arbres)}
+                        dataSource={this.props.selectedTrees}
+                        columns={this.getColumns()}
                         onChange={this.handleTableChange}
                     />
                 </div>

@@ -90,6 +90,7 @@ export function deleteTreeByIdThunk(parcelId, treeId) {
      * @param {Function} getState
      */
     return (dispatch, getState) => {
+        console.log(parcelId, treeId);
         dispatch(deleteTree());
         database.ref(`/parcelles/${parcelId}/arbres/${treeId}`).remove().then((e) => {
             dispatch(deleteTreeSuccess())
