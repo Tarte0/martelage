@@ -32,16 +32,6 @@ class TreeView extends React.Component {
                                     <TreeList expended={true}/>
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col span={12}>
-                                    <TreeGraph trees={arbres}/>
-                                </Col>
-                                <Col span={12}>
-                                    <TrunkGraph trees={arbres}/>
-                                </Col>
-                            </Row>
-
-
                         </div>
                         : "Merci de choisir une parcelle"}
                 </Card>

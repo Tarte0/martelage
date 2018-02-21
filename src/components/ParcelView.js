@@ -1,9 +1,8 @@
 // @flow
-import React from 'react';
-import {Card, Col, Row, Table, Button} from 'antd';
-import  TreeGraph from './TreeGraph'
-import TreeList from '../containers/TreeList';
-import TrunkGraph from "./TrunkGraph";
+import React from "react";
+import {Card, Col, Row} from "antd";
+import TreeGraph from './TreeGraph';
+import TrunkGraph from './TrunkGraph';
 class ParcelList extends React.Component {
 
     constructor(props) {
@@ -13,26 +12,26 @@ class ParcelList extends React.Component {
 
     render() {
         const {selectedParcel} = this.props;
-        let arbres = selectedParcel ? selectedParcel.has("arbres") ? selectedParcel.get("arbres").toList().toJS() : [] : [];
         return (
             <div>
                 <Card>
                     {selectedParcel ?
                         <div>
                             <Row>
-                                <Col span={10}>
+                                <Col span={24}>
                                     <p>nom : {selectedParcel.get("nom")}</p>
                                     <p>lieu : {selectedParcel.get("lieu")}</p>
                                     <p>surface : {selectedParcel.get("surface")} ha</p>
-                                    <TreeGraph trees={arbres}/>
-
-                                </Col>
-                                <Col span={14}>
-                                    <TreeList/>
                                 </Col>
                             </Row>
-
-
+                            <Row>
+                                <Col span={12}>
+                                    <TreeGraph trees={this.props.selectedTrees}/>
+                                </Col>
+                                <Col span={12}>
+                                    <TrunkGraph trees={this.props.selectedTrees}/>
+                                </Col>
+                            </Row>
                         </div>
                         : "Merci de choisir une parcelle"}
                 </Card>

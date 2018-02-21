@@ -30,6 +30,24 @@ export function addParcelThunk(parcel) {
             });
     }
 }
+
+export function addTreeThunk(parcel, tree) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(addParcel());
+        return database.ref('parcelles/' + uuid.v4())
+            .set(parcel).then((e) => {
+                dispatch(addParcelSuccess())
+            }).catch((e) => {
+                console.error(e);
+                dispatch(addParcelFailure())
+            });
+    }
+}
+
 export function getParcels(store) {
     /**
      * @param {Function} dispatch

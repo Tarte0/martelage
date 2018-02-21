@@ -1,7 +1,6 @@
 // @flow
-import React from 'react';
-import ParcelList from '../containers/ParcelList'
-import {Card, Form, Icon, Input, Button} from 'antd';
+import React from "react";
+import {Form, Input, Button} from "antd";
 
 class ParcelForm extends React.Component {
     constructor(props) {

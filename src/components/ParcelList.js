@@ -11,15 +11,14 @@ const data = {
 const EditableCell = (editable, value, onChange, isNumerical) => (
     <div>
         {editable
-            ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => { if(isNumerical){
-                if(Number(e.target.value) ){
-
-                    onChange(Number(e.target.value))
+            ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => {
+                if (isNumerical) {
+                    if (Number(e.target.value)) {
+                        onChange(Number(e.target.value))
+                    }
+                } else {
+                    onChange(e.target.value)
                 }
-            }else{
-                onChange(e.target.value)
-
-            }
             }}/>
             : value
         }
@@ -49,11 +48,13 @@ class ParcelList extends React.Component {
     render() {
         return (
             <div>
-
                 <Table
                     locale={{emptyText: 'Aucune parcelle'}}
                     loading={this.props.savingParcel}
                     dataSource={this.props.parcels}
+                    onRowClick={(record) => {
+                        this.props.selectParcel(record.id);
+                    }}
                     columns={
                         Object.keys(data)
                             .map(k => ({
@@ -64,25 +65,15 @@ class ParcelList extends React.Component {
                                         this.state.edit === index ? this.state.editedData[k] : record[k],
                                         (value) => {
                                             this.setState({editedData: {...this.state.editedData, [k]: value}})
-                                        },numericalKeys.indexOf(k) > -1),
+                                        }, numericalKeys.indexOf(k) > -1),
                                 key: k
                             })).concat([
                             {
                                 title: "arbres",
+                                key: 'trees',
                                 render: (a, r, i) => {
                                     return (<div>{Object.keys(r.arbres || []).length}</div>)
                                 }
-
-                            },
-                            {
-                                title: "selectionner",
-                                key: "select",
-                                render: (index, record, ind) => (
-                                    <Button icon="pie-chart"
-                                            onClick={() => {
-                                                this.props.selectParcel(record.id);
-                                            }}
-                                    />)
                             },
                             {
                                 title: "supprimer",
@@ -122,7 +113,8 @@ class ParcelList extends React.Component {
                                         </div>)
                             }
                         ])
-                    }/>
+                    }
+                />
             </div>
         );
     }

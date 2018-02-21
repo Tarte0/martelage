@@ -123,16 +123,6 @@ class TreeList extends React.Component {
                         ]
                     },
                     {
-                        title: "selectionner",
-                        key: "select",
-                        render: (index, record, ind) => (
-                            <Button icon="pie-chart"
-                                    onClick={() => {
-                                        this.props.selectTree(record.id);
-                                    }}
-                            />)
-                    },
-                    {
                         title: "modifier",
                         key: "edit",
                         render: (index, record, ind) => (
@@ -174,9 +164,6 @@ class TreeList extends React.Component {
 
     }
 
-    handleTableChange() {
-
-    }
 
     render() {
 
@@ -192,7 +179,8 @@ class TreeList extends React.Component {
                         }}
                         dataSource={this.props.selectedTrees}
                         columns={this.getColumns()}
-                        onChange={this.handleTableChange}
+                        bordered
+                        size='middle'
                     />
                 </div>
             </div>

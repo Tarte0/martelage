@@ -5,7 +5,7 @@ const getSelectedParcel = state => state.getIn(['data', 'selectedParcel']);
 export const selectParcelsAsArray = createSelector(
     [getParcels],
     (parcels) => {
-        return Object.keys(parcels.toJS()).map(id => ({id, ...parcels.get(id).toJS()}))
+        return Object.keys(parcels.toJS()).map(id => ({id, key:id, ...parcels.get(id).toJS()}))
     }
 );
 
