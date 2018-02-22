@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import {Form, Input, Button, Menu, Dropdown, Icon, Row, Col, Slider, InputNumber} from "antd";
+import {Form, Input, Button, Menu, Dropdown, Icon, Row, Col, Slider, InputNumber, Card} from "antd";
 
 class ParcelForm extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class ParcelForm extends React.Component {
             </Menu>
         );
         return (
-            <div>
+            <Card>
                 <Form>
                     <Form.Item label="Parcelle">
                         <Dropdown overlay={parcelsDropDown}>
@@ -81,17 +81,21 @@ class ParcelForm extends React.Component {
                                     onChange={(value) => {
                                         const total = value + this.state.utilisationBois.industrie + this.state.utilisationBois.oeuvre;
                                         if (total > 100) {
+                                            let removal = total - 100;
+                                            if (this.state.utilisationBois.industrie > 0 && this.state.utilisationBois.oeuvre > 0) {
+                                                removal = removal / 2;
+                                            }
                                             this.setState({
                                                 utilisationBois: {
-                                                    chauffage: value,
-                                                    industrie: this.state.utilisationBois.industrie - (total - 100) / 2,
-                                                    oeuvre: this.state.utilisationBois.oeuvre - (total - 100) / 2
+                                                    chauffage: Math.floor(value),
+                                                    industrie: Math.floor(Math.max(0, this.state.utilisationBois.industrie - removal)),
+                                                    oeuvre: Math.floor(Math.max(0, this.state.utilisationBois.oeuvre - removal))
                                                 }
                                             });
                                         } else {
                                             this.setState({
                                                 utilisationBois: {
-                                                    chauffage: value,
+                                                    chauffage: Math.floor(value),
                                                     industrie: this.state.utilisationBois.industrie,
                                                     oeuvre: this.state.utilisationBois.oeuvre
                                                 },
@@ -110,17 +114,21 @@ class ParcelForm extends React.Component {
                                     onChange={(value) => {
                                         const total = value + this.state.utilisationBois.industrie + this.state.utilisationBois.oeuvre;
                                         if (total > 100) {
+                                            let removal = total - 100;
+                                            if (this.state.utilisationBois.industrie > 0 && this.state.utilisationBois.oeuvre > 0) {
+                                                removal = removal / 2;
+                                            }
                                             this.setState({
                                                 utilisationBois: {
-                                                    chauffage: value,
-                                                    industrie: this.state.utilisationBois.industrie - (total - 100) / 2,
-                                                    oeuvre: this.state.utilisationBois.oeuvre - (total - 100) / 2
+                                                    chauffage: Math.floor(value),
+                                                    industrie: Math.floor(Math.max(0, this.state.utilisationBois.industrie - removal)),
+                                                    oeuvre: Math.floor(Math.max(0, this.state.utilisationBois.oeuvre - removal))
                                                 }
                                             });
                                         } else {
                                             this.setState({
                                                 utilisationBois: {
-                                                    chauffage: value,
+                                                    chauffage: Math.floor(value),
                                                     industrie: this.state.utilisationBois.industrie,
                                                     oeuvre: this.state.utilisationBois.oeuvre
                                                 },
@@ -141,18 +149,22 @@ class ParcelForm extends React.Component {
                                     onChange={(value) => {
                                         const total = this.state.utilisationBois.chauffage + value + this.state.utilisationBois.oeuvre;
                                         if (total > 100) {
+                                            let removal = total - 100;
+                                            if (this.state.utilisationBois.chauffage > 0 && this.state.utilisationBois.oeuvre > 0) {
+                                                removal = removal / 2;
+                                            }
                                             this.setState({
                                                 utilisationBois: {
-                                                    chauffage: this.state.utilisationBois.chauffage - (total - 100) / 2,
-                                                    industrie: value,
-                                                    oeuvre: this.state.utilisationBois.oeuvre - (total - 100) / 2
+                                                    chauffage: Math.floor(Math.max(0, this.state.utilisationBois.chauffage - removal)),
+                                                    industrie: Math.floor(value),
+                                                    oeuvre: Math.floor(Math.max(0, this.state.utilisationBois.oeuvre - removal))
                                                 }
                                             });
                                         } else {
                                             this.setState({
                                                 utilisationBois: {
                                                     chauffage: this.state.utilisationBois.chauffage,
-                                                    industrie: value,
+                                                    industrie: Math.floor(value),
                                                     oeuvre: this.state.utilisationBois.oeuvre
                                                 },
                                             });
@@ -167,6 +179,31 @@ class ParcelForm extends React.Component {
                                     max={100}
                                     style={{marginLeft: 16}}
                                     value={this.state.utilisationBois.industrie}
+                                    onChange={(value) => {
+                                        const total = this.state.utilisationBois.chauffage + value + this.state.utilisationBois.oeuvre;
+                                        if (total > 100) {
+                                            let removal = total - 100;
+                                            if (this.state.utilisationBois.chauffage > 0 && this.state.utilisationBois.oeuvre > 0) {
+                                                removal = removal / 2;
+                                            }
+                                            this.setState({
+                                                utilisationBois: {
+                                                    chauffage: Math.floor(Math.max(0, this.state.utilisationBois.chauffage - removal)),
+                                                    industrie: Math.floor(value),
+                                                    oeuvre: Math.floor(Math.max(0, this.state.utilisationBois.oeuvre - removal))
+                                                }
+                                            });
+                                        } else {
+                                            this.setState({
+                                                utilisationBois: {
+                                                    chauffage: this.state.utilisationBois.chauffage,
+                                                    industrie: Math.floor(value),
+                                                    oeuvre: this.state.utilisationBois.oeuvre
+                                                },
+                                            });
+                                        }
+
+                                    }}
                                 />
                             </Col>
                         </Row>
@@ -180,11 +217,15 @@ class ParcelForm extends React.Component {
                                     onChange={(value) => {
                                         const total = this.state.utilisationBois.chauffage + this.state.utilisationBois.industrie + value;
                                         if (total > 100) {
+                                            let removal = total - 100;
+                                            if (this.state.utilisationBois.chauffage > 0 && this.state.utilisationBois.industrie > 0) {
+                                                removal = removal / 2;
+                                            }
                                             this.setState({
                                                 utilisationBois: {
-                                                    chauffage: this.state.utilisationBois.chauffage - (total - 100) / 2,
-                                                    industrie: this.state.utilisationBois.industrie - (total - 100) / 2,
-                                                    oeuvre: value
+                                                    chauffage: Math.floor(Math.max(0, this.state.utilisationBois.chauffage - removal)),
+                                                    industrie: Math.floor(Math.max(0, this.state.utilisationBois.industrie - removal)),
+                                                    oeuvre: Math.floor(value)
                                                 }
                                             });
                                         } else {
@@ -192,7 +233,7 @@ class ParcelForm extends React.Component {
                                                 utilisationBois: {
                                                     chauffage: this.state.utilisationBois.chauffage,
                                                     industrie: this.state.utilisationBois.industrie,
-                                                    oeuvre: value
+                                                    oeuvre: Math.floor(value)
                                                 },
                                             });
                                         }
@@ -206,6 +247,31 @@ class ParcelForm extends React.Component {
                                     max={100}
                                     style={{marginLeft: 16}}
                                     value={this.state.utilisationBois.oeuvre}
+                                    onChange={(value) => {
+                                        const total = this.state.utilisationBois.chauffage + this.state.utilisationBois.industrie + value;
+                                        if (total > 100) {
+                                            let removal = total - 100;
+                                            if (this.state.utilisationBois.chauffage > 0 && this.state.utilisationBois.industrie > 0) {
+                                                removal = removal / 2;
+                                            }
+                                            this.setState({
+                                                utilisationBois: {
+                                                    chauffage: Math.floor(Math.max(0, this.state.utilisationBois.chauffage - removal)),
+                                                    industrie: Math.floor(Math.max(0, this.state.utilisationBois.industrie - removal)),
+                                                    oeuvre: Math.floor(value)
+                                                }
+                                            });
+                                        } else {
+                                            this.setState({
+                                                utilisationBois: {
+                                                    chauffage: this.state.utilisationBois.chauffage,
+                                                    industrie: this.state.utilisationBois.industrie,
+                                                    oeuvre: Math.floor(value)
+                                                },
+                                            });
+                                        }
+
+                                    }}
                                 />
                             </Col>
                         </Row>
@@ -225,7 +291,7 @@ class ParcelForm extends React.Component {
                     </Form.Item>
                 </Form>
 
-            </div>
+            </Card>
         );
     }
 }

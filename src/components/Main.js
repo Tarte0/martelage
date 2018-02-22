@@ -37,9 +37,7 @@ class Main extends React.Component {
                     <Tabs.TabPane tab="Arbres" key="2">
                         <Collapse>
                             <Collapse.Panel header="Arbres" key="1">
-                                <Card>
                                     <TreeView />
-                                </Card>
                             </Collapse.Panel>
                             <Collapse.Panel header="Ajouter un arbre" key="2">
                                 <TreeForm />
