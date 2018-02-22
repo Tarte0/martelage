@@ -1,6 +1,35 @@
 import * as firebase from 'firebase';
 import * as uuid from "uuid";
-import {addParcelSuccess, addParcelFailure, addParcel, setParcels, editParcel, editParcelSuccess, editParcelFailure, deleteTree, deleteTreeSuccess, deleteTreeFailure} from "../actions/data";
+import {
+    addParcelSuccess,
+    addParcelFailure,
+    addParcel,
+    setParcels,
+    editParcel,
+    editParcelSuccess,
+    editParcelFailure,
+    deleteTree,
+    deleteTreeSuccess,
+    deleteTreeFailure,
+    setEtats,
+    addEtat,
+    addEtatSuccess,
+    addEtatFailure,
+    deleteParcel,
+    deleteParcelSuccess,
+    deleteParcelFailure,
+    deleteEtatSuccess,
+    deleteEtatFailure,
+    deleteEtat,
+    deleteEssence,
+    deleteEssenceSuccess,
+    deleteEssenceFailure,
+    setEssences,
+    addEssence,
+    addEssenceSuccess,
+    addEssenceFailure,
+    setTypes
+} from "../actions/data";
 
 const config = {
     apiKey: "AIzaSyC7JXmQ0tZDmPu1myxCYwX8L6s39tXhVLk",
@@ -31,6 +60,39 @@ export function addParcelThunk(parcel) {
     }
 }
 
+export function addEtatThunk(etat) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(addEtat());
+        return database.ref('metadata/etats/' + etat)
+            .set(true).then((e) => {
+                dispatch(addEtatSuccess())
+            }).catch((e) => {
+                console.error(e);
+                dispatch(addEtatFailure())
+            });
+    }
+}
+export function addEssenceThunk(essence, type) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(addEssence());
+        return database.ref('metadata/essences/' + essence)
+            .set(type).then((e) => {
+                dispatch(addEssenceSuccess())
+            }).catch((e) => {
+                console.error(e);
+                dispatch(addEssenceFailure())
+            });
+    }
+}
+
 export function addTreeThunk(parcel, tree) {
     /**
      * @param {Function} dispatch
@@ -55,9 +117,41 @@ export function getParcels(store) {
      */
     database.ref('/parcelles/').on('value', function (snapshot) {
         const parcels = snapshot.val();
-        console.log(parcels)
         store.dispatch(setParcels(parcels));
         // render(objToArray(parcel), "Tout");
+    });
+}
+
+export function getEtats(store) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    database.ref('/metadata/etats').on('value', function (snapshot) {
+        const etats = snapshot.val();
+        store.dispatch(setEtats(etats));
+    });
+}
+
+export function getTypes(store) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    database.ref('/metadata/types').on('value', function (snapshot) {
+        const types = snapshot.val();
+        store.dispatch(setTypes(types));
+    });
+}
+
+export function getEssences(store) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    database.ref('/metadata/essences').on('value', function (snapshot) {
+        const essences = snapshot.val();
+        store.dispatch(setEssences(essences));
     });
 }
 
@@ -67,16 +161,48 @@ export function deleteParcelByIdThunk(parcelId) {
      * @param {Function} getState
      */
     return (dispatch, getState) => {
-
-        dispatch(addParcel());
+        dispatch(deleteParcel());
         database.ref(`/parcelles/${parcelId}`).remove().then((e) => {
-            dispatch(addParcelSuccess())
+            dispatch(deleteParcelSuccess())
         }).catch((e) => {
             console.error(e);
-            dispatch(addParcelFailure())
+            dispatch(deleteParcelFailure())
         });
 
         // render(objToArray(parcel), "Tout");
+    }
+}
+
+export function deleteEtatByIdThunk(etatId) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(deleteEtat());
+        database.ref(`/metadata/etats/${etatId}`).remove().then((e) => {
+            dispatch(deleteEtatSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(deleteEtatFailure())
+        });
+
+        // render(objToArray(parcel), "Tout");
+    }
+}
+export function deleteEssenceByIdThunk(essenceId) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(deleteEssence());
+        database.ref(`/metadata/essences/${essenceId}`).remove().then((e) => {
+            dispatch(deleteEssenceSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(deleteEssenceFailure())
+        });
     }
 }
 
@@ -86,12 +212,12 @@ export function editParcelByIdThunk(parcelId, parcelAttr) {
      * @param {Function} getState
      */
     return (dispatch, getState) => {
-        if(parcelAttr !== null){
+        if (parcelAttr !== null) {
             dispatch(editParcel(parcelId, parcelAttr));
             const state = getState();
 
             database.ref(`/parcelles/${parcelId}`).set({
-                ...state.getIn(['data','parcels',parcelId]).toJS(), ...parcelAttr
+                ...state.getIn(['data', 'parcels', parcelId]).toJS(), ...parcelAttr
             }).then((e) => {
                 dispatch(editParcelSuccess())
             }).catch((e) => {

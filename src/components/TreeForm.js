@@ -30,6 +30,16 @@ class ParcelForm extends React.Component {
                 {this.props.parcels.map(p => (<Menu.Item key={p.id}>{p.nom}</Menu.Item>))}
             </Menu>
         );
+        const etatsDropDown = (
+            <Menu>
+                {this.props.etats.map(p => (<Menu.Item key={p.etat}>{p.etat}</Menu.Item>))}
+            </Menu>
+        );
+        const essencesDropDown = (
+            <Menu>
+                {this.props.essences.map(p => (<Menu.Item key={p.essence}>{p.essence}</Menu.Item>))}
+            </Menu>
+        );
         return (
             <Card>
                 <Form>
@@ -51,10 +61,18 @@ class ParcelForm extends React.Component {
                         }}/>
                     </Form.Item>
                     <Form.Item label="Essence">
-
+                        <Dropdown overlay={essencesDropDown}>
+                            <Button style={{marginLeft: 8}}>
+                                essence <Icon type="down"/>
+                            </Button>
+                        </Dropdown>
                     </Form.Item>
                     <Form.Item label="Etat">
-
+                        <Dropdown overlay={etatsDropDown}>
+                            <Button style={{marginLeft: 8}}>
+                                etat <Icon type="down"/>
+                            </Button>
+                        </Dropdown>
                     </Form.Item>
                     <Form.Item label="Note ecologique">
                         <InputNumber min={0} value={this.state.noteEcologique} onChange={(e) => {
@@ -71,7 +89,7 @@ class ParcelForm extends React.Component {
                     </Form.Item>
                     <Form.Item label="Utilisation du bois">
                         <Row>
-                            <Col span={12}>
+                            <Col span={20}>
                                 chauffage:
                                 <Slider
                                     min={0}
@@ -140,7 +158,7 @@ class ParcelForm extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={12}>
+                            <Col span={20}>
                                 industrie:
                                 <Slider
                                     min={0}
@@ -208,7 +226,7 @@ class ParcelForm extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={12}>
+                            <Col span={20}>
                                 oeuvre:
                                 <Slider
                                     min={0}

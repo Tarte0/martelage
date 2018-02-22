@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import {Form, Input, Button} from "antd";
+import {Form, Input, Button, Card} from "antd";
 
 class ParcelForm extends React.Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class ParcelForm extends React.Component {
 
 
         return (
-            <div>
+            <Card>
                     <Form>
                         <Form.Item label="Nom">
                             <Input value={this.state.nom} onChange={(e)=>{this.setState({nom : e.target.value})}} />
@@ -30,7 +30,7 @@ class ParcelForm extends React.Component {
                         <Form.Item>
                             <Button
                                 loading={this.props.savingParcel}
-                                disabled={!this.state.nom ||!this.state.lieu||this.state.surface===null} onClick={() => {
+                                disabled={!this.state.nom || !this.state.lieu || this.state.surface===null} onClick={() => {
                                 this.props.addParcel(this.state);
                                 this.setState({ nom: "",
                                     lieu: "",
@@ -39,7 +39,7 @@ class ParcelForm extends React.Component {
                         </Form.Item>
                     </Form>
 
-            </div>
+            </Card>
         );
     }
 }

@@ -11,7 +11,7 @@ import {routerMiddleware, routerActions} from 'react-router-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import { createHashHistory } from 'history';
-import {getParcels} from "./thunks/data";
+import {getParcels, getEtats, getEssences, getTypes} from "./thunks/data";
 
 const history = createHashHistory();
 function configureStore() {
@@ -61,7 +61,10 @@ function configureStore() {
   return store;
 }
 const store = configureStore();
-getParcels(store)
+getParcels(store);
+getEtats(store);
+getEssences(store);
+getTypes(store);
 
 const render = Component => {
   ReactDOM.render(
