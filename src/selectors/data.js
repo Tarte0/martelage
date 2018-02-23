@@ -26,7 +26,6 @@ export const selectEssencesAsArray = createSelector(
     }
 );
 
-
 export const selectTypesAsArray = createSelector(
     [getTypes],
     (types) => {

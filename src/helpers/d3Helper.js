@@ -1,25 +1,33 @@
-import {List,Map} from 'immutable';
+import {List} from 'immutable';
 
 export const groupTrees = (trees) => {
     return List(trees)
         .groupBy(t => t.diametre)
-        .map((v,k) => {
-            let res = {'v': 0, 'mp': 0, 'ms': 0, total: 0,key:k};
+        .map((v, k) => {
+            let res = {'v': 0, 'mp': 0, 'ms': 0, total: 0, key: k};
             v.forEach(t => {
                 res[t.etat]++;
                 res.total++;
             });
             return res
         }).toList()
-        .sort((a,b)=>Number(a.key)-Number(b.key))
+        .sort((a, b) => Number(a.key) - Number(b.key))
         .toJS();
 };
 
-export const countSpecies = (trees) => {
-    let species = {};
-    trees.forEach(t=>{
-        species[t.essence] = species[t.essence] || 0;
-        species[t.essence]++;
+export const countSpecies = (trees, species) => {
+    const flattenedSpecies = species.reduce((acc, e) => {
+        acc[e.essence] = e.type;
+        return acc;
+    }, {});
+    let speciesCount = {};
+    trees.forEach(t => {
+        speciesCount[t.essence] = speciesCount[t.essence] || 0;
+        speciesCount[t.essence]++;
     });
-    return Object.keys(species).map(s=> ({type: s, count:species[s]}));
+    return Object.keys(speciesCount).map(s => ({
+        essence: s.toLowerCase(),
+        type: flattenedSpecies[s.toLowerCase()],
+        count: speciesCount[s]
+    }));
 };

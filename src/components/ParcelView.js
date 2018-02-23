@@ -33,7 +33,7 @@ class ParcelList extends React.Component {
                                     <TrunkGraph trees={this.props.selectedTrees}/>
                                 </Col>
                                 <Col span={8}>
-                                    <SpecieChart trees={this.props.selectedTrees}/>
+                                    <SpecieChart trees={this.props.selectedTrees} species={this.props.essences} types={this.props.types}/>
                                 </Col>
                             </Row>
                         </div>

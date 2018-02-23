@@ -1,5 +1,6 @@
 import {expect} from 'chai';
 import trees from '../fixture/trees.json'
+import species from '../fixture/species.json'
 import * as d3 from 'd3'
 import {groupTrees,countSpecies} from '../../src/helpers/d3Helper'
 //-r babel-register
@@ -17,9 +18,10 @@ describe('d3 helpers ', () => {
     });
     describe(' countSpecies', () => {
         it(' should count species  ', () => {
-            const res = countSpecies(trees);
+            const res = countSpecies(trees, species);
             expect(res.length).to.be.equals(4);
-            expect(res.find(s=> s.type ==="Sapin").count).to.be.equals(3);
+            expect(res.find(s=> s.essence ==="sapin").count).to.be.equals(3);
+            expect(res.find(s=> s.essence ==="sapin").type).to.be.equals('résineux');
 
             const speciePie = d3.pie()
                 .sort(null)

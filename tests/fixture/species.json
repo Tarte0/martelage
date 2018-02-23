@@ -1,0 +1,13 @@
+[
+    {"essence": "hêtre", "type": "feuillu"},
+    {"essence": "sapin", "type": "résineux"},
+    {"essence": "tilleul", "type": "feuillu"},
+    {"essence": "alisier blanc", "type": "feuillu"},
+    {"essence": "aulne", "type": "feuillu"},
+    {"essence": "chataignier", "type": "feuillu"},
+    {"essence": "merisier", "type": "feuillu"},
+    {"essence": "frêne","type": "feuillu"},
+    {"essence": "épicéa", "type": "résineux"},
+    {"essence": "chêne", "type": "feuillu"},
+    {"essence": "if", "type": "résineux"}
+]
