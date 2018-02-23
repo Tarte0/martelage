@@ -3,6 +3,7 @@ import React from "react";
 import {Card, Col, Row} from "antd";
 import TreeGraph from './TreeGraph';
 import TrunkGraph from './TrunkGraph';
+import SpecieChart from './chart/SpecieChart';
 class ParcelList extends React.Component {
 
     constructor(props) {
@@ -25,11 +26,14 @@ class ParcelList extends React.Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col span={12}>
+                                <Col span={8}>
                                     <TreeGraph trees={this.props.selectedTrees}/>
                                 </Col>
-                                <Col span={12}>
+                                <Col span={8}>
                                     <TrunkGraph trees={this.props.selectedTrees}/>
+                                </Col>
+                                <Col span={8}>
+                                    <SpecieChart trees={this.props.selectedTrees}/>
                                 </Col>
                             </Row>
                         </div>

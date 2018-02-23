@@ -1,4 +1,5 @@
-import {List} from 'immutable';
+import {List,Map} from 'immutable';
+
 export const groupTrees = (trees) => {
     return List(trees)
         .groupBy(t => t.diametre)
@@ -12,4 +13,13 @@ export const groupTrees = (trees) => {
         }).toList()
         .sort((a,b)=>Number(a.key)-Number(b.key))
         .toJS();
+};
+
+export const countSpecies = (trees) => {
+    let species = {};
+    trees.forEach(t=>{
+        species[t.essence] = species[t.essence] || 0;
+        species[t.essence]++;
+    });
+    return Object.keys(species).map(s=> ({type: s, count:species[s]}));
 };
