@@ -1,4 +1,4 @@
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 
 export const groupTrees = (trees) => {
     return List(trees)
@@ -15,11 +15,14 @@ export const groupTrees = (trees) => {
         .toJS();
 };
 
-export const countSpecies = (trees, species) => {
-    const flattenedSpecies = species.reduce((acc, e) => {
+function speciesToType(species) {
+    return species.reduce((acc, e) => {
         acc[e.essence] = e.type;
         return acc;
     }, {});
+}
+export const countSpecies = (trees, species) => {
+    const flattenedSpecies = speciesToType(species);
     let speciesCount = {};
     trees.forEach(t => {
         speciesCount[t.essence] = speciesCount[t.essence] || 0;
@@ -30,4 +33,27 @@ export const countSpecies = (trees, species) => {
         type: flattenedSpecies[s.toLowerCase()],
         count: speciesCount[s]
     }));
+};
+
+export const countType = (trees, species) => {
+    const mapping = speciesToType(species);
+    let res = {};
+    trees.forEach((t) => {
+        const type = mapping[t.essence.toLowerCase()];
+        res[type] = res[type] || 0;
+        res[type]++;
+    });
+    return Map(res).map((v, k) => ({type: k, count: v})).toList().toJS()
+};
+
+export const sortSpeciesByCount = (a, b) => {
+
+    if (a.type === b.type) {
+        return b.count -  a.count ;
+
+    } else {
+        return a.type.localeCompare(b.type)
+    }
+
+
 };

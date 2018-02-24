@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import specieChart from "../../d3/specieChart";
+import "../../style/pie.css";
 
 
 class SpecieChart extends React.Component {
