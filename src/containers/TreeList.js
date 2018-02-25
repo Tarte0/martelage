@@ -7,7 +7,7 @@ import {deleteTreeByIdThunk} from "../thunks/data";
 export default withRouter(
     connect(
         (state, props) => ({
-            selectedParcel : selectedParcel(state),
+            selectedParcel : state.getIn(['data', 'selectedParcel']),
             selectedTrees : getSelectedTrees(state)
         }),
         (dispatch, props) => ({

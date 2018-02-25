@@ -47,11 +47,14 @@ export const getSelectedTrees = createSelector(
     [getParcels, getSelectedParcel],
     (parcels, selectedParcelId) => {
         if (selectedParcelId) {
-            const treesObject = parcels.getIn([selectedParcelId, 'arbres']).toJS();
-            return Object.keys(treesObject).map((e) => {
-                treesObject[e].id = e;
-                return treesObject[e];
-            });
+            let treesObject = parcels.getIn([selectedParcelId, 'arbres']);
+            if(treesObject != undefined) {
+                treesObject = treesObject.toJS();
+                return Object.keys(treesObject).map((e) => {
+                    treesObject[e].id = e;
+                    return treesObject[e];
+                });
+            }
         }
         return [];
     }

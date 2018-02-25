@@ -1,7 +1,10 @@
 export const SET_PARCELS = "SET_PARCELS";
 export const ADD_PARCEL = "ADD_PARCEL";
+export const ADD_TREE = "ADD_TREE";
 export const ADD_PARCEL_SUCCESS = "ADD_PARCEL_SUCCESS";
 export const ADD_PARCEL_FAILURE = "ADD_PARCEL_FAILURE";
+export const ADD_TREE_SUCCESS = "ADD_TREE_SUCCESS";
+export const ADD_TREE_FAILURE = "ADD_TREE_FAILURE";
 export const SET_SELECTED_PARCEL = "SET_SELECTED_PARCEL";
 export const EDIT_PARCEL = "EDIT_PARCEL";
 export const EDIT_PARCEL_SUCCESS = "EDIT_PARCEL_SUCCESS";
@@ -48,6 +51,10 @@ export const addParcel = () => (
     {type: ADD_PARCEL}
 );
 
+export const addTree = () => (
+    {type: ADD_TREE}
+);
+
 export const addEtat = () => (
     {type: ADD_ETAT}
 );
@@ -62,6 +69,13 @@ export const addEssenceSuccess = () => (
 
 export const addEssenceFailure = () => (
     {type: ADD_ESSENCE_FAILURE}
+);
+export const addTreeSuccess = () => (
+    {type: ADD_TREE_SUCCESS}
+);
+
+export const addTreeFailure = () => (
+    {type: ADD_TREE_FAILURE}
 );
 
 export const addParcelSuccess = () => (

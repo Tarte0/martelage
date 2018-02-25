@@ -154,7 +154,7 @@ class TreeList extends React.Component {
                         key: "delete",
                         render: (index, record, ind) => (
                             <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {
-                                this.props.deleteTree(this.props.selectedParcel.get("id"), record.id)
+                                this.props.deleteTree(this.props.selectedParcel, record.id)
                             }} okText="oui" cancelText="non">
                                 <Button icon="delete" type="danger"/>
                             </Popconfirm>)

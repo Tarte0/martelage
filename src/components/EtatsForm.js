@@ -17,15 +17,18 @@ class EtatsForm extends React.Component {
             <Card>
                 <Form>
                     <Form.Item label="Etat">
-                        <Input value={this.state.etat} onChange={(e)=>{this.setState({etat : e.target.value})}} />
+                        <Input value={this.state.etat} onChange={(e) => {
+                            this.setState({etat: e.target.value})
+                        }}/>
                     </Form.Item>
                     <Form.Item>
                         <Button
                             loading={this.props.savingEtat}
-                            disabled={!this.state.etat} onClick={() => {
-                            this.props.addEtat(this.state.etat);
-                            this.setState({etat: ""})
-                        }}>Sauvegarder</Button>
+                            disabled={!this.state.etat}
+                            onClick={() => {
+                                this.props.addEtat(this.state.etat);
+                                this.setState({etat: ""})
+                            }}>Sauvegarder</Button>
                     </Form.Item>
                 </Form>
             </Card>

@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import treeChart from "../d3/treeChart";
+import "../style/pie.css";
 
 
 class TreeGraph extends React.Component {

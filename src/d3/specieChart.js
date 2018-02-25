@@ -38,19 +38,19 @@ specieChart.render = (el, data, species, types) => {
         .attr('class', 'specie')
         .attr("text-anchor", "middle");
 
-    d3.select(".details")
+    d3.select(el).select(".details")
         .append("text")
         .attr("dy", "0em")
         .attr('class', 'type')
         .attr("text-anchor", "middle");
 
-    d3.select(".details")
+    d3.select(el).select(".details")
         .append("text")
         .attr("dy", "1em")
         .attr('class', 'percentages')
         .attr("text-anchor", "middle");
 
-    d3.select(".details")
+    d3.select(el).select(".details")
         .append("text")
         .attr("dy", "2em")
         .attr('class', 'explanations')
@@ -65,19 +65,19 @@ specieChart.render = (el, data, species, types) => {
     }).keys();
 
     function updateTexts(specie, type, percentages, explanations){
-        d3.select(".details")
+        d3.select(el).select(".details")
             .select('.specie')
             .text(specie);
 
-        d3.select(".details")
+        d3.select(el).select(".details")
             .select('.type')
             .text(type);
 
-        d3.select(".details")
+        d3.select(el).select(".details")
             .select('.percentages')
             .text(percentages);
 
-        d3.select(".details")
+        d3.select(el).select(".details")
             .select('.explanations')
             .text(explanations);
     }
@@ -131,14 +131,6 @@ specieChart.render = (el, data, species, types) => {
         updateTexts('', '', '', '');
     }
 
-    // const text = d3.select(el)
-    //     .select(".details")
-    //     .append("svg:text")
-    //     .attr("x", (b.w + b.t) / 2)
-    //     .attr("y", b.h / 2)
-    //     .attr("dy", "0.35em")
-    //     .attr("text-anchor", "middle")
-
     const arcs = d3.select(el)
         .select(".pie")
         .selectAll(".arc")
@@ -166,7 +158,7 @@ specieChart.render = (el, data, species, types) => {
 
     const colorTypes = d3.scaleLinear()
         .domain([0, types.map(t => t['type']).length - 1])
-        .range(['#64FF32', '#FFC832']);
+        .range(['#7de14b', '#FFC832']);
 
     tarcs.enter()
         .append("path")

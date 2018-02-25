@@ -6,14 +6,16 @@ class ParcelForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            parcelId: "",
+            parcelName: "",
             numero: "",
-            diametre: "",
+            diametre: null,
             essence: "",
             etat: "",
-            noteEcologique: 0,
+            noteEcologique: null,
             coord: {
-                x: 0.0,
-                y: 0.0
+                x: null,
+                y: null
             },
             utilisationBois: {
                 chauffage: 33,
@@ -26,17 +28,21 @@ class ParcelForm extends React.Component {
     render() {
 
         const parcelsDropDown = (
-            <Menu>
+            <Menu onClick={(e) => {
+                console.log(e);
+                console.log(this.props.parcels);
+                this.setState({parcelId: e.key, parcelName: this.props.parcels.find(p => p.id === e.key).nom})
+            }}>
                 {this.props.parcels.map(p => (<Menu.Item key={p.id}>{p.nom}</Menu.Item>))}
             </Menu>
         );
         const etatsDropDown = (
-            <Menu>
+            <Menu onClick={(e) => this.setState({etat: e.key})}>
                 {this.props.etats.map(p => (<Menu.Item key={p.etat}>{p.etat}</Menu.Item>))}
             </Menu>
         );
         const essencesDropDown = (
-            <Menu>
+            <Menu onClick={(e) => this.setState({essence: e.key})}>
                 {this.props.essences.map(p => (<Menu.Item key={p.essence}>{p.essence}</Menu.Item>))}
             </Menu>
         );
@@ -46,7 +52,7 @@ class ParcelForm extends React.Component {
                     <Form.Item label="Parcelle">
                         <Dropdown overlay={parcelsDropDown}>
                             <Button style={{marginLeft: 8}}>
-                                parcelle <Icon type="down"/>
+                                {this.state.parcelName} <Icon type="down"/>
                             </Button>
                         </Dropdown>
                     </Form.Item>
@@ -57,34 +63,34 @@ class ParcelForm extends React.Component {
                     </Form.Item>
                     <Form.Item label="Diametre">
                         <InputNumber min={0} value={this.state.diametre} onChange={(e) => {
-                            this.setState({diametre: e.target.value})
+                            this.setState({diametre: e})
                         }}/>
                     </Form.Item>
                     <Form.Item label="Essence">
                         <Dropdown overlay={essencesDropDown}>
                             <Button style={{marginLeft: 8}}>
-                                essence <Icon type="down"/>
+                                {this.state.essence} <Icon type="down"/>
                             </Button>
                         </Dropdown>
                     </Form.Item>
                     <Form.Item label="Etat">
                         <Dropdown overlay={etatsDropDown}>
                             <Button style={{marginLeft: 8}}>
-                                etat <Icon type="down"/>
+                                {this.state.etat} <Icon type="down"/>
                             </Button>
                         </Dropdown>
                     </Form.Item>
                     <Form.Item label="Note ecologique">
                         <InputNumber min={0} value={this.state.noteEcologique} onChange={(e) => {
-                            this.setState({noteEcologique: e.target.value})
+                            this.setState({noteEcologique: e})
                         }}/>
                     </Form.Item>
                     <Form.Item label="Coordonnees">
                         x: <InputNumber step="0.01" min={0} value={this.state.coord.x} onChange={(e) => {
-                        this.setState({coord: e.target.value})
+                        this.setState({coord: {x: e, y: this.state.coord.y}})
                     }}/>
                         y: <InputNumber step="0.01" min={0} value={this.state.coord.y} onChange={(e) => {
-                        this.setState({coord: e.target.value})
+                        this.setState({coord: {x: this.state.coord.x, y: e}})
                     }}/>
                     </Form.Item>
                     <Form.Item label="Utilisation du bois">
@@ -297,14 +303,29 @@ class ParcelForm extends React.Component {
                     <Form.Item>
                         <Button
                             loading={this.props.savingTree}
-                            disabled={!this.state.numero || !this.state.diametre || this.state.essence === null}
+                            disabled={
+                                !this.state.parcelId || !this.state.numero || this.state.diametre === null || !this.state.essence || !this.state.etat || this.state.noteEcologique === null || this.state.coord.x === null || this.state.coord.y === null
+                            }
                             onClick={() => {
-                                /*this.props.addParcel(this.state);
-                                 this.setState({
-                                 nom: "",
-                                 lieu: "",
-                                 surface: null
-                                 })*/
+                                this.props.addTree(this.state);
+                                this.setState({
+                                    parcelId: "",
+                                    parcelName: "",
+                                    numero: "",
+                                    diametre: null,
+                                    essence: "",
+                                    etat: "",
+                                    noteEcologique: null,
+                                    coord: {
+                                        x: null,
+                                        y: null
+                                    },
+                                    utilisationBois: {
+                                        chauffage: 33,
+                                        industrie: 33,
+                                        oeuvre: 33
+                                    }
+                                })
                             }}>Sauvegarder</Button>
                     </Form.Item>
                 </Form>

@@ -17,7 +17,36 @@ treeChart.render = (el, data) => {
         .attr('class', 'svg-content-responsive')
         .attr('width', '100%')
         .append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
+        .attr('transform', `translate(${margin.left},${margin.top})`)
+        .append('g')
+        .attr('class', 'details')
+        .append("text")
+        .attr("dy", "-1em")
+        .attr('class', 'number');
+
+    d3.select(el).select(".details")
+        .append("text")
+        .attr("dy", "0em")
+        .attr('class', 'specie');
+
+    d3.select(el).select(".details")
+        .append("text")
+        .attr("dy", "1em")
+        .attr('class', 'eco');
+
+    function updateTexts(number, specie, eco){
+        d3.select(el).select(".details")
+            .select('.number')
+            .text(number);
+
+        d3.select(el).select(".details")
+            .select('.specie')
+            .text(specie);
+
+        d3.select(el).select(".details")
+            .select('.eco')
+            .text(eco);
+    }
 
     const x = d3.scaleLinear()
         .domain([0, 100])
@@ -56,6 +85,17 @@ treeChart.render = (el, data) => {
         })
         .attr("r", function (d) {
             return 0;
+        })
+        .on("mouseover", function (d) {
+            d3.select(this)
+                .attr("stroke", "#000000");
+
+            updateTexts(`Numero: ${d.numero}`, `Essence: ${d.essence}`, `Note ecologique: ${d.noteEcologique}`);
+        })
+        .on("mouseleave", function (d) {
+            d3.select(this)
+                .attr("stroke", "none");
+            updateTexts('', '', '');
         })
         .merge(trees)
         .transition()

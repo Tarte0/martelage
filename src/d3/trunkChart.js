@@ -11,7 +11,7 @@ const keys = ["v",
     "ms",
     "mp"];
 const z = d3.scaleOrdinal().domain(keys)
-    .range(["#64FF32", "#FF6432", "#FFC832"]);
+    .range(["#7de14b", "#FF6432", "#FFC832"]);
 
 trunkChart.render = (el, data) => {
     // console.log("☺☺☺", data);
@@ -145,32 +145,6 @@ trunkChart.render = (el, data) => {
 
         });
     bars.exit().transition().delay(500).remove();
-
-
-    // const legend = g.append("g")
-    //     .attr("font-family", "sans-serif")
-    //     .attr("font-size", 10)
-    //     .attr("text-anchor", "end")
-    //     .selectAll("g")
-    //     .data(keys.slice().reverse())
-    //     .enter().append("g")
-    //     .attr("transform", function (d, i) {
-    //         return "translate(0," + i * 20 + ")";
-    //     });
-    //
-    // legend.append("rect")
-    //     .attr("x", width - 19)
-    //     .attr("width", 19)
-    //     .attr("height", 19)
-    //     .attr("fill", z);
-    //
-    // legend.append("text")
-    //     .attr("x", width - 24)
-    //     .attr("y", 9.5)
-    //     .attr("dy", "0.32em")
-    //     .text(function (d) {
-    //         return d;
-    //     });
 };
 
 export default trunkChart;

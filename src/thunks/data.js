@@ -28,7 +28,7 @@ import {
     addEssence,
     addEssenceSuccess,
     addEssenceFailure,
-    setTypes
+    setTypes, addTree, addTreeSuccess, addTreeFailure
 } from "../actions/data";
 
 const config = {
@@ -93,20 +93,30 @@ export function addEssenceThunk(essence, type) {
     }
 }
 
-export function addTreeThunk(parcel, tree) {
+export function addTreeThunk(tree) {
     /**
      * @param {Function} dispatch
      * @param {Function} getState
      */
+
     return (dispatch, getState) => {
-        dispatch(addParcel());
-        return database.ref('parcelles/' + uuid.v4())
-            .set(parcel).then((e) => {
-                dispatch(addParcelSuccess())
+        dispatch(addTree());
+        let newTree = database.ref(`parcelles/${tree.parcelId}/arbres`).push();
+        newTree.set({
+            numero: tree.numero,
+            essence: tree.essence,
+            diametre: tree.diametre,
+            etat: tree.etat,
+            coord: {"x": tree.coord.x, "y": tree.coord.y},
+            noteEcologique: tree.noteEcologique,
+            utilisationBois: {"oeuvre": tree.utilisationBois.oeuvre, "chauffage": tree.utilisationBois.chauffage, "industrie": tree.utilisationBois.industrie}
+        }).then((e) => {
+                dispatch(addTreeSuccess())
             }).catch((e) => {
                 console.error(e);
-                dispatch(addParcelFailure())
+                dispatch(addTreeFailure())
             });
+        return newTree;
     }
 }
 
