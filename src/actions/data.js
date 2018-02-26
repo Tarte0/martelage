@@ -31,6 +31,7 @@ export const ADD_ESSENCE_SUCCESS = "ADD_ESSENCE_SUCCESS";
 export const ADD_ESSENCE_FAILURE = "ADD_ESSENCE_FAILURE";
 export const SET_ESSENCES = "SET_ESSENCES";
 export const SET_TYPES = "SET_TYPES";
+export const SET_CONSTANTS = "SET_CONSTANTS";
 
 export const setParcels = (parcels) => (
     {type: SET_PARCELS, parcels}
@@ -39,12 +40,16 @@ export const setParcels = (parcels) => (
 export const setEtats = (etats) => (
     {type: SET_ETATS, etats}
 );
+
 export const setTypes = (types) => (
     {type: SET_TYPES, types}
 );
 
 export const setEssences = (essences) => (
     {type: SET_ESSENCES, essences}
+);
+export const setConstants = (constants) => (
+    {type: SET_CONSTANTS, constants}
 );
 
 export const addParcel = () => (

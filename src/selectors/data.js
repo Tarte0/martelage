@@ -4,6 +4,7 @@ const getEtats = state => state.getIn(['data', 'etats']);
 const getEssences = state => state.getIn(['data', 'essences']);
 const getTypes = state => state.getIn(['data', 'types']);
 const getSelectedParcel = state => state.getIn(['data', 'selectedParcel']);
+const getSelectedTree = state => state.getIn(['data', 'selectedTree']);
 
 export const selectParcelsAsArray = createSelector(
     [getParcels],
@@ -38,6 +39,15 @@ export const selectedParcel = createSelector(
     (parcels, selectedParcelId) => {
         if (selectedParcelId) {
             return parcels.get(selectedParcelId);
+        }
+        return null;
+    }
+);
+export const selectedTree = createSelector(
+    [getParcels, getSelectedParcel, getSelectedTree],
+    (parcels, selectedParcelId, selectedTreeId) => {
+        if (selectedParcelId && selectedTreeId) {
+            return parcels.getIn([selectedParcelId, 'arbres', selectedTreeId]);
         }
         return null;
     }

@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import {Card, Col, Row} from "antd";
+import {Card, Col, Row, Tabs} from "antd";
 import TreeGraph from './TreeGraph';
 import TrunkGraph from './TrunkGraph';
 import SpecieChart from './chart/SpecieChart';
@@ -30,10 +30,18 @@ class ParcelList extends React.Component {
                                     <TreeGraph trees={this.props.selectedTrees}/>
                                 </Col>
                                 <Col span={8}>
-                                    <TrunkGraph trees={this.props.selectedTrees}/>
+                                    <Tabs defaultActiveKey="1" type="card">
+                                        <Tabs.TabPane tab="Diametre" key="1">
+                                            <TrunkGraph trees={this.props.selectedTrees} version="diametre"/>
+                                        </Tabs.TabPane>
+                                        <Tabs.TabPane tab="Note ecologique" key="2">
+                                            <TrunkGraph trees={this.props.selectedTrees} version="noteEcologique"/>
+                                        </Tabs.TabPane>
+                                    </Tabs>
                                 </Col>
                                 <Col span={8}>
-                                    <SpecieChart trees={this.props.selectedTrees} species={this.props.essences} types={this.props.types}/>
+                                    <SpecieChart trees={this.props.selectedTrees} species={this.props.essences}
+                                                 types={this.props.types}/>
                                 </Col>
                             </Row>
                         </div>

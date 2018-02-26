@@ -136,18 +136,19 @@ specieChart.render = (el, data, species, types) => {
         .selectAll(".arc")
         .data(pie(countSpecies(data, species)));
 
-
-    const color20 = d3.scaleOrdinal(d3.schemeCategory20c)
-        .domain(keys);
+    const color20 = d3.scaleOrdinal(d3.schemeCategory20)
+        .domain(keys.sort((a,b) => a.localeCompare(b)));
 
     arcs.enter()
         .append("path")
         .attr("class", "arc")
         .merge(arcs)
-        .attr("d", (d) => speciesArc(d))
-        .attr("fill", (d) => color20(d.data.essence))
         .on("mouseover", mouseoverArc)
-        .on("mouseleave", mouseleaveArc);
+        .on("mouseleave", mouseleaveArc)
+        .attr("d", (d) => speciesArc(d))
+        .attr("fill", (d) => color20(d.data.essence));
+
+
 
     arcs.exit().remove();
 
@@ -164,13 +165,29 @@ specieChart.render = (el, data, species, types) => {
         .append("path")
         .attr("class", "tarc")
         .merge(tarcs)
-        .attr("d", (d) => typeArc(d))
-        .attr("fill", (d) => colorTypes(types.map(t => t['type']).indexOf(d.data.type)))
         .on("mouseover", mouseoverTarc)
-        .on("mouseleave", mouseleaveTarc);
+        .on("mouseleave", mouseleaveTarc)
+        .attr("d", (d) => typeArc(d))
+        .transition().duration(500).attrTween("d", tarcTween)
+        .attr("fill", (d) => colorTypes(types.map(t => t['type']).indexOf(d.data.type)));
 
     tarcs.exit().remove();
 
+    function tarcTween(a) {
+        const i = d3.interpolate(this._current, a);
+        this._current = i(0);
+        return function(t) {
+            return typeArc(i(t));
+        };
+    }
+
+    function arcTween(a) {
+        const i = d3.interpolate(this._current, a);
+        this._current = i(0);
+        return function(t) {
+            return speciesArc(i(t));
+        };
+    }
 
 };
 

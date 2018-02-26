@@ -28,7 +28,7 @@ import {
     addEssence,
     addEssenceSuccess,
     addEssenceFailure,
-    setTypes, addTree, addTreeSuccess, addTreeFailure
+    setTypes, addTree, addTreeSuccess, addTreeFailure, setConstants
 } from "../actions/data";
 
 const config = {
@@ -162,6 +162,16 @@ export function getEssences(store) {
     database.ref('/metadata/essences').on('value', function (snapshot) {
         const essences = snapshot.val();
         store.dispatch(setEssences(essences));
+    });
+}
+export function getConstants(store) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    database.ref('/metadata/constantes').on('value', function (snapshot) {
+        const constants = snapshot.val();
+        store.dispatch(setConstants(constants));
     });
 }
 

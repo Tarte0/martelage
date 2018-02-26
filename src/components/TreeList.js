@@ -2,6 +2,7 @@
 import React from 'react';
 import {Card, Col, Row, Table, Button, Popconfirm} from 'antd';
 import {List} from 'immutable';
+import TreeView from "../containers/TreeView";
 
 const EditableCell = (editable, value, onChange, isNumerical) => (
     <div>
@@ -85,7 +86,7 @@ class TreeList extends React.Component {
                 sorter: (a, b) => a.noteEcologique - b.noteEcologique
             }
         ].concat(
-            this.props.expended ?
+            this.props.expanded ?
                 [
                     {
                         title: "x",
@@ -120,7 +121,8 @@ class TreeList extends React.Component {
                                 key: "utilisationBois.oeuvre",
                                 sorter: (a, b) => a.utilisationBois.oeuvre - b.utilisationBois.oeuvre
                             }
-                        ]
+                        ],
+                        key: 'utilisationBois'
                     },
                     {
                         title: "modifier",
@@ -166,6 +168,7 @@ class TreeList extends React.Component {
 
 
     render() {
+        const {selectedTree} = this.props;
 
         return (
             <div>
@@ -177,8 +180,12 @@ class TreeList extends React.Component {
                             filterConfirm: 'Ok',
                             filterReset: 'Reset',
                         }}
-                        dataSource={this.props.selectedTrees}
+                        dataSource={this.props.selectedTrees.map(u=>({...u, key: u.id}))}
                         columns={this.getColumns()}
+                        onRowClick={(record) => {
+                            this.props.selectTree(record.id);
+                        }}
+                        expandedRowRender={record => <TreeView tree={record}/>}
                         bordered
                         size='middle'
                     />

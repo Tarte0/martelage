@@ -1,8 +1,8 @@
 import {List, Map} from 'immutable';
 
-export const groupTrees = (trees) => {
+export const groupTrees = (trees, group) => {
     return List(trees)
-        .groupBy(t => t.diametre)
+        .groupBy(t => t[group])
         .map((v, k) => {
             let res = {'v': 0, 'mp': 0, 'ms': 0, total: 0, key: k};
             v.forEach(t => {

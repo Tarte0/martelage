@@ -13,7 +13,7 @@ const keys = ["v",
 const z = d3.scaleOrdinal().domain(keys)
     .range(["#7de14b", "#FF6432", "#FFC832"]);
 
-trunkChart.render = (el, data) => {
+trunkChart.render = (el, data, version) => {
     // console.log("☺☺☺", data);
     d3.select(el)
         .selectAll("svg")
@@ -75,7 +75,7 @@ trunkChart.render = (el, data) => {
                     return d;
                 });
         });
-    const stack = groupTrees(data);
+    const stack = groupTrees(data, version);
 
     const x = d3.scaleBand()
         .rangeRound([0, width])

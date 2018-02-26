@@ -63,10 +63,10 @@ treeChart.render = (el, data) => {
         .range([3, 10]);
 
 
-    const color = d3.scaleOrdinal(d3.schemeCategory10)
+    const color = d3.scaleOrdinal(d3.schemeCategory20)
         .domain(data.map(function (d) {
             return d.essence;
-        }));
+        }).sort((a,b) => a.localeCompare(b)));
 
     const trees = d3.select(el).select('g')
         .selectAll(".tree")

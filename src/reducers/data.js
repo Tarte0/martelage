@@ -9,7 +9,10 @@ import {
     EDIT_PARCEL_SUCCESS,
     EDIT_PARCEL_FAILURE,
     SET_ETATS,
-    SET_ESSENCES, SET_TYPES
+    SET_ESSENCES,
+    SET_TYPES,
+    SET_SELECTED_TREE,
+    SET_CONSTANTS
 } from "../actions/data";
 
 export const initialState = () => {
@@ -18,6 +21,7 @@ export const initialState = () => {
         etats: Map(),
         essences: Map(),
         types: Map(),
+        constants: Map(),
         savingParcel: false,
         savingEtat: false,
         savingEssence: false,
@@ -37,6 +41,8 @@ export default (state = initialState(), action) => {
             return state.set('essences', fromJS(action.essences));
         case SET_TYPES:
             return state.set('types', fromJS(action.types));
+        case SET_CONSTANTS:
+            return state.set('constants', fromJS(action.constants));
         case ADD_PARCEL:
             return state.set('savingParcel', true);
         case ADD_PARCEL_SUCCESS:
@@ -45,6 +51,8 @@ export default (state = initialState(), action) => {
             return state.set('savingParcel', false);
         case SET_SELECTED_PARCEL:
             return state.set('selectedParcel', action.parcelId);
+        case SET_SELECTED_TREE:
+            return state.set('selectedTree', action.treeId);
         case EDIT_PARCEL:
             return state.set('editingParcelSuccess', false);
         case EDIT_PARCEL_SUCCESS:
