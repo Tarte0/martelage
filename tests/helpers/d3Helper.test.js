@@ -10,7 +10,8 @@ describe('d3 helpers ', () => {
     describe(' groupTrees should group trees by diameter ', () => {
 
         it(' ', () => {
-            const res = groupTrees(trees);
+            const res = groupTrees(trees, 'diametre');
+            console.log(res);
             expect(res.length).to.be.equals(8);
             expect(res[0].key).to.be.equals("15");
             expect(res[0].total).to.be.equals(4);
@@ -26,12 +27,13 @@ describe('d3 helpers ', () => {
                 {type:"feuillu",count:5,essence:"5"},
                 {type:"résineux",count:4,essence:"6"}
             ].sort(sortSpeciesByCount);
-            expect (sortSpeciesByCount2[0].essence).to.be.equals("3");
-            expect (sortSpeciesByCount2[1].essence).to.be.equals("4");
-            expect (sortSpeciesByCount2[2].essence).to.be.equals("5");
-            expect (sortSpeciesByCount2[3].essence).to.be.equals("2");
-            expect (sortSpeciesByCount2[4].essence).to.be.equals("6");
-            expect (sortSpeciesByCount2[5].essence).to.be.equals("1");
+            console.log(sortSpeciesByCount2);
+            expect (sortSpeciesByCount2[0].essence).to.be.equals("2");
+            expect (sortSpeciesByCount2[1].essence).to.be.equals("5");
+            expect (sortSpeciesByCount2[2].essence).to.be.equals("4");
+            expect (sortSpeciesByCount2[3].essence).to.be.equals("3");
+            expect (sortSpeciesByCount2[4].essence).to.be.equals("1");
+            expect (sortSpeciesByCount2[5].essence).to.be.equals("6");
         });
     });
     describe(' countSpecies', () => {
