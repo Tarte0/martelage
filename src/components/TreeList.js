@@ -259,24 +259,18 @@ class TreeList extends React.Component {
                                     /> <Button icon="save"
                                                onClick={() => {
                                                    this.setState({edit: ind});
-                                                   console.log('☺');
-                                                   console.log(this.state.editedData);
-                                                   this.setState({
-                                                       editedData: {
-                                                           ...this.state.editedData,
-                                                           ['coord']: {
-                                                               x: Number(this.state.editedData.coord.x),
-                                                               y: Number(this.state.editedData.coord.y)
-                                                           },
-                                                           ['utilisationBois']: {
-                                                               chauffage: Number(this.state.editedData.utilisationBois.chauffage),
-                                                               industrie: Number(this.state.editedData.utilisationBois.industrie),
-                                                               oeuvre: Number(this.state.editedData.utilisationBois.oeuvre)
-                                                           }
-                                                       }
-                                                   });
+                                                   const editedDataNumbers = this.state.editedData;
+                                                   this.state.editedData['coord'] = {
+                                                       x: Number(this.state.editedData.coord.x),
+                                                       y: Number(this.state.editedData.coord.y)
+                                                   };
 
-                                                   console.log('♥');
+                                                   this.state.editedData['utilisationBois'] = {
+                                                       chauffage: Number(this.state.editedData.utilisationBois.chauffage),
+                                                       industrie: Number(this.state.editedData.utilisationBois.industrie),
+                                                       oeuvre: Number(this.state.editedData.utilisationBois.oeuvre)
+                                                   };
+
                                                    console.log(this.state.editedData);
 
                                                    this.props.editTree(this.props.selectedParcel, record.id, this.state.editedData)
