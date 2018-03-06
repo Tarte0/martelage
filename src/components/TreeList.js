@@ -1,30 +1,47 @@
 // @flow
-import React from 'react';
-import {Card, Col, Row, Table, Button, Popconfirm} from 'antd';
-import {List} from 'immutable';
+import React from "react";
+import {Table, Button, Popconfirm, Input, Icon} from "antd";
+import {List} from "immutable";
 import TreeView from "../containers/TreeView";
 
-const EditableCell = (editable, value, onChange, isNumerical) => (
+const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
     <div>
         {editable
             ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => {
                 if (isNumerical) {
                     if (Number(e.target.value)) {
-
                         onChange(Number(e.target.value))
                     }
-                } else {
+                    if (e.target.value === '') {
+                        onChange(0)
+                    }
+                } else if (isFloat) {
+                    const fRegex = /^[+-]?\d+(\.\d*)?$/;
+                    if (fRegex.test(e.target.value)) {
+                        onChange(e.target.value)
+                    }
+                    if (e.target.value === '') {
+                        onChange(e.target.value)
+                    }
+                }
+                else {
                     onChange(e.target.value)
-
                 }
             }}/>
             : value
         }
     </div>
 );
-const numericalKeys = ['numero', 'diametre', 'noteEcologique', 'x', 'y', 'chauffage', 'industrie', 'oeuvre'];
+
+const numericalKeys = ['diametre', 'noteEcologique'];
+const floatNumericalKeys = ['coord.x', 'coord.y', 'utilisationBois.chauffage', 'utilisationBois.industrie', 'utilisationBois.oeuvre'];
 
 class TreeList extends React.Component {
+    componentWillReceiveProps(next) {
+        if (next.editingTreeSuccess && !this.props.editingTreeSuccess) {
+            this.setState({success: this.state.edit, edit: null})
+        }
+    }
 
     constructor(props) {
         super(props);
@@ -32,9 +49,20 @@ class TreeList extends React.Component {
             success: null,
             edit: null,
             editedData: {
-                nom: '',
-                lieu: '',
-                surface: ''
+                numero: '',
+                diametre: null,
+                essence: '',
+                etat: '',
+                noteEcologique: null,
+                coord: {
+                    x: null,
+                    y: null
+                },
+                utilisationBois: {
+                    chauffage: null,
+                    industrie: null,
+                    oeuvre: null
+                }
             }
         };
     }
@@ -47,18 +75,33 @@ class TreeList extends React.Component {
                 title: "numero",
                 dataIndex: "numero",
                 key: "numero",
+                render: (a, record, index) =>
+                    EditableCell(
+                        this.state.edit === index,
+                        this.state.edit === index ? this.state.editedData['numero'] : record['numero'],
+                        (value) => {
+                            this.setState({editedData: {...this.state.editedData, ['numero']: value}})
+                        }, numericalKeys.indexOf('numero') > -1, floatNumericalKeys.indexOf('numero') > -1),
                 sorter: (a, b) => a.numero - b.numero
             },
             {
                 title: "diametre",
                 dataIndex: "diametre",
                 key: "diametre",
+                render: (a, record, index) =>
+                    EditableCell(
+                        this.state.edit === index,
+                        this.state.edit === index ? this.state.editedData['diametre'] : record['diametre'],
+                        (value) => {
+                            this.setState({editedData: {...this.state.editedData, ['diametre']: value}})
+                        }, numericalKeys.indexOf('diametre') > -1, floatNumericalKeys.indexOf('diametre') > -1),
                 sorter: (a, b) => a.diametre - b.diametre
             },
             {
                 title: "essence",
                 dataIndex: "essence",
                 key: "essence",
+
                 sorter: (a, b) => a.essence.localeCompare(b.essence),
                 filters: essences.map((essence) => ({
                     text: essence,
@@ -83,6 +126,13 @@ class TreeList extends React.Component {
                 title: "noteEcologique",
                 dataIndex: "noteEcologique",
                 key: "noteEcologique",
+                render: (a, record, index) =>
+                    EditableCell(
+                        this.state.edit === index,
+                        this.state.edit === index ? this.state.editedData['noteEcologique'] : record['noteEcologique'],
+                        (value) => {
+                            this.setState({editedData: {...this.state.editedData, ['noteEcologique']: value}})
+                        }, numericalKeys.indexOf('noteEcologique') > -1, floatNumericalKeys.indexOf('noteEcologique') > -1),
                 sorter: (a, b) => a.noteEcologique - b.noteEcologique
             }
         ].concat(
@@ -92,12 +142,36 @@ class TreeList extends React.Component {
                         title: "x",
                         dataIndex: "coord.x",
                         key: "coord.x",
+                        render: (a, record, index) =>
+                            EditableCell(
+                                this.state.edit === index,
+                                this.state.edit === index ? this.state.editedData['coord']['x'] : record['coord']['x'],
+                                (value) => {
+                                    this.setState({
+                                        editedData: {
+                                            ...this.state.editedData,
+                                            ['coord']: {x: value, y: this.state.editedData.coord.y}
+                                        }
+                                    })
+                                }, numericalKeys.indexOf('coord.x') > -1, floatNumericalKeys.indexOf('coord.x') > -1),
                         sorter: (a, b) => a.coord.x - b.coord.x
                     },
                     {
                         title: "y",
                         dataIndex: "coord.y",
                         key: "coord.y",
+                        render: (a, record, index) =>
+                            EditableCell(
+                                this.state.edit === index,
+                                this.state.edit === index ? this.state.editedData['coord']['y'] : record['coord']['y'],
+                                (value) => {
+                                    this.setState({
+                                        editedData: {
+                                            ...this.state.editedData,
+                                            ['coord']: {x: this.state.editedData.coord.x, y: value}
+                                        }
+                                    })
+                                }, numericalKeys.indexOf('coord.y') > -1, floatNumericalKeys.indexOf('coord.y') > -1),
                         sorter: (a, b) => a.coord.y - b.coord.y
                     },
                     {
@@ -107,18 +181,66 @@ class TreeList extends React.Component {
                                 title: "chauffage",
                                 dataIndex: "utilisationBois.chauffage",
                                 key: "utilisationBois.chauffage",
+                                render: (a, record, index) =>
+                                    EditableCell(
+                                        this.state.edit === index,
+                                        this.state.edit === index ? this.state.editedData['utilisationBois']['chauffage'] : record['utilisationBois']['chauffage'],
+                                        (value) => {
+                                            this.setState({
+                                                editedData: {
+                                                    ...this.state.editedData,
+                                                    ['utilisationBois']: {
+                                                        chauffage: value,
+                                                        industrie: this.state.editedData.utilisationBois.industrie,
+                                                        oeuvre: this.state.editedData.utilisationBois.oeuvre
+                                                    }
+                                                }
+                                            })
+                                        }, numericalKeys.indexOf('utilisationBois.chauffage') > -1, floatNumericalKeys.indexOf('utilisationBois.chauffage') > -1),
                                 sorter: (a, b) => a.utilisationBois.chauffage - b.utilisationBois.chauffage
                             },
                             {
                                 title: "industrie",
                                 dataIndex: "utilisationBois.industrie",
                                 key: "utilisationBois.industrie",
+                                render: (a, record, index) =>
+                                    EditableCell(
+                                        this.state.edit === index,
+                                        this.state.edit === index ? this.state.editedData['utilisationBois']['industrie'] : record['utilisationBois']['industrie'],
+                                        (value) => {
+                                            this.setState({
+                                                editedData: {
+                                                    ...this.state.editedData,
+                                                    ['utilisationBois']: {
+                                                        chauffage: this.state.editedData.utilisationBois.chauffage,
+                                                        industrie: value,
+                                                        oeuvre: this.state.editedData.utilisationBois.oeuvre
+                                                    }
+                                                }
+                                            })
+                                        }, numericalKeys.indexOf('utilisationBois.industrie') > -1, floatNumericalKeys.indexOf('utilisationBois.industrie') > -1),
                                 sorter: (a, b) => a.utilisationBois.industrie - b.utilisationBois.industrie
                             },
                             {
                                 title: "oeuvre",
                                 dataIndex: "utilisationBois.oeuvre",
                                 key: "utilisationBois.oeuvre",
+                                render: (a, record, index) =>
+                                    EditableCell(
+                                        this.state.edit === index,
+                                        this.state.edit === index ? this.state.editedData['utilisationBois']['oeuvre'] : record['utilisationBois']['oeuvre'],
+                                        (value) => {
+                                            this.setState({
+                                                editedData: {
+                                                    ...this.state.editedData,
+                                                    ['utilisationBois']: {
+                                                        chauffage: this.state.editedData.utilisationBois.chauffage,
+                                                        industrie: this.state.editedData.utilisationBois.industrie,
+                                                        oeuvre: value
+                                                    }
+                                                }
+                                            })
+                                        }, numericalKeys.indexOf('utilisationBois.oeuvre') > -1, floatNumericalKeys.indexOf('utilisationBois.oeuvre') > -1),
                                 sorter: (a, b) => a.utilisationBois.oeuvre - b.utilisationBois.oeuvre
                             }
                         ],
@@ -137,8 +259,29 @@ class TreeList extends React.Component {
                                     /> <Button icon="save"
                                                onClick={() => {
                                                    this.setState({edit: ind});
-                                                   this.props.editParcel(record.id, this.state.editedData)
-                                               }}
+                                                   console.log('☺');
+                                                   console.log(this.state.editedData);
+                                                   this.setState({
+                                                       editedData: {
+                                                           ...this.state.editedData,
+                                                           ['coord']: {
+                                                               x: Number(this.state.editedData.coord.x),
+                                                               y: Number(this.state.editedData.coord.y)
+                                                           },
+                                                           ['utilisationBois']: {
+                                                               chauffage: Number(this.state.editedData.utilisationBois.chauffage),
+                                                               industrie: Number(this.state.editedData.utilisationBois.industrie),
+                                                               oeuvre: Number(this.state.editedData.utilisationBois.oeuvre)
+                                                           }
+                                                       }
+                                                   });
+
+                                                   console.log('♥');
+                                                   console.log(this.state.editedData);
+
+                                                   this.props.editTree(this.props.selectedParcel, record.id, this.state.editedData)
+                                               }
+                                               }
                                 /></div>
                                 :
                                 <div>
@@ -147,7 +290,7 @@ class TreeList extends React.Component {
                                                 this.setState({edit: ind, success: null});
                                                 this.setState({editedData: {...record}});
                                             }}
-                                    >{this.props.editingParcelSuccess && this.state.success === ind ?
+                                    >{this.props.editingTreeSuccess && this.state.success === ind ?
                                         <Icon type="check" style={{color: "green"}}/> : ""}</Button>
                                 </div>)
                     },
@@ -180,7 +323,7 @@ class TreeList extends React.Component {
                             filterConfirm: 'Ok',
                             filterReset: 'Reset',
                         }}
-                        dataSource={this.props.selectedTrees.map(u=>({...u, key: u.id}))}
+                        dataSource={this.props.selectedTrees.map(u => ({...u, key: u.id}))}
                         columns={this.getColumns()}
                         onRowClick={(record) => {
                             this.props.selectTree(record.id);

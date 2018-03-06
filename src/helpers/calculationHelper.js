@@ -1,5 +1,5 @@
 export const hauteurDecoupe = (tree, hauteurMoyenneConst, essences) => {
-    return tree.diametre <= 30 ? hauteurMoyenneConst.getIn(['petitBois']) : hauteurMoyenneConst.getIn([essences.get(this.props.tree.essence)]);
+    return tree.diametre <= 30 ? hauteurMoyenneConst.getIn(['petitBois']) : hauteurMoyenneConst.getIn([essences.get(tree.essence)]);
 };
 
 export const volumeCommercial = (tree, volumeCommercialConst, essences, hauteurDecoupe, etatVivant) => {

@@ -14,7 +14,6 @@ const z = d3.scaleOrdinal().domain(keys)
     .range(["#7de14b", "#FF6432", "#FFC832"]);
 
 trunkChart.render = (el, data, version) => {
-    // console.log("☺☺☺", data);
     d3.select(el)
         .selectAll("svg")
         .data(['svg'])

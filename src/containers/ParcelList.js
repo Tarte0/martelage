@@ -6,11 +6,11 @@ import {deleteParcelByIdThunk, editParcelByIdThunk} from "../thunks/data";
 import {setSelectedParcel} from "../actions/data";
 
 export default withRouter(connect((state, props) => ({
-    parcels : selectParcelsAsArray(state),
-    savingParcel : state.getIn(['data','savingParcel']),
-    selectedParcel : state.getIn(['data', 'selectedParcel']),
-    editingParcelSuccess : state.getIn(['data','editingParcelSuccess'])
-}),(dispatch, props) => ({
+    parcels: selectParcelsAsArray(state),
+    savingParcel: state.getIn(['data', 'savingParcel']),
+    selectedParcel: state.getIn(['data', 'selectedParcel']),
+    editingParcelSuccess: state.getIn(['data', 'editingParcelSuccess'])
+}), (dispatch, props) => ({
     deleteParcel(parcelId){
         dispatch(deleteParcelByIdThunk(parcelId))
     },

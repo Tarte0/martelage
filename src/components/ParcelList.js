@@ -1,6 +1,6 @@
 // @flow
-import React from 'react';
-import {Card, Form, Icon, Table, Button, Popconfirm, message, Input} from 'antd';
+import React from "react";
+import {Icon, Table, Button, Popconfirm, Input} from "antd";
 
 const data = {
     nom: '',
@@ -25,6 +25,7 @@ const EditableCell = (editable, value, onChange, isNumerical) => (
     </div>
 );
 const numericalKeys = ['surface'];
+
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {
         if (next.editingParcelSuccess && !this.props.editingParcelSuccess) {

@@ -28,7 +28,14 @@ import {
     addEssence,
     addEssenceSuccess,
     addEssenceFailure,
-    setTypes, addTree, addTreeSuccess, addTreeFailure, setConstants
+    setTypes,
+    addTree,
+    addTreeSuccess,
+    addTreeFailure,
+    setConstants,
+    editTreeSuccess,
+    editTreeFailure,
+    editTree
 } from "../actions/data";
 
 const config = {
@@ -109,13 +116,17 @@ export function addTreeThunk(tree) {
             etat: tree.etat,
             coord: {"x": tree.coord.x, "y": tree.coord.y},
             noteEcologique: tree.noteEcologique,
-            utilisationBois: {"oeuvre": tree.utilisationBois.oeuvre, "chauffage": tree.utilisationBois.chauffage, "industrie": tree.utilisationBois.industrie}
+            utilisationBois: {
+                "oeuvre": tree.utilisationBois.oeuvre,
+                "chauffage": tree.utilisationBois.chauffage,
+                "industrie": tree.utilisationBois.industrie
+            }
         }).then((e) => {
-                dispatch(addTreeSuccess())
-            }).catch((e) => {
-                console.error(e);
-                dispatch(addTreeFailure())
-            });
+            dispatch(addTreeSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(addTreeFailure())
+        });
         return newTree;
     }
 }
@@ -243,6 +254,28 @@ export function editParcelByIdThunk(parcelId, parcelAttr) {
             }).catch((e) => {
                 console.error(e);
                 dispatch(editParcelFailure())
+            });
+        }
+    }
+}
+
+export function editTreeByIdThunk(parcelId, treeId, treeAttr) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        if (treeAttr !== null) {
+            dispatch(editTree(parcelId, treeId, treeAttr));
+            const state = getState();
+
+            database.ref(`/parcelles/${parcelId}/arbres/${treeId}`).set({
+                ...state.getIn(['data', 'parcels', parcelId, 'arbres', treeId]).toJS(), ...treeAttr
+            }).then((e) => {
+                dispatch(editTreeSuccess())
+            }).catch((e) => {
+                console.error(e);
+                dispatch(editTreeFailure())
             });
         }
     }

@@ -53,19 +53,7 @@ class TreeView extends React.Component {
                             <Col span={8}>
                                 <p>valeur économique : {valeurEconomique.toFixed(2)} €</p>
                             </Col>
-                        </Row>{
-                        /*<Row>
-                            <Col span={12}>
-                                <p>Volume commercial oeuvre : {this.props.tree.utilisationBois.oeuvre} m3</p>
-                                <p>Volume commercial industrie : {this.props.tree.utilisationBois.industrie} m3</p>
-                                <p>Volume commercial chauffage : {this.props.tree.utilisationBois.chauffage} m3</p>
-                            </Col>
-                            <Col span={12}>
-                                <p>valeur économique oeuvre : {this.props.tree.utilisationBois.oeuvre} m3</p>
-                                <p>valeur économique industrie : {this.props.tree.utilisationBois.industrie} m3</p>
-                                <p>valeur économique chauffage : {this.props.tree.utilisationBois.chauffage} m3</p>
-                            </Col>
-                        </Row>*/}
+                        </Row>
                     </div>
                 </Card>
             </div>

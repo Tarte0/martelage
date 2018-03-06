@@ -12,7 +12,10 @@ import {
     SET_ESSENCES,
     SET_TYPES,
     SET_SELECTED_TREE,
-    SET_CONSTANTS
+    SET_CONSTANTS,
+    EDIT_TREE,
+    EDIT_TREE_SUCCESS,
+    EDIT_TREE_FAILURE
 } from "../actions/data";
 
 export const initialState = () => {
@@ -27,7 +30,9 @@ export const initialState = () => {
         savingEssence: false,
         editingParcelSuccess: false,
         selectedParcel: "",
-        selectedTree: ""
+        selectedTree: "",
+        savingTree: false,
+        editingTreeSuccess: false,
     });
 };
 
@@ -59,6 +64,12 @@ export default (state = initialState(), action) => {
             return state.set('editingParcelSuccess', true);
         case EDIT_PARCEL_FAILURE:
             return state.set('editingParcelSuccess', false);
+        case EDIT_TREE:
+            return state.set('editingTreeSuccess', false);
+        case EDIT_TREE_SUCCESS:
+            return state.set('editingTreeSuccess', true);
+        case EDIT_TREE_FAILURE:
+            return state.set('editingTreeSuccess', false);
     }
 
     return state;
