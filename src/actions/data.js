@@ -7,9 +7,15 @@ export const ADD_TREE_SUCCESS = "ADD_TREE_SUCCESS";
 export const ADD_TREE_FAILURE = "ADD_TREE_FAILURE";
 export const SET_SELECTED_PARCEL = "SET_SELECTED_PARCEL";
 export const EDIT_PARCEL = "EDIT_PARCEL";
+export const UPDATE_PARCEL = "UPDATE_PARCEL";
+export const FILE_PARCEL = "FILE_PARCEL";
 export const EDIT_TREE = "EDIT_TREE";
 export const EDIT_PARCEL_SUCCESS = "EDIT_PARCEL_SUCCESS";
 export const EDIT_PARCEL_FAILURE = "EDIT_PARCEL_FAILURE";
+export const UPDATE_PARCEL_SUCCESS = "UPDATE_PARCEL_SUCCESS";
+export const UPDATE_PARCEL_FAILURE = "UPDATE_PARCEL_FAILURE";
+export const FILE_PARCEL_SUCCESS = "FILE_PARCEL_SUCCESS";
+export const FILE_PARCEL_FAILURE = "FILE_PARCEL_FAILURE";
 export const EDIT_TREE_SUCCESS = "EDIT_TREE_SUCCESS";
 export const EDIT_TREE_FAILURE = "EDIT_TREE_FAILURE";
 export const DELETE_TREE = "DELETE_TREE";
@@ -110,6 +116,14 @@ export const editParcel = (parcelId, parcelAttr) => (
     {type: EDIT_PARCEL, parcelId, parcelAttr}
 );
 
+export const updateParcel = (parcelId) => (
+    {type: UPDATE_PARCEL, parcelId}
+);
+
+export const fileParcel = (parcelId) => (
+    {type: FILE_PARCEL, parcelId}
+);
+
 export const editTree = (parcelId, treeId, treeAttr) => (
     {type: EDIT_TREE, parcelId, treeId, treeAttr}
 );
@@ -120,6 +134,22 @@ export const editParcelSuccess = () => (
 
 export const editParcelFailure = () => (
     {type: EDIT_PARCEL_FAILURE}
+);
+
+export const updateParcelSuccess = () => (
+    {type: UPDATE_PARCEL_SUCCESS}
+);
+
+export const updateParcelFailure = () => (
+    {type: UPDATE_PARCEL_FAILURE}
+);
+
+export const fileParcelSuccess = () => (
+    {type: FILE_PARCEL_SUCCESS}
+);
+
+export const fileParcelFailure = () => (
+    {type: FILE_PARCEL_FAILURE}
 );
 export const editTreeSuccess = () => (
     {type: EDIT_TREE_SUCCESS}

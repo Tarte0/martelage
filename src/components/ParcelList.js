@@ -112,6 +112,16 @@ class ParcelList extends React.Component {
                                             >{this.props.editingParcelSuccess && this.state.success === ind ?
                                                 <Icon type="check" style={{color: "green"}}/> : ""}</Button>
                                         </div>)
+                            },
+                            {
+                                title: "archiver",
+                                key: "file",
+                                render: (index, record, ind) => (
+                                    <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {
+                                        this.props.fileParcel(record.id)
+                                    }} okText="oui" cancelText="non">
+                                        <Button icon="clock-circle-o"/>
+                                    </Popconfirm>)
                             }
                         ])
                     }

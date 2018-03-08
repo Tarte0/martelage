@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import {Table, Button, Popconfirm, Input, Icon} from "antd";
+import {Table, Button, Popconfirm, Input, Icon, Menu, Dropdown} from "antd";
 import {List} from "immutable";
 import TreeView from "../containers/TreeView";
 
@@ -28,6 +28,19 @@ const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
                     onChange(e.target.value)
                 }
             }}/>
+            : value
+        }
+    </div>
+);
+
+const EditableDropDown = (editable, value, key, overlay) => (
+    <div>
+        {editable
+            ? <Dropdown overlay={overlay}>
+                <Button style={{marginLeft: 8}}>
+                    {value} <Icon type="down"/>
+                </Button>
+            </Dropdown>
             : value
         }
     </div>
@@ -70,6 +83,16 @@ class TreeList extends React.Component {
     getColumns() {
         const essences = List(this.props.selectedTrees.map((e) => e.essence)).groupBy((e) => e).keySeq().toJS();
         const etats = List(this.props.selectedTrees.map((e) => e.etat)).groupBy((e) => e).keySeq().toJS();
+        const etatsDropDown = (
+            <Menu onClick={(e) => this.setState({editedData: {...this.state.editedData, ['etat']: e.key}})}>
+                {this.props.etats.map(p => (<Menu.Item key={p.etat}>{p.etat}</Menu.Item>))}
+            </Menu>
+        );
+        const essencesDropDown = (
+            <Menu onClick={(e) => this.setState({editedData: {...this.state.editedData, ['essence']: e.key}})}>
+                {this.props.essences.map(p => (<Menu.Item key={p.essence}>{p.essence}</Menu.Item>))}
+            </Menu>
+        );
         return [
             {
                 title: "numero",
@@ -101,7 +124,12 @@ class TreeList extends React.Component {
                 title: "essence",
                 dataIndex: "essence",
                 key: "essence",
-
+                render: (a, record, index) =>
+                    EditableDropDown(
+                        this.state.edit === index,
+                        this.state.edit === index ? this.state.editedData['essence'] : record['essence'],
+                        'essence',
+                        essencesDropDown),
                 sorter: (a, b) => a.essence.localeCompare(b.essence),
                 filters: essences.map((essence) => ({
                     text: essence,
@@ -114,6 +142,12 @@ class TreeList extends React.Component {
                 title: "etat",
                 dataIndex: "etat",
                 key: "etat",
+                render: (a, record, index) =>
+                    EditableDropDown(
+                        this.state.edit === index,
+                        this.state.edit === index ? this.state.editedData['etat'] : record['etat'],
+                        'etat',
+                        etatsDropDown),
                 sorter: (a, b) => a.etat.localeCompare(b.etat),
                 filters: etats.map((etat) => ({
                     text: etat,

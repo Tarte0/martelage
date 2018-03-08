@@ -46,11 +46,6 @@ class Main extends React.Component {
                                     <TreeList expanded={true}/>
                                 </Card>
                             </Collapse.Panel>
-                            <Collapse.Panel header="Volume et economie" key="2">
-                                <Card>
-                                    <TreeView/>
-                                </Card>
-                            </Collapse.Panel>
                             <Collapse.Panel header="Ajouter un arbre" key="3">
                                 <TreeForm />
                             </Collapse.Panel>

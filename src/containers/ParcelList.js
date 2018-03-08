@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {withRouter} from 'react-router';
 import ParcelList from "../components/ParcelList";
 import {selectParcelsAsArray, selectedParcel} from "../selectors/data";
-import {deleteParcelByIdThunk, editParcelByIdThunk} from "../thunks/data";
+import {deleteParcelByIdThunk, editParcelByIdThunk, fileParcelThunk} from "../thunks/data";
 import {setSelectedParcel} from "../actions/data";
 
 export default withRouter(connect((state, props) => ({
@@ -19,5 +19,8 @@ export default withRouter(connect((state, props) => ({
     },
     editParcel(parcelId, selectedParcelAttr){
         dispatch(editParcelByIdThunk(parcelId, selectedParcelAttr))
+    },
+    fileParcel(parcelId){
+        dispatch(fileParcelThunk(parcelId))
     }
 }))(ParcelList));

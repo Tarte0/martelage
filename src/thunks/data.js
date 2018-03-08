@@ -35,7 +35,7 @@ import {
     setConstants,
     editTreeSuccess,
     editTreeFailure,
-    editTree
+    editTree, updateParcel, updateParcelSuccess, updateParcelFailure, fileParcel, fileParcelSuccess, fileParcelFailure
 } from "../actions/data";
 
 const config = {
@@ -256,6 +256,49 @@ export function editParcelByIdThunk(parcelId, parcelAttr) {
                 dispatch(editParcelFailure())
             });
         }
+    }
+}
+
+export function UpdateParcelThunk(parcelId) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(updateParcel(parcelId));
+        const state = getState();
+
+        database.ref(`/parcelles/${parcelId}`).set({
+            ...state.getIn(['data', 'parcels', parcelId]).toJS(), version: state.getIn(['data', 'parcels', parcelId, 'version']) + 1
+        }).then((e) => {
+            dispatch(updateParcelSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(updateParcelFailure())
+        });
+    }
+}
+
+export function fileParcelThunk(parcelId) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+
+        dispatch(fileParcel(parcelId));
+        const state = getState();
+
+        database.ref(`/historique/parcelles/${parcelId}/${state.getIn(['data', 'parcels', parcelId, 'version'])}`).set({
+            ...state.getIn(['data', 'parcels', parcelId]).toJS(), date: firebase.database.ServerValue.TIMESTAMP
+        }).then((e) => {
+            dispatch(fileParcelSuccess());
+            dispatch(UpdateParcelThunk(parcelId));
+        }).catch((e) => {
+            console.error(e);
+            dispatch(fileParcelFailure());
+        });
+
     }
 }
 

@@ -23,16 +23,6 @@ class TypeList extends React.Component {
                             title: "type",
                             dataIndex: "type",
                             key: "type"
-                        },
-                        {
-                            title: "supprimer",
-                            key: "delete",
-                            render: (index, record, ind) => (
-                                <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {
-                                    this.props.deleteType(record.type)
-                                }} okText="oui" cancelText="non">
-                                    <Button icon="delete" type="danger"/>
-                                </Popconfirm>)
                         }
                     ]}
                 />
