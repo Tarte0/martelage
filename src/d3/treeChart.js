@@ -106,7 +106,7 @@ treeChart.render = (el, data) => {
         .attr('fill', function (d) {
             return color(d.essence);
         })
-        .attr("cx", function (d, i) {
+        .attr("cx", function (d) {
             return x(d.coord.x);
         })
         .attr("cy", function (d) {

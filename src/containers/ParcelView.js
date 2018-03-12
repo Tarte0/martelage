@@ -1,7 +1,9 @@
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import ParcelView from "../components/ParcelView";
-import {selectedParcel, getSelectedTrees, selectEssencesAsArray, selectTypesAsArray} from "../selectors/data";
+import {selectedParcel, getSelectedTrees, selectEssencesAsArray, selectTypesAsArray, selectFiledParcelsAsArray,
+    selectFiledParcel
+} from "../selectors/data";
 
 export default withRouter(
     connect(
@@ -9,7 +11,9 @@ export default withRouter(
             selectedParcel : selectedParcel(state),
             selectedTrees : getSelectedTrees(state),
             essences: selectEssencesAsArray(state),
-            types: selectTypesAsArray(state)
+            types: selectTypesAsArray(state),
+            filedParcels: selectFiledParcelsAsArray(state),
+            filedParcel : selectFiledParcel(state)
         }),
         (dispatch, props) => ({
 

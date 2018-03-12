@@ -35,7 +35,8 @@ import {
     setConstants,
     editTreeSuccess,
     editTreeFailure,
-    editTree, updateParcel, updateParcelSuccess, updateParcelFailure, fileParcel, fileParcelSuccess, fileParcelFailure
+    editTree, updateParcel, updateParcelSuccess, updateParcelFailure, fileParcel, fileParcelSuccess, fileParcelFailure,
+    setFiledParcels
 } from "../actions/data";
 
 const config = {
@@ -139,7 +140,17 @@ export function getParcels(store) {
     database.ref('/parcelles/').on('value', function (snapshot) {
         const parcels = snapshot.val();
         store.dispatch(setParcels(parcels));
-        // render(objToArray(parcel), "Tout");
+    });
+}
+
+export function getFiledParcels(store) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    database.ref('/historique/parcelles/').on('value', function (snapshot) {
+        const filedParcels = snapshot.val();
+        store.dispatch(setFiledParcels(filedParcels));
     });
 }
 
@@ -259,7 +270,7 @@ export function editParcelByIdThunk(parcelId, parcelAttr) {
     }
 }
 
-export function UpdateParcelThunk(parcelId) {
+export function updateParcelThunk(parcelId) {
     /**
      * @param {Function} dispatch
      * @param {Function} getState
@@ -288,12 +299,13 @@ export function fileParcelThunk(parcelId) {
 
         dispatch(fileParcel(parcelId));
         const state = getState();
+        const serverTime = Date.now();
 
         database.ref(`/historique/parcelles/${parcelId}/${state.getIn(['data', 'parcels', parcelId, 'version'])}`).set({
-            ...state.getIn(['data', 'parcels', parcelId]).toJS(), date: firebase.database.ServerValue.TIMESTAMP
+            ...state.getIn(['data', 'parcels', parcelId]).toJS(), date: serverTime
         }).then((e) => {
             dispatch(fileParcelSuccess());
-            dispatch(UpdateParcelThunk(parcelId));
+            dispatch(updateParcelThunk(parcelId));
         }).catch((e) => {
             console.error(e);
             dispatch(fileParcelFailure());

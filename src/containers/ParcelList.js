@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {withRouter} from 'react-router';
 import ParcelList from "../components/ParcelList";
-import {selectParcelsAsArray, selectedParcel} from "../selectors/data";
+import {selectParcelsAsArray, selectedParcel, selectFiledParcelsAsArray} from "../selectors/data";
 import {deleteParcelByIdThunk, editParcelByIdThunk, fileParcelThunk} from "../thunks/data";
 import {setSelectedParcel} from "../actions/data";
 

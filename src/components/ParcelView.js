@@ -4,7 +4,8 @@ import {Card, Col, Row, Tabs} from "antd";
 import TreeGraph from './TreeGraph';
 import TrunkGraph from './TrunkGraph';
 import SpecieChart from './chart/SpecieChart';
-class ParcelList extends React.Component {
+
+class ParcelView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -52,6 +53,6 @@ class ParcelList extends React.Component {
     }
 }
 
-ParcelList.propTypes = {};
+ParcelView.propTypes = {};
 
-export default ParcelList;
+export default ParcelView;

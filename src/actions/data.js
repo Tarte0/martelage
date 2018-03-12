@@ -1,4 +1,5 @@
 export const SET_PARCELS = "SET_PARCELS";
+export const SET_FILED_PARCELS = "SET_FILED_PARCELS";
 export const ADD_PARCEL = "ADD_PARCEL";
 export const ADD_TREE = "ADD_TREE";
 export const ADD_PARCEL_SUCCESS = "ADD_PARCEL_SUCCESS";
@@ -6,6 +7,7 @@ export const ADD_PARCEL_FAILURE = "ADD_PARCEL_FAILURE";
 export const ADD_TREE_SUCCESS = "ADD_TREE_SUCCESS";
 export const ADD_TREE_FAILURE = "ADD_TREE_FAILURE";
 export const SET_SELECTED_PARCEL = "SET_SELECTED_PARCEL";
+export const SET_SELECTED_FILED_PARCEL = "SET_SELECTED_FILED_PARCEL";
 export const EDIT_PARCEL = "EDIT_PARCEL";
 export const UPDATE_PARCEL = "UPDATE_PARCEL";
 export const FILE_PARCEL = "FILE_PARCEL";
@@ -44,6 +46,10 @@ export const SET_CONSTANTS = "SET_CONSTANTS";
 
 export const setParcels = (parcels) => (
     {type: SET_PARCELS, parcels}
+);
+
+export const setFiledParcels = (filedParcels) => (
+    {type: SET_FILED_PARCELS, filedParcels}
 );
 
 export const setEtats = (etats) => (
@@ -110,6 +116,10 @@ export const addEtatFailure = () => (
 
 export const setSelectedParcel = (parcelId) => (
     {type: SET_SELECTED_PARCEL, parcelId}
+);
+
+export const setSelectedFiledParcel = (filedParcelId) => (
+    {type: SET_SELECTED_FILED_PARCEL, filedParcelId}
 );
 
 export const editParcel = (parcelId, parcelAttr) => (

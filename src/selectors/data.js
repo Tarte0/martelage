@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect'
 import {calculateVolumeAndPrices} from "../helpers/calculationHelper";
 const getParcels = state => state.getIn(['data', 'parcels']);
+const getFiledParcels = state => state.getIn(['data', 'filedParcels']);
 const getEtats = state => state.getIn(['data', 'etats']);
 const getEssences = state => state.getIn(['data', 'essences']);
 const getTypes = state => state.getIn(['data', 'types']);
@@ -12,6 +13,13 @@ export const selectParcelsAsArray = createSelector(
     [getParcels],
     (parcels) => {
         return Object.keys(parcels.toJS()).map(id => ({id, key:id, ...parcels.get(id).toJS()}))
+    }
+);
+
+export const selectFiledParcelsAsArray = createSelector(
+    [getFiledParcels],
+    (filedParcels) => {
+        return Object.keys(filedParcels.toJS()).map(id => ({id, key:id, ...filedParcels.get(id).toJS()}))
     }
 );
 
@@ -41,6 +49,22 @@ export const selectedParcel = createSelector(
     (parcels, selectedParcelId) => {
         if (selectedParcelId) {
             return parcels.get(selectedParcelId);
+        }
+        return null;
+    }
+);
+
+export const selectFiledParcel = createSelector(
+    [getFiledParcels, getSelectedParcel],
+    (filedParcels, selectedParcelId) => {
+        if (selectedParcelId) {
+            if(filedParcels.get(selectedParcelId) != undefined){
+                const filedParcel = filedParcels.get(selectedParcelId).toJS();
+                return Object.keys(filedParcel).map((e) => {
+                    filedParcel[e].key = e;
+                    return filedParcel[e];
+                });
+            }
         }
         return null;
     }

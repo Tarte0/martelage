@@ -15,6 +15,20 @@ export const groupTrees = (trees, group) => {
         .toJS();
 };
 
+export const groupDateTreeNb = (filedParcel) => {
+    return List(filedParcel)
+        .groupBy(fp => fp['date'])
+        .map((v, k) => {
+            let res = {'value': 0, key: k};
+            v.forEach(fp => {
+                res['value'] = Math.max(res['value'], Object.keys(fp.arbres || []).length);
+            });
+            return res
+        }).toList()
+        .sort((a, b) => Number(a.key) - Number(b.key))
+        .toJS();
+};
+
 function speciesToType(species) {
     return species.reduce((acc, e) => {
         acc[e.essence] = e.type;

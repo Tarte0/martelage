@@ -3,6 +3,7 @@ import React from "react";
 import {Card, Collapse, Tabs, Row, Col} from "antd";
 import ParcelForm from "../containers/ParcelForm";
 import ParcelList from "../containers/ParcelList";
+import FiledParcelList from "../containers/FiledParcelList";
 import TreeForm from "../containers/TreeForm";
 import TreeList from "../containers/TreeList";
 import EtatsList from "../containers/EtatsList";
@@ -11,7 +12,7 @@ import TypeList from "../containers/TypeList";
 import EtatsForm from "../containers/EtatsForm";
 import EssenceForm from "../containers/EssenceForm";
 import ParcelView from "../containers/ParcelView";
-import TreeView from "../containers/TreeView";
+import FiledParcelView from "../containers/FiledParcelView";
 
 
 class Main extends React.Component {
@@ -24,7 +25,7 @@ class Main extends React.Component {
         return (
             <div>
                 <Card>
-                    <ParcelList />
+                    <ParcelList/>
                 </Card>
                 <Tabs defaultActiveKey="1" type="card">
                     <Tabs.TabPane tab="Parcelles" key="1">
@@ -35,7 +36,6 @@ class Main extends React.Component {
                             <Collapse.Panel header="Ajouter une parcelle" key="2">
                                 <ParcelForm />
                             </Collapse.Panel>
-
                         </Collapse>
                     </Tabs.TabPane>
 
@@ -82,6 +82,17 @@ class Main extends React.Component {
                                 </Row>
                             </Collapse.Panel>
                         </Collapse>
+                    </Tabs.TabPane>
+
+                    <Tabs.TabPane tab="Historique" key="4">
+                        <Row>
+                            <Col span={11}>
+                                <FiledParcelList/>
+                            </Col>
+                            <Col span={8} offset={1}>
+                                <FiledParcelView/>
+                            </Col>
+                        </Row>
                     </Tabs.TabPane>
                 </Tabs>
             </div>
