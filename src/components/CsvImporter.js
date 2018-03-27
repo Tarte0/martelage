@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import * as d3 from "d3";
-import {Card, Icon, Col, Row, Progress, Button, Menu, Dropdown, Form} from "antd";
+import {Card, Icon, Col, Row, Progress, Button, Menu, Dropdown, Form, Alert} from "antd";
 
 class CsvImporter extends React.Component {
     constructor(props) {
@@ -12,11 +12,11 @@ class CsvImporter extends React.Component {
             progressStatus: "normal",
             parcelName: "",
             csvData: {},
-            csvErrors: []
+            csvErrors: [],
+            uploaded: false
         };
 
     }
-
 
 
     render() {
@@ -32,7 +32,8 @@ class CsvImporter extends React.Component {
             let percent = 0;
             let progressStatus = "normal";
             this.setState({percent, progressStatus});
-
+            this.setState({csvErrors: []});
+            this.setState({uploaded: false});
             if (file) {
                 const extension = file.name.replace(/^.*\./, '');
                 if (extension === 'csv') {
@@ -45,39 +46,27 @@ class CsvImporter extends React.Component {
             }
         };
 
-        const handleCsvLine = (d, percent) => {
+        const handleCsvLine = (d, line) => {
             if (d.hasOwnProperty("numero") && d.hasOwnProperty("essence") && d.hasOwnProperty("diametre")
                 && d.hasOwnProperty("etat") && d.hasOwnProperty("x") && d.hasOwnProperty("y")
                 && d.hasOwnProperty("note_ecologique")) {
                 if (d.numero !== "" && parseInt(d.diametre) > 0 && parseFloat(d.x) >= 0.0
                     && parseFloat(d.y) >= 0.0 && parseInt(d.note_ecologique) >= 0
-                    && etats.indexOf(d.etat.toLowerCase()) >=0 && essences.indexOf(d.essence.toLowerCase()) >=0 ) {
+                    && etats.indexOf(d.etat.toLowerCase()) >= 0 && essences.indexOf(d.essence.toLowerCase()) >= 0) {
                     return d;
                 }
             }
-            console.log(d);
             let errors = this.state.csvErrors.slice();
-            errors.push(d);
-            this.setState({ csvErrors: errors });
+            errors.push({...d, line: line});
+            this.setState({csvErrors: errors});
             return null;
-        };
-
-
-        const lineCount = (text) => {
-            let nLines = 0;
-            for (let i = 0, n = text.length; i < n; ++i) {
-                if (text[i] === '\n') {
-                    ++nLines;
-                }
-            }
-            return nLines;
         };
 
         const parseFile = () => {
 
-            const nbLines = lineCount(reader.result);
+            let line = 1;
             let csvData = d3.csvParse(reader.result, function (d) {
-                return handleCsvLine(d, percent);
+                return handleCsvLine(d, ++line);
             });
             let percent = 100;
             let progressStatus = "success";
@@ -92,7 +81,51 @@ class CsvImporter extends React.Component {
             </Menu>
         );
 
+        const printErrors = () => {
+            let errorsStr = "";
+            for(let i=0; i<this.state.csvErrors.length && i<10; i++){
+                errorsStr += ` - ${this.state.csvErrors[i].line}`;
+            }
+            return errorsStr;
+        };
+
+        const renderAlerts = () => {
+            if(!this.state.uploaded)
+                return;
+            return (
+            <Col span={10} offset={2}>
+                <div>
+                    <Row>
+                        <Alert
+                            message="Parcelle remplie !"
+                            description={`${this.state.csvData.length} arbres ont été ajoutés à ${this.state.parcelName}`}
+                            type="success"
+                            showIcon
+                        />
+                    </Row>
+                    <Row>
+                        <Alert
+                            message="Informations"
+                            description="xxx arbres remplacés."
+                            type="info"
+                            showIcon
+                        />
+                    </Row>
+                    <Row>
+                        <Alert
+                            message="Error"
+                            description={`${this.state.csvErrors.length} lignes non traitées : \n${printErrors()}`}
+                            type="error"
+                            showIcon
+                        />
+                    </Row>
+                </div>
+            </Col>  )
+        };
+
+
         return (
+
             <Card>
                 <Row>
                     <Col span={10}>
@@ -115,13 +148,16 @@ class CsvImporter extends React.Component {
                                     type="primary"
                                     size="large"
                                     disabled={!this.state.parcelName || this.state.progressStatus !== "success"}
-                                    onClick={() => {console.log(this.state.csvData); console.log(this.state.csvErrors)}}>Remplir la parcelle</Button>
+                                    onClick={() => {this.setState({uploaded : true})
+                                    }}>Remplir la parcelle</Button>
                             </Form.Item>
                         </Form>
                     </Col>
+                    {renderAlerts()}
                 </Row>
             </Card>
-        );
+        )
+            ;
     }
 }
 
