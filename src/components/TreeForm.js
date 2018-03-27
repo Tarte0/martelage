@@ -170,6 +170,7 @@ class ParcelForm extends React.Component {
                                     min={0}
                                     max={100}
                                     value={this.state.utilisationBois.industrie}
+                                    tipFormatter={() => `${this.state.utilisationBois.industrie}%`}
                                     onChange={(value) => {
                                         const total = this.state.utilisationBois.chauffage + value + this.state.utilisationBois.oeuvre;
                                         if (total > 100) {
@@ -238,6 +239,7 @@ class ParcelForm extends React.Component {
                                     min={0}
                                     max={100}
                                     value={this.state.utilisationBois.oeuvre}
+                                    tipFormatter={() => `${this.state.utilisationBois.oeuvre}%`}
                                     onChange={(value) => {
                                         const total = this.state.utilisationBois.chauffage + this.state.utilisationBois.industrie + value;
                                         if (total > 100) {

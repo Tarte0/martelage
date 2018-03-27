@@ -13,6 +13,7 @@ import EtatsForm from "../containers/EtatsForm";
 import EssenceForm from "../containers/EssenceForm";
 import ParcelView from "../containers/ParcelView";
 import FiledParcelView from "../containers/FiledParcelView";
+import CsvImporter from "../containers/CsvImporter";
 
 
 class Main extends React.Component {
@@ -52,7 +53,7 @@ class Main extends React.Component {
                         </Collapse>
                     </Tabs.TabPane>
 
-                    <Tabs.TabPane tab="Général" key="3">
+                    <Tabs.TabPane tab="General" key="3">
                         <Collapse>
                             <Collapse.Panel header="Etats" key="31">
                                 <Row>
@@ -81,10 +82,16 @@ class Main extends React.Component {
                                     </Col>
                                 </Row>
                             </Collapse.Panel>
+                            <Collapse.Panel header="Constantes" key="34">
+                            </Collapse.Panel>
                         </Collapse>
                     </Tabs.TabPane>
 
-                    <Tabs.TabPane tab="Historique" key="4">
+                    <Tabs.TabPane tab="CSV" key="4">
+                            <CsvImporter/>
+                    </Tabs.TabPane>
+
+                    <Tabs.TabPane tab="Historique" key="5">
                         <Row>
                             <Col span={11}>
                                 <FiledParcelList/>

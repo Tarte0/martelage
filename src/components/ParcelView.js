@@ -33,16 +33,22 @@ class ParcelView extends React.Component {
                                 <Col span={8}>
                                     <Tabs defaultActiveKey="1" type="card">
                                         <Tabs.TabPane tab="Diametre" key="1">
+
                                             <TrunkGraph trees={this.props.selectedTrees} version="diametre"/>
+
                                         </Tabs.TabPane>
                                         <Tabs.TabPane tab="Note ecologique" key="2">
+
                                             <TrunkGraph trees={this.props.selectedTrees} version="noteEcologique"/>
+
                                         </Tabs.TabPane>
                                     </Tabs>
                                 </Col>
                                 <Col span={8}>
+
                                     <SpecieChart trees={this.props.selectedTrees} species={this.props.essences}
                                                  types={this.props.types}/>
+
                                 </Col>
                             </Row>
                         </div>

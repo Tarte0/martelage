@@ -45,13 +45,13 @@ class TreeView extends React.Component {
                     <div>
                         <Row>
                             <Col span={8}>
-                                <p>Hauteur découpe : {hauteurDecoupe} m</p>
+                                <p>Hauteur decoupe : {hauteurDecoupe} m</p>
                             </Col>
                             <Col span={8}>
                                 <p>Volume commercial : {volumeCommercial} m3</p>
                             </Col>
                             <Col span={8}>
-                                <p>valeur économique : {valeurEconomique.toFixed(2)} €</p>
+                                <p>valeur economique : {valeurEconomique.toFixed(2)}</p>
                             </Col>
                         </Row>
                     </div>

@@ -159,7 +159,7 @@ specieChart.render = (el, data, species, types) => {
 
     const colorTypes = d3.scaleLinear()
         .domain([0, types.map(t => t['type']).length - 1])
-        .range(['#7de14b', '#FFC832']);
+        .range(['#8b6c42', '#b4915a']);
 
     tarcs.enter()
         .append("path")
