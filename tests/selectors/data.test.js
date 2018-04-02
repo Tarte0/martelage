@@ -1,8 +1,10 @@
 import { expect } from 'chai';
 import { Map, List,fromJS } from 'immutable';
-import fixture from '../fixture/data.json'
-import constantsFixture from '../fixture/constantsFixture.json'
-import {initialState} from '../../src/reducers/data'
+import fixture from '../fixture/data.json';
+import essencesFixture from '../fixture/essences.json';
+import volumeParcelFixture from '../fixture/volumeParcelFixture.json';
+import constantsFixture from '../fixture/constantsFixture.json';
+import {initialState} from '../../src/reducers/data';
 import {getSelectedTrees, getTreesVolumeAndPrices} from '../../src/selectors/data'
 
 describe('Martelage get selected trees ', () => {
@@ -33,20 +35,20 @@ describe('Martelage get selected trees ', () => {
     describe('TreeVolumePrices', () => {
         it(' should calculate tree volume and prices ', () => {
 
-            /*state = state.setIn(['data','selectedParcel'],'parcelleMartelapp');
+            state = state.setIn(['data','parcels'], fromJS(volumeParcelFixture));
+            state = state.setIn(['data','essences'], fromJS(essencesFixture));
+            state = state.setIn(['data','selectedParcel'],'parcelleMartelapp');
             state = state.setIn(['data','constants'], fromJS(constantsFixture));
-
-            console.log(tree);
 
             const treesVp = getTreesVolumeAndPrices(state);
             const tree = treesVp[1];
 
             console.log(tree);
 
-            expect (tree.numero).to.be.equals(40);
+            expect (tree.numero).to.be.equals('2');
             expect (tree.volumePrix.hauteurDecoupe).to.be.equals(15);
-            expect (tree.volumePrix.volume.commercial).to.be.equals(0.57);
-            expect (tree.volumePrix.prix.valeurEco).to.be.equals(25.65);*/
+            expect (tree.volumePrix.volume.commercial).to.be.equals(0.14);
+            expect (tree.volumePrix.prix.valeurEco).to.be.equals(0.70);
         });
     });
 });

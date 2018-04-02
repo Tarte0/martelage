@@ -3,6 +3,7 @@ import React from "react";
 import {Table, Button, Popconfirm, Input, Icon, Menu, Dropdown} from "antd";
 import {List} from "immutable";
 import TreeView from "../containers/TreeView";
+import {getTreesVolumeAndPrices} from "../selectors/data";
 
 const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
     <div>
@@ -108,7 +109,7 @@ class TreeList extends React.Component {
                 sorter: (a, b) => a.numero - b.numero
             },
             {
-                title: "diametre",
+                title: "diametre (cm)",
                 dataIndex: "diametre",
                 key: "diametre",
                 render: (a, record, index) =>
@@ -157,7 +158,7 @@ class TreeList extends React.Component {
                 filterMultiple: true
             },
             {
-                title: "noteEcologique",
+                title: "note ecologique",
                 dataIndex: "noteEcologique",
                 key: "noteEcologique",
                 render: (a, record, index) =>
@@ -172,6 +173,17 @@ class TreeList extends React.Component {
         ].concat(
             this.props.expanded ?
                 [
+                    {
+                        title: "volume commercial (m3)",
+                        dataIndex: "volumePrix.volume.commercial",
+                        key: "volumeCommercial",
+                        sorter: (a, b) => a.volumePrix.volume.commercial - b.volumePrix.volume.commercial
+                    },
+                    {    title: "valeur économique (€)",
+                        dataIndex: "volumePrix.prix.valeurEco",
+                        key: "valeurEconomique",
+                        sorter: (a, b) => a.volumePrix.prix.valeurEco - b.volumePrix.prix.valeurEco
+                    },
                     {
                         title: "x",
                         dataIndex: "coord.x",
@@ -209,10 +221,10 @@ class TreeList extends React.Component {
                         sorter: (a, b) => a.coord.y - b.coord.y
                     },
                     {
-                        title: "utilisationBois",
+                        title: "utilisation bois (sur 100%)",
                         children: [
                             {
-                                title: "chauffage",
+                                title: "chauffage (%)",
                                 dataIndex: "utilisationBois.chauffage",
                                 key: "utilisationBois.chauffage",
                                 render: (a, record, index) =>
@@ -234,7 +246,7 @@ class TreeList extends React.Component {
                                 sorter: (a, b) => a.utilisationBois.chauffage - b.utilisationBois.chauffage
                             },
                             {
-                                title: "industrie",
+                                title: "industrie (%)",
                                 dataIndex: "utilisationBois.industrie",
                                 key: "utilisationBois.industrie",
                                 render: (a, record, index) =>
@@ -256,7 +268,7 @@ class TreeList extends React.Component {
                                 sorter: (a, b) => a.utilisationBois.industrie - b.utilisationBois.industrie
                             },
                             {
-                                title: "oeuvre",
+                                title: "oeuvre (%)",
                                 dataIndex: "utilisationBois.oeuvre",
                                 key: "utilisationBois.oeuvre",
                                 render: (a, record, index) =>
@@ -351,12 +363,11 @@ class TreeList extends React.Component {
                             filterConfirm: 'Ok',
                             filterReset: 'Reset',
                         }}
-                        dataSource={this.props.selectedTrees.map(u => ({...u, key: u.id}))}
+                        dataSource={this.props.treesWithVolume}
                         columns={this.getColumns()}
                         onRowClick={(record) => {
                             this.props.selectTree(record.id);
                         }}
-                        expandedRowRender={record => <TreeView tree={record}/>}
                         bordered
                         size='middle'
                     />

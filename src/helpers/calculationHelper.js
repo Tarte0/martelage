@@ -1,10 +1,10 @@
 export const hauteurDecoupe = (tree, hauteurMoyenneConst, essences) => {
-    return tree.diametre <= 30 ? hauteurMoyenneConst.getIn(['petitBois']) : hauteurMoyenneConst.getIn([essences.get(tree.essence)]);
+    return tree.diametre <= 30 ? hauteurMoyenneConst.getIn(['petitBois']) : hauteurMoyenneConst.getIn([essences.get(tree.essence.toLowerCase())]);
 };
 
 export const volumeCommercial = (tree, volumeCommercialConst, essences, hauteurDecoupe, etatVivant) => {
     //volumeCommercialConst = this.props.constants.getIn(['volume', 'commercial']);
-    return tree.etat === etatVivant ? (volumeCommercialConst.getIn([essences.get(tree.essence)]) * Math.pow(tree.diametre / 100, 2) * hauteurDecoupe).toFixed(2) : 0;
+    return tree.etat === etatVivant ? parseFloat((volumeCommercialConst.getIn([essences.get(tree.essence.toLowerCase())]) * Math.pow(tree.diametre / 100, 2) * hauteurDecoupe).toFixed(2)) : 0.0;
 };
 
 export const volumeComBois = (tree, volumeCommercial) => {
@@ -17,7 +17,7 @@ export const volumeComBois = (tree, volumeCommercial) => {
 
 export const prixBoisAttr = (tree, prixBoisConst, utilisationBois) => {
     //prixBoisConst = this.props.constants.getIn(['prix', 'bois']);
-    prixBoisConst.getIn([utilisationBois, tree.essence]);
+    prixBoisConst.getIn([utilisationBois, tree.essence.toLowerCase()]);
 };
 
 export const prixBois = (tree, prixBoisConst, essences) => {
@@ -26,9 +26,9 @@ export const prixBois = (tree, prixBoisConst, essences) => {
     const prixBoisIndustrie = prixBoisAttr(tree, prixBoisConst, 'industrie');
     const prixBoisChauffage = prixBoisAttr(tree, prixBoisConst, 'chauffage');
     return ({
-        oeuvre: prixBoisOeuvre === undefined ? prixBoisConst.getIn(['oeuvre', essences.get(tree.essence)]) : prixBoisOeuvre,
-        industrie: prixBoisIndustrie === undefined ? prixBoisConst.getIn(['industrie', essences.get(tree.essence)]) : prixBoisIndustrie,
-        chauffage: prixBoisChauffage === undefined ? prixBoisConst.getIn(['chauffage', essences.get(tree.essence)]) : prixBoisChauffage
+        oeuvre: prixBoisOeuvre === undefined ? prixBoisConst.getIn(['oeuvre', essences.get(tree.essence.toLowerCase())]) : prixBoisOeuvre,
+        industrie: prixBoisIndustrie === undefined ? prixBoisConst.getIn(['industrie', essences.get(tree.essence.toLowerCase())]) : prixBoisIndustrie,
+        chauffage: prixBoisChauffage === undefined ? prixBoisConst.getIn(['chauffage', essences.get(tree.essence.toLowerCase())]) : prixBoisChauffage
     })
 };
 
@@ -41,7 +41,7 @@ export const valeurEcoBois = (volumeComBois, prixBois) => {
 };
 
 export const valeurEconomique = (valeurEcoBois) => {
-    return valeurEcoBois.oeuvre + valeurEcoBois.industrie + valeurEcoBois.chauffage;
+    return parseFloat((valeurEcoBois.oeuvre + valeurEcoBois.industrie + valeurEcoBois.chauffage).toFixed(2));
 };
 
 export const calculateVolumeAndPrices = (tree, essences, hauteurMoyenneConst, volumeCommercialConst, etatVivant, prixBoisConst) => {

@@ -1,7 +1,9 @@
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import TreeList from "../components/TreeList";
-import {selectedParcel, getSelectedTrees, selectedTree, selectEtatsAsArray, selectEssencesAsArray} from "../selectors/data";
+import {selectedParcel, getSelectedTrees, selectedTree, selectEtatsAsArray, selectEssencesAsArray,
+    getTreesVolumeAndPrices
+} from "../selectors/data";
 import {deleteTreeByIdThunk, editTreeByIdThunk} from "../thunks/data";
 import {setSelectedTree} from "../actions/data";
 
@@ -14,7 +16,8 @@ export default withRouter(
             savingTree: state.getIn(['data', 'savingTree']),
             etats: selectEtatsAsArray(state),
             essences: selectEssencesAsArray(state),
-            editingTreeSuccess: state.getIn(['data', 'editingTreeSuccess'])
+            editingTreeSuccess: state.getIn(['data', 'editingTreeSuccess']),
+            treesWithVolume: getTreesVolumeAndPrices(state)
         }),
         (dispatch, props) => ({
             deleteTree(parcelId, treeId){

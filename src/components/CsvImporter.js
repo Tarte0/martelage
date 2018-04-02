@@ -11,8 +11,10 @@ class CsvImporter extends React.Component {
             percent: 0,
             progressStatus: "normal",
             parcelName: "",
+            parcelId: "",
             csvData: {},
             csvErrors: [],
+            csvConflicts: [],
             uploaded: false
         };
 
@@ -20,7 +22,6 @@ class CsvImporter extends React.Component {
 
 
     render() {
-
         const etats = this.props.etats.map(p => (p.etat));
         const essences = this.props.essences.map(p => (p.essence));
 
@@ -33,6 +34,7 @@ class CsvImporter extends React.Component {
             let progressStatus = "normal";
             this.setState({percent, progressStatus});
             this.setState({csvErrors: []});
+            this.setState({csvConflicts: []});
             this.setState({uploaded: false});
             if (file) {
                 const extension = file.name.replace(/^.*\./, '');
@@ -49,13 +51,15 @@ class CsvImporter extends React.Component {
         const handleCsvLine = (d, line) => {
             if (d.hasOwnProperty("numero") && d.hasOwnProperty("essence") && d.hasOwnProperty("diametre")
                 && d.hasOwnProperty("etat") && d.hasOwnProperty("x") && d.hasOwnProperty("y")
-                && d.hasOwnProperty("note_ecologique")) {
+                && d.hasOwnProperty("note_ecologique")) { //csv line has all the required colums
                 if (d.numero !== "" && parseInt(d.diametre) > 0 && parseFloat(d.x) >= 0.0
                     && parseFloat(d.y) >= 0.0 && parseInt(d.note_ecologique) >= 0
                     && etats.indexOf(d.etat.toLowerCase()) >= 0 && essences.indexOf(d.essence.toLowerCase()) >= 0) {
-                    return d;
+
+                    return d; //csv line has been computed has a valid new tree (conflicts are handled on filling)
                 }
             }
+            //csv line has been computed has an error
             let errors = this.state.csvErrors.slice();
             errors.push({...d, line: line});
             this.setState({csvErrors: errors});
@@ -75,7 +79,10 @@ class CsvImporter extends React.Component {
 
         const parcelsDropDown = (
             <Menu onClick={(e) => {
-                this.setState({parcelId: e.key, parcelName: this.props.parcels.find(p => p.id === e.key).nom})
+                this.setState({parcelId: e.key, parcelName: this.props.parcels.find(p => p.id === e.key).nom});
+                this.props.selectParcel(e.key);
+                this.setState({csvConflicts: []});
+
             }}>
                 {this.props.parcels.map(p => (<Menu.Item key={p.id}>{p.nom}</Menu.Item>))}
             </Menu>
@@ -89,6 +96,8 @@ class CsvImporter extends React.Component {
             return errorsStr;
         };
 
+
+
         const renderAlerts = () => {
             if(!this.state.uploaded)
                 return;
@@ -98,23 +107,23 @@ class CsvImporter extends React.Component {
                     <Row>
                         <Alert
                             message="Parcelle remplie !"
-                            description={`${this.state.csvData.length} arbres ont été ajoutés à ${this.state.parcelName}`}
+                            description={`${this.state.csvData.length} arbres valides.`}
                             type="success"
                             showIcon
                         />
                     </Row>
                     <Row>
                         <Alert
-                            message="Informations"
-                            description="xxx arbres remplacés."
-                            type="info"
+                            message="Conflits"
+                            description={`${this.state.csvConflicts.length} arbres en conflit.`}
+                            type="warning"
                             showIcon
                         />
                     </Row>
                     <Row>
                         <Alert
-                            message="Error"
-                            description={`${this.state.csvErrors.length} lignes non traitées : \n${printErrors()}`}
+                            message="Erreurs"
+                            description={`${this.state.csvErrors.length} ligne${this.state.csvErrors.length>1?'s':''} non traitée${this.state.csvErrors.length>1?'s':''} : \n${printErrors()}`}
                             type="error"
                             showIcon
                         />
@@ -123,6 +132,50 @@ class CsvImporter extends React.Component {
             </Col>  )
         };
 
+        const renderFiller = () => {
+           /* if(!this.state.uploaded)
+                return;
+            return (
+                <Col span={10}>
+                    <Form>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                size="large"
+                                disabled={!this.state.uploaded}
+                                onClick={() => {
+                                }}>Remplir la parcelle</Button>
+                        </Form.Item>
+                    </Form>
+
+                </Col>
+            );*/
+        };
+
+        const fillParcelCsv = () => {
+            //check if the tree create a conflict,
+            //meaning that a different tree with the same "numero" exists in our data
+
+            //regroup all the "numero" provided by our parcel trees
+            const parcelTreeNumbers = this.props.selectedTrees.map(t => {
+                return t.numero;
+            });
+
+            let conflicts = this.state.csvConflicts.slice();
+            let valid = [];
+            //check all the valid trees to find conflicted data
+            const mappedCsvData = this.state.csvData.map(t => {
+                if(parcelTreeNumbers.indexOf(t.numero) >= 0){ //found a conflict
+                    conflicts.push(t);
+                }else{ //valid tree
+                    valid.push(t);
+                }
+            });
+            this.setState({csvConflicts: conflicts});
+            this.setState({csvData: valid});
+            this.setState({uploaded : true});
+
+        };
 
         return (
 
@@ -137,8 +190,8 @@ class CsvImporter extends React.Component {
                                 <Progress status={this.state.progressStatus} percent={this.state.percent}/>
                             </Form.Item>
                             <Form.Item label="Parcelle dans laquelle importer les arbres">
-                                <Dropdown overlay={parcelsDropDown}>
-                                    <Button style={{marginLeft: 8}}>
+                                <Dropdown disabled={this.state.uploaded} overlay={parcelsDropDown}>
+                                    <Button  style={{marginLeft: 8}}>
                                         {this.state.parcelName} <Icon type="down"/>
                                     </Button>
                                 </Dropdown>
@@ -147,13 +200,16 @@ class CsvImporter extends React.Component {
                                 <Button
                                     type="primary"
                                     size="large"
-                                    disabled={!this.state.parcelName || this.state.progressStatus !== "success"}
-                                    onClick={() => {this.setState({uploaded : true})
-                                    }}>Remplir la parcelle</Button>
+                                    disabled={!this.state.parcelName || this.state.progressStatus !== "success" || this.state.uploaded}
+                                    onClick={() => {fillParcelCsv()
+                                    }}>Traiter le CSV</Button>
                             </Form.Item>
                         </Form>
                     </Col>
                     {renderAlerts()}
+                </Row>
+                <Row>
+                    {renderFiller()}
                 </Row>
             </Card>
         )
