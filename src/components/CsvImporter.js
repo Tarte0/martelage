@@ -28,7 +28,7 @@ class CsvImporter extends React.Component {
         let reader = new FileReader();
 
         const loadFile = () => {
-            let file = document.querySelector('input[type=file]').files[0];
+            const file = this.fileUpload.files[0];
             reader.addEventListener("load", parseFile, false);
             let percent = 0;
             let progressStatus = "normal";
@@ -59,6 +59,7 @@ class CsvImporter extends React.Component {
                     return d; //csv line has been computed has a valid new tree (conflicts are handled on filling)
                 }
             }
+            
             //csv line has been computed has an error
             let errors = this.state.csvErrors.slice();
             errors.push({...d, line: line});
@@ -184,7 +185,7 @@ class CsvImporter extends React.Component {
                     <Col span={10}>
                         <Form>
                             <Form.Item label="fichier CSV">
-                                <input type="file" onChange={loadFile}/>
+                                <input type="file" onChange={loadFile}  ref={(ref) => this.fileUpload = ref}/>
                             </Form.Item>
                             <Form.Item>
                                 <Progress status={this.state.progressStatus} percent={this.state.percent}/>
