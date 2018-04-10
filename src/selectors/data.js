@@ -23,6 +23,33 @@ export const selectFiledParcelsAsArray = createSelector(
     }
 );
 
+export const selectHauteurMoyenneConstantAsArray = createSelector(
+    [getConstants],
+    (constants) => {
+        const hauteurMoyenneConst = constants.get('hauteurMoyenne');
+        return Object.keys(hauteurMoyenneConst.toJS()).map(c => ({key:c, value: hauteurMoyenneConst.get(c)}))
+    }
+);
+
+export const selectVolumeCommercialConstantAsArray = createSelector(
+    [getConstants],
+    (constants) => {
+        const volumeCommercial = constants.get('volume').get('commercial');
+        return Object.keys(volumeCommercial.toJS()).map(c => ({key:c, value: volumeCommercial.get(c)}))
+    }
+);
+
+export const selectPrixConstantAsObjectArray = createSelector(
+    [getConstants],
+    (constants) => {
+        const prix = constants.get('prix').get('bois');
+        Object.keys(prix.toJS()).map(c => {
+            prix[c] = Object.keys(prix.get(c).toJS()).map(c2 => ({key:c2, value: prix.get(c).get(c2)}));
+        });
+        return prix;
+    }
+);
+
 export const selectEtatsAsArray = createSelector(
     [getEtats],
     (etats) => {
@@ -96,7 +123,6 @@ export const getSelectedTrees = createSelector(
         return [];
     }
 );
-
 
 export const getTreesVolumeAndPrices = createSelector(
     [getParcels, getSelectedParcel, getConstants, getEssences],

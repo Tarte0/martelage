@@ -13,6 +13,7 @@ import EtatsForm from "../containers/EtatsForm";
 import EssenceForm from "../containers/EssenceForm";
 import ParcelView from "../containers/ParcelView";
 import FiledParcelView from "../containers/FiledParcelView";
+import ConstantView from "../containers/ConstantView";
 import CsvImporter from "../containers/CsvImporter";
 
 
@@ -83,6 +84,7 @@ class Main extends React.Component {
                                 </Row>
                             </Collapse.Panel>
                             <Collapse.Panel header="Constantes" key="34">
+                                <ConstantView/>
                             </Collapse.Panel>
                         </Collapse>
                     </Tabs.TabPane>
