@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import ParcelView from "../components/ParcelView";
 import {selectedParcel, getSelectedTrees, selectEssencesAsArray, selectTypesAsArray, selectFiledParcelsAsArray,
-    selectFiledParcel
+    selectFiledParcel, getTreesVolumeAndPrices
 } from "../selectors/data";
 
 export default withRouter(
@@ -13,7 +13,8 @@ export default withRouter(
             essences: selectEssencesAsArray(state),
             types: selectTypesAsArray(state),
             filedParcels: selectFiledParcelsAsArray(state),
-            filedParcel : selectFiledParcel(state)
+            filedParcel : selectFiledParcel(state),
+            treesWithVolume: getTreesVolumeAndPrices(state)
         }),
         (dispatch, props) => ({
 

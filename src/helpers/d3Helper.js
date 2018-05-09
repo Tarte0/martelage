@@ -15,6 +15,21 @@ export const groupTrees = (trees, group) => {
         .toJS();
 };
 
+/*export const groupTreesVolume = (trees) => {
+    return List(trees)
+        .groupBy(t => t["diametre"])
+        .map((v, k) => {
+            let res = {'volume': 0, total: 0, key: k};
+            v.forEach(t => {
+                res[t.etat]++;
+                res.total++;
+            });
+            return res
+        }).toList()
+        .sort((a, b) => Number(a.key) - Number(b.key))
+        .toJS();
+};*/
+
 export const groupDateTreeNb = (filedParcel) => {
     return List(filedParcel)
         .groupBy(fp => fp['date'])

@@ -130,9 +130,10 @@ export const getTreesVolumeAndPrices = createSelector(
         if (selectedParcelId) {
             let treesObject = parcels.getIn([selectedParcelId, 'arbres']);
             if(treesObject != undefined) {
+                console.log(treesObject.toJS());
                 treesObject = treesObject.toJS();
                 return Object.keys(treesObject).map(t => ({
-                    volumePrix : calculateVolumeAndPrices(treesObject[t], essences, constants.get('hauteurMoyenne'), constants.getIn(['volume', 'commercial']), 'v', constants.getIn(['prix', 'bois'])), ...treesObject[t]
+                    ...treesObject[t], volumePrix : calculateVolumeAndPrices(treesObject[t], essences, constants.get('hauteurMoyenne'), constants.getIn(['volume', 'commercial']), 'v', constants.getIn(['prix', 'bois'])), id: t
                 }));
             }
         }

@@ -1,0 +1,13 @@
+.errorRow{
+    background-color: #ff7d7d;
+    font-weight: bold;
+}
+
+.conflictRow{
+    background-color: #ffbe64;
+    font-weight: bold;
+}
+.goodRow{
+    background-color: #96ff7d;
+    font-weight: bold;
+}

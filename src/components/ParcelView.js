@@ -3,6 +3,7 @@ import React from "react";
 import {Card, Col, Row, Tabs} from "antd";
 import TreeGraph from './TreeGraph';
 import TrunkGraph from './TrunkGraph';
+import VolumeChart from './chart/VolumeChart';
 import SpecieChart from './chart/SpecieChart';
 
 class ParcelView extends React.Component {
@@ -34,13 +35,16 @@ class ParcelView extends React.Component {
                                     <Tabs defaultActiveKey="1" type="card">
                                         <Tabs.TabPane tab="Diametre" key="1">
 
-                                            <TrunkGraph trees={this.props.selectedTrees} version="diametre"/>
+                                            <TrunkGraph trees={this.props.selectedTrees} version={["diametre"]}/>
 
                                         </Tabs.TabPane>
                                         <Tabs.TabPane tab="Note ecologique" key="2">
 
-                                            <TrunkGraph trees={this.props.selectedTrees} version="noteEcologique"/>
+                                            <TrunkGraph trees={this.props.selectedTrees} version={["noteEcologique"]}/>
 
+                                        </Tabs.TabPane>
+                                        <Tabs.TabPane tab="Volume" key="3">
+                                            <VolumeChart trees={this.props.treesWithVolume} />
                                         </Tabs.TabPane>
                                     </Tabs>
                                 </Col>
