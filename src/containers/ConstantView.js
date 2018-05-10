@@ -4,7 +4,7 @@ import ConstantView from "../components/ConstantView";
 import {
     selectHauteurMoyenneConstantAsArray,
     selectVolumeCommercialConstantAsArray,
-    selectPrixConstantAsObjectArray
+    selectPrixConstantAsObjectArray, selectPrelevementConstantAsArray
 } from "../selectors/data";
 
 export default withRouter(
@@ -12,7 +12,8 @@ export default withRouter(
         (state, props) => ({
             hauteurMoyenneConst: selectHauteurMoyenneConstantAsArray(state),
             volumeCommercialConst: selectVolumeCommercialConstantAsArray(state),
-            prixConst: selectPrixConstantAsObjectArray(state)
+            prixConst: selectPrixConstantAsObjectArray(state),
+            prelevementConst: selectPrelevementConstantAsArray(state)
         }),
         (dispatch, props) => ({
 

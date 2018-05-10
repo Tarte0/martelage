@@ -5,7 +5,9 @@ import {Icon, Table, Button, Popconfirm, Input} from "antd";
 const data = {
     nom: '',
     lieu: "",
-    surface: 0.0
+    surface: 0.0,
+    altitude: 0.0,
+    habitat:""
 };
 
 const EditableCell = (editable, value, onChange, isNumerical) => (
@@ -24,7 +26,7 @@ const EditableCell = (editable, value, onChange, isNumerical) => (
         }
     </div>
 );
-const numericalKeys = ['surface'];
+const numericalKeys = ['surface', 'altitude'];
 
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {

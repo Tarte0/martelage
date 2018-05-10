@@ -24,16 +24,6 @@ class EtatsList extends React.Component {
                             title: "etat",
                             dataIndex: "etat",
                             key: "etat"
-                        },
-                        {
-                            title: "supprimer",
-                            key: "delete",
-                            render: (index, record, ind) => (
-                                <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {
-                                    this.props.deleteEtat(record.etat)
-                                }} okText="oui" cancelText="non">
-                                    <Button icon="delete" type="danger"/>
-                                </Popconfirm>)
                         }
                     ]}
                 />

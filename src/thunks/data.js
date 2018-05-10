@@ -47,6 +47,17 @@ const config = {
     storageBucket: "",
     messagingSenderId: "329628247737"
 };
+
+/*
+const config = {
+    apiKey: "AIzaSyD1FBAeh4YmGRkuQF6IrjspJIiDxDHDNhM",
+    authDomain: "martelage-5cbf0.firebaseapp.com",
+    databaseURL: "https://martelage-5cbf0.firebaseio.com",
+    projectId: "martelage-5cbf0",
+    storageBucket: "martelage-5cbf0.appspot.com",
+    messagingSenderId: "523646105021"
+};*/
+
 firebase.initializeApp(config);
 
 const database = firebase.database();

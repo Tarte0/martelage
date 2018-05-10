@@ -3,6 +3,7 @@ import {withRouter} from "react-router";
 import CsvImporter from "../components/CsvImporter";
 import {selectParcelsAsArray, selectEtatsAsArray, selectEssencesAsArray, getSelectedTrees} from "../selectors/data";
 import {setSelectedParcel} from "../actions/data";
+import {addTreeThunk} from "../thunks/data";
 
 export default withRouter(
     connect(
@@ -16,6 +17,9 @@ export default withRouter(
         (dispatch, props) => ({
             selectParcel(parcelId){
                 dispatch(setSelectedParcel(parcelId))
+            },
+            addTree: (tree) => {
+                dispatch(addTreeThunk(tree))
             },
         })
     )(CsvImporter));

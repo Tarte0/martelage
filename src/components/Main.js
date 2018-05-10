@@ -57,31 +57,18 @@ class Main extends React.Component {
                     <Tabs.TabPane tab="General" key="3">
                         <Collapse>
                             <Collapse.Panel header="Etats" key="31">
-                                <Row>
-                                    <Col span={10}>
-                                        <EtatsList/>
-                                    </Col>
-                                    <Col span={10} offset={4}>
-                                        <EtatsForm/>
-                                    </Col>
-                                </Row>
+                                <EtatsList/>
                             </Collapse.Panel>
                             <Collapse.Panel header="Essences" key="32">
-                                <Row>
-                                    <Col span={10}>
-                                        <EssenceList/>
-                                    </Col>
-                                    <Col span={10} offset={4}>
-                                        <EssenceForm/>
-                                    </Col>
-                                </Row>
+                                <Col span={10}>
+                                    <EssenceList/>
+                                </Col>
+                                <Col span={10} offset={4}>
+                                    <EssenceForm/>
+                                </Col>
                             </Collapse.Panel>
                             <Collapse.Panel header="Types" key="33">
-                                <Row>
-                                    <Col span={10}>
-                                        <TypeList/>
-                                    </Col>
-                                </Row>
+                                <TypeList/>
                             </Collapse.Panel>
                             <Collapse.Panel header="Constantes" key="34">
                                 <ConstantView/>
@@ -90,7 +77,7 @@ class Main extends React.Component {
                     </Tabs.TabPane>
 
                     <Tabs.TabPane tab="CSV" key="4">
-                            <CsvImporter/>
+                        <CsvImporter/>
 
                     </Tabs.TabPane>
 

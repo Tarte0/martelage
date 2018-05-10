@@ -9,6 +9,8 @@ class ParcelForm extends React.Component {
             nom: "",
             lieu: "",
             surface: null,
+            altitude: null,
+            habitat:"",
             version: 0
         };
     }
@@ -34,16 +36,29 @@ class ParcelForm extends React.Component {
                             this.setState({surface: e.target.value})
                         }}/>
                     </Form.Item>
+                    <Form.Item label="Altitude">
+                        <Input type="number" step="0.01" min="0" value={this.state.altitude} onChange={(e) => {
+                            this.setState({altitude: e.target.value})
+                        }}/>
+                    </Form.Item>
+                    <Form.Item label="Habitat">
+                        <Input value={this.state.habitat} onChange={(e) => {
+                            this.setState({habitat: e.target.value})
+                        }}/>
+                    </Form.Item>
                     <Form.Item>
                         <Button
                             loading={this.props.savingParcel}
-                            disabled={!this.state.nom || !this.state.lieu || this.state.surface === null}
+                            disabled={!this.state.nom || !this.state.lieu || this.state.surface === null
+                            || !this.state.altitude || this.state.habitat === null}
                             onClick={() => {
                                 this.props.addParcel(this.state);
                                 this.setState({
                                     nom: "",
                                     lieu: "",
                                     surface: null,
+                                    altitude: null,
+                                    habitat:"",
                                     version: 0
                                 })
                             }}>Sauvegarder</Button>
