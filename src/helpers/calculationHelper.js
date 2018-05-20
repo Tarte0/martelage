@@ -17,7 +17,7 @@ export const volumeComBois = (tree, volumeCommercial) => {
 
 export const prixBoisAttr = (tree, prixBoisConst, utilisationBois) => {
     //prixBoisConst = this.props.constants.getIn(['prix', 'bois']);
-    prixBoisConst.getIn([utilisationBois, tree.essence.toLowerCase()]);
+    return prixBoisConst.getIn([utilisationBois, tree.essence.toLowerCase()]);
 };
 
 export const prixBois = (tree, prixBoisConst, essences) => {

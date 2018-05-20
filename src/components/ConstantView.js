@@ -94,7 +94,7 @@ class ConstantView extends React.Component {
                                 key: "key"
                             },
                             {
-                                title: "volume commercial (m3)",
+                                title: "volume commercial (m³)",
                                 render: (a, record, i) => {
                                     return <Input defaultValue={record.value} type="number" onChange={(e) => {
                                         this.setState({volume: {...this.state.volume, [record.key]: e.target.value}})
@@ -102,7 +102,7 @@ class ConstantView extends React.Component {
                                 },
                                 key: "value"
                             }, {
-                                title: "Save",
+                                title: "Sauvegarder",
                                 key: "save",
                                 render: (a, record, i) => {
                                     return <Button
@@ -148,7 +148,7 @@ class ConstantView extends React.Component {
                                 },
                                 key: "chauffage.value"
                             }, {
-                                title: "Save",
+                                title: "Sauvegarder",
                                 key: "save",
                                 render: (a, record, i) => {
                                     return <Button
@@ -222,7 +222,7 @@ class ConstantView extends React.Component {
                                 },
                                 key: "industrie.value"
                             }, {
-                                title: "Save",
+                                title: "Sauvegarder",
                                 key: "save",
                                 render: (a, record, i) => {
                                     return <Button
@@ -297,7 +297,7 @@ class ConstantView extends React.Component {
                                 },
                                 key: "oeuvre.value"
                             }, {
-                                title: "Save",
+                                title: "Sauvegarder",
                                 key: "save",
                                 render: (a, record, i) => {
                                     return <Button
@@ -366,7 +366,7 @@ class ConstantView extends React.Component {
                                 }
                             },
                             {
-                                title: "Save",
+                                title: "Sauvegarder",
                                 key: "save",
                                 render: (a, record, i) => {
                                     return <Button
