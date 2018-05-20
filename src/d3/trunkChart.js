@@ -28,10 +28,11 @@ trunkChart.render = (el, data, version) => {
         .attr('transform', `translate(${margin.left},${margin.top})`)
         .each(function () {
             const g = d3.select(this);
-            g .append('text').attr("class","titleText")
+            g.append('text').attr("class","titleText")
                 .attr("y",-margin.top/2)
                 .attr("x",width/2)
-                .style("text-anchor",'middle')
+                .style("text-anchor",'middle');
+
             g.append("g")
                 .attr("class", "xAxis")
                 .attr("transform", "translate(0," + height + ")")
@@ -44,7 +45,6 @@ trunkChart.render = (el, data, version) => {
 
             g.append("g")
                 .attr("class", "yAxis")
-
                 .append("text")
                 .attr("x", 2)
                 .attr("y", "-25")
@@ -53,6 +53,7 @@ trunkChart.render = (el, data, version) => {
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "start")
                 .text("Tiges");
+
             const legend = g.append("g")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", 10)
@@ -78,8 +79,9 @@ trunkChart.render = (el, data, version) => {
                     return d;
                 });
         });
-    d3.select(el).select('.titleText').text(version[0] === "diametre" ? "Nombres de tiges par classes de diametre":"Nombres de tiges par note écologique");
-    d3.select(el).select('.xAxisLabel').text(version[0].charAt(0).toUpperCase() + version[0].slice(1));
+    d3.select(el).select('.titleText').text(version[0] === "diametre" ? "Nombre de tiges par classes de diametre":"Nombre de tiges par note écologique");
+    const versionUpper = version[0].charAt(0).toUpperCase() + version[0].slice(1);
+    d3.select(el).select('.xAxisLabel').text(versionUpper + (versionUpper == "Diametre" ? " (cm)" :""));
     // .text(version==="diametre"?"Parcel Machin Diametre":version==="note_eco"?"ParcelEcoTruk":"l'autre")
     const stack = groupTrees(data, version);
 

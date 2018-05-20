@@ -291,8 +291,25 @@ class CsvImporter extends React.Component {
                         };
                         this.props.addTree(tree);
                     }
+                    notification.open({
+                        message: 'Fichier CSV importé !',
+                        description: "La base de donnée a été remplie",
+
+                        icon: <Icon type="check-circle" style={{ color: '#00a854' }} />,
+                        placement:"topLeft",
+                        duration: 0
+                    });
+                }else{
+                    notification.open({
+                        message: 'Fichier CSV non conforme',
+                        description: "Les problèmes sont visibles à l'aide de la liste ci dessous",
+
+                        icon: <Icon type="close-circle" style={{ color: '#f04134' }} />,
+                        placement:"topLeft",
+                        duration: 0
+                    });
                 }
-                notify();
+                //notify();
             };
 
         return (

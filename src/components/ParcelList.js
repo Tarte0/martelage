@@ -1,7 +1,8 @@
 // @flow
 import React from "react";
 import {Icon, Table, Button, Popconfirm, Input} from "antd";
-import '../style/csvRows.css'
+import "../style/csvRows.css";
+
 const data = {
     nom: '',
     lieu: "",
