@@ -15,20 +15,20 @@ export const groupTrees = (trees, group) => {
         .toJS();
 };
 
-/*export const groupTreesVolume = (trees) => {
+export const groupTreesVolume = (trees) => {
     return List(trees)
-        .groupBy(t => t["diametre"])
+        .groupBy(t => t.diametre)
         .map((v, k) => {
-            let res = {'volume': 0, total: 0, key: k};
+            let res = {'v': 0, 'mp': 0, 'ms': 0, total: 0, key: k};
             v.forEach(t => {
-                res[t.etat]++;
-                res.total++;
+                res[t.etat]+= t.volumePrix.volume.commercial;
+                res.total = res.total + t.volumePrix.volume.commercial;
             });
             return res
         }).toList()
         .sort((a, b) => Number(a.key) - Number(b.key))
         .toJS();
-};*/
+};
 
 export const groupDateTreeNb = (filedParcel) => {
     return List(filedParcel)

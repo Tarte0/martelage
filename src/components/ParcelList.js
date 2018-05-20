@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import {Icon, Table, Button, Popconfirm, Input} from "antd";
-
+import '../style/csvRows.css'
 const data = {
     nom: '',
     lieu: "",
@@ -37,6 +37,8 @@ const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
 const numericalKeys = ['altitude'];
 const floatNumericalKeys = ['surface'];
 
+const titles = {nom : 'Nom', lieu : 'Lieu', surface: 'Surface (ha)', altitude:'Altitude', habitat:'Habitat'};
+
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {
         if (next.editingParcelSuccess && !this.props.editingParcelSuccess) {
@@ -57,6 +59,8 @@ class ParcelList extends React.Component {
         };
     }
 
+
+
     render() {
         return (
             <div>
@@ -68,10 +72,12 @@ class ParcelList extends React.Component {
                     onRowClick={(record) => {
                         this.props.selectParcel(record.id);
                     }}
+                    rowClassName={(record, index) => this.props.selectedParcel === record.id?'selectedRow':''}
+
                     columns={
                         Object.keys(data)
                             .map(k => ({
-                                title: k,
+                                title: titles[k],
                                 render: (a, record, index) =>
                                     EditableCell(
                                         this.state.edit === index,
@@ -82,14 +88,14 @@ class ParcelList extends React.Component {
                                 key: k
                             })).concat([
                             {
-                                title: "arbres",
+                                title: "Arbres",
                                 key: 'trees',
                                 render: (a, r, i) => {
                                     return (<div>{Object.keys(r.arbres || []).length}</div>)
                                 }
                             },
                             {
-                                title: "supprimer",
+                                title: "Supprimer",
                                 key: "delete",
                                 render: (index, record, ind) => (
                                     <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {
@@ -99,8 +105,9 @@ class ParcelList extends React.Component {
                                     </Popconfirm>)
                             },
                             {
-                                title: "modifier",
+                                title: "Modifier",
                                 key: "edit",
+
                                 render: (index, record, ind) => (
                                     this.state.edit === ind ?
                                         <div>
@@ -127,7 +134,7 @@ class ParcelList extends React.Component {
                                         </div>)
                             },
                             {
-                                title: "archiver",
+                                title: "Archiver",
                                 key: "file",
                                 render: (index, record, ind) => (
                                     <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {

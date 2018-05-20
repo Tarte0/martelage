@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import {groupTrees} from "../helpers/d3Helper";
 
-const margin = {top: 50, right: 100, bottom: 50, left: 50}
+const margin = {top: 150, right: 100, bottom: 50, left: 50}
     , width = 500
     , height = 500;
 
@@ -28,27 +28,31 @@ trunkChart.render = (el, data, version) => {
         .attr('transform', `translate(${margin.left},${margin.top})`)
         .each(function () {
             const g = d3.select(this);
+            g .append('text').attr("class","titleText")
+                .attr("y",-margin.top/2)
+                .attr("x",width/2)
+                .style("text-anchor",'middle')
             g.append("g")
                 .attr("class", "xAxis")
                 .attr("transform", "translate(0," + height + ")")
                 .append("text")
-                .attr("transform", "translate(" + width + "," + 25 + ")")
-                .attr("y", height)
+                .attr("transform", "translate(" + (width +margin.right) + "," + 25 + ")")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "end")
-                .text("diametre");
+                .attr("class", "xAxisLabel");
+
 
             g.append("g")
                 .attr("class", "yAxis")
 
                 .append("text")
                 .attr("x", 2)
-                // .attr("y", height)
+                .attr("y", "-25")
                 .attr("dy", "0.32em")
                 .attr("fill", "#000")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "start")
-                .text("tiges");
+                .text("Tiges");
             const legend = g.append("g")
                 .attr("font-family", "sans-serif")
                 .attr("font-size", 10)
@@ -74,6 +78,9 @@ trunkChart.render = (el, data, version) => {
                     return d;
                 });
         });
+    d3.select(el).select('.titleText').text(version[0] === "diametre" ? "Nombres de tiges par classes de diametre":"Nombres de tiges par note écologique");
+    d3.select(el).select('.xAxisLabel').text(version[0].charAt(0).toUpperCase() + version[0].slice(1));
+    // .text(version==="diametre"?"Parcel Machin Diametre":version==="note_eco"?"ParcelEcoTruk":"l'autre")
     const stack = groupTrees(data, version);
 
     const x = d3.scaleBand()

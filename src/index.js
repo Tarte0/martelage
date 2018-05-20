@@ -68,23 +68,25 @@ getEssences(store);
 getTypes(store);
 getConstants(store);
 
+const rootEl = document.getElementById('root');
 const render = Component => {
-  ReactDOM.render(
-    <AppContainer>
-        <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <Root history={history} />
-          </ConnectedRouter>
-        </Provider>
-    </AppContainer>,
-    document.getElementById('root')
-  )
+    ReactDOM.render(
+        <AppContainer>
+          <Provider store={store}>
+            <ConnectedRouter history={history}>
+              <Root history={history} />
+            </ConnectedRouter>
+          </Provider>
+        </AppContainer>,rootEl)
 };
 
 render(Root);
 
 if (module.hot) {
-  module.hot.accept('./containers/Root', () => {
-    render(Root)
-  })
+    // Require the new version and render it instead
+    module.hot.accept('./containers/Root', function () {
+        // Require the new version and render it instead
+        const NextApp = require('./containers/Root');
+        ReactDOM.render(<NextApp />, rootEl)
+    })
 }

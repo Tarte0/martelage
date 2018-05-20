@@ -3,11 +3,34 @@
     font-weight: bold;
 }
 
+.errorRow:hover{
+    background-color: #b45b5b;
+
+}
+
+
 .conflictRow{
     background-color: #ffbe64;
     font-weight: bold;
 }
+
+.conflictRow:hover{
+    background-color: #b4844d;
+}
+
+
 .goodRow{
     background-color: #96ff7d;
     font-weight: bold;
+}
+
+.goodRow:hover{
+    background-color: #62b45a;
+
+}
+
+.selectedRow{
+    background-color: #c0c0c0;
+    font-weight: bold;
+
 }

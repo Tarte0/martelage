@@ -170,7 +170,7 @@ class TreeList extends React.Component {
             this.props.expanded ?
                 [
                     {
-                        title: "volume commercial (m3)",
+                        title: "volume commercial (m³)",
                         dataIndex: "volumePrix.volume.commercial",
                         key: "volumeCommercial",
                         sorter: (a, b) => a.volumePrix.volume.commercial - b.volumePrix.volume.commercial
@@ -278,7 +278,6 @@ class TreeList extends React.Component {
                                                        oeuvre: Number(this.state.editedData.utilisationBois.oeuvre)
                                                    };
 
-                                                   console.log(this.state.editedData);
                                                    delete this.state.editedData.volumePrix;
                                                    this.props.editTree(this.props.selectedParcel, record.id, this.state.editedData)
                                                }

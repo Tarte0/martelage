@@ -5,11 +5,11 @@ import volumeChart from "../../d3/volumeChart";
 
 class VolumeChart extends React.Component {
     componentDidMount() {
-        volumeChart.render(this.el, this.props.trees, this.props.version);
+        volumeChart.render(this.el, this.props.trees);
     }
 
     componentDidUpdate() {
-        volumeChart.render(this.el, this.props.trees, this.props.version);
+        volumeChart.render(this.el, this.props.trees);
     }
 
     render() {
