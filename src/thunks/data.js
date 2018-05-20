@@ -36,7 +36,7 @@ import {
     editTreeSuccess,
     editTreeFailure,
     editTree, updateParcel, updateParcelSuccess, updateParcelFailure, fileParcel, fileParcelSuccess, fileParcelFailure,
-    setFiledParcels
+    setFiledParcels, saveConstFailure, saveConstSuccess, saveConst
 } from "../actions/data";
 
 const config = {
@@ -49,14 +49,14 @@ const config = {
 };
 
 /*
-const config = {
-    apiKey: "AIzaSyD1FBAeh4YmGRkuQF6IrjspJIiDxDHDNhM",
-    authDomain: "martelage-5cbf0.firebaseapp.com",
-    databaseURL: "https://martelage-5cbf0.firebaseio.com",
-    projectId: "martelage-5cbf0",
-    storageBucket: "martelage-5cbf0.appspot.com",
-    messagingSenderId: "523646105021"
-};*/
+ const config = {
+ apiKey: "AIzaSyD1FBAeh4YmGRkuQF6IrjspJIiDxDHDNhM",
+ authDomain: "martelage-5cbf0.firebaseapp.com",
+ databaseURL: "https://martelage-5cbf0.firebaseio.com",
+ projectId: "martelage-5cbf0",
+ storageBucket: "martelage-5cbf0.appspot.com",
+ messagingSenderId: "523646105021"
+ };*/
 
 firebase.initializeApp(config);
 
@@ -291,7 +291,8 @@ export function updateParcelThunk(parcelId) {
         const state = getState();
 
         database.ref(`/parcelles/${parcelId}`).set({
-            ...state.getIn(['data', 'parcels', parcelId]).toJS(), version: state.getIn(['data', 'parcels', parcelId, 'version']) + 1
+            ...state.getIn(['data', 'parcels', parcelId]).toJS(),
+            version: state.getIn(['data', 'parcels', parcelId, 'version']) + 1
         }).then((e) => {
             dispatch(updateParcelSuccess())
         }).catch((e) => {
@@ -360,6 +361,71 @@ export function deleteTreeByIdThunk(parcelId, treeId) {
         }).catch((e) => {
             console.error(e);
             dispatch(deleteTreeFailure())
+        });
+    }
+}
+
+export function saveHauteurMoyenneConstThunk(key, value) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(saveConst());
+        database.ref(`/metadata/constantes/hauteurMoyenne/${key}`).set(value).then((e) => {
+            dispatch(saveConstSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(saveConstFailure())
+        });
+    }
+}
+
+
+export function saveBornesConstThunk(key, value) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(saveConst());
+        database.ref(`/metadata/constantes/prelevement/${key}`).set(value).then((e) => {
+            dispatch(saveConstSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(saveConstFailure())
+        });
+    }
+}
+
+export function saveVolumeConstThunk(key, value) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(saveConst());
+        database.ref(`/metadata/constantes/volume/commercial/${key}`).set(value).then((e) => {
+            dispatch(saveConstSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(saveConstFailure())
+        });
+    }
+}
+
+export function savePrixBoisConstThunk(type,key, value) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    return (dispatch, getState) => {
+        dispatch(saveConst());
+        database.ref(`/metadata/constantes/prix/bois/${type}/${key}`).set(value).then((e) => {
+            dispatch(saveConstSuccess())
+        }).catch((e) => {
+            console.error(e);
+            dispatch(saveConstFailure())
         });
     }
 }

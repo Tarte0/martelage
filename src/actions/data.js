@@ -44,6 +44,10 @@ export const SET_ESSENCES = "SET_ESSENCES";
 export const SET_TYPES = "SET_TYPES";
 export const SET_CONSTANTS = "SET_CONSTANTS";
 
+export const SAVE_CONST = "SAVE_CONST";
+export const SAVE_CONST_SUCCESS = "SAVE_CONST_SUCCESS";
+export const SAVE_CONST_FAILURE = "SAVE_CONST_FAILURE";
+
 export const setParcels = (parcels) => (
     {type: SET_PARCELS, parcels}
 );
@@ -218,4 +222,13 @@ export const deleteEssenceSuccess = () => (
 
 export const deleteEssenceFailure = () => (
     {type: DELETE_ESSENCE_FAILURE}
+);
+export const saveConst  = () => (
+    {type: SAVE_CONST }
+);
+export const saveConstSuccess  = () => (
+    {type: SAVE_CONST_SUCCESS }
+);
+export const saveConstFailure = () => (
+    {type: SAVE_CONST_FAILURE }
 );

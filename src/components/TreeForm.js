@@ -29,8 +29,6 @@ class ParcelForm extends React.Component {
 
         const parcelsDropDown = (
             <Menu onClick={(e) => {
-                console.log(e);
-                console.log(this.props.parcels);
                 this.setState({parcelId: e.key, parcelName: this.props.parcels.find(p => p.id === e.key).nom})
             }}>
                 {this.props.parcels.map(p => (<Menu.Item key={p.id}>{p.nom}</Menu.Item>))}

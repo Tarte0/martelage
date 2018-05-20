@@ -15,7 +15,7 @@ import {
     SET_CONSTANTS,
     EDIT_TREE,
     EDIT_TREE_SUCCESS,
-    EDIT_TREE_FAILURE, SET_FILED_PARCELS, SET_SELECTED_FILED_PARCEL
+    EDIT_TREE_FAILURE, SET_FILED_PARCELS, SET_SELECTED_FILED_PARCEL, SAVE_CONST
 } from "../actions/data";
 
 export const initialState = () => {
@@ -35,6 +35,7 @@ export const initialState = () => {
         selectedTree: "",
         savingTree: false,
         editingTreeSuccess: false,
+        savedConstant: false,
     });
 };
 
@@ -76,6 +77,8 @@ export default (state = initialState(), action) => {
             return state.set('editingTreeSuccess', true);
         case EDIT_TREE_FAILURE:
             return state.set('editingTreeSuccess', false);
+        case SAVE_CONST:
+            return state.set('savedConstant', true);
     }
 
     return state;
