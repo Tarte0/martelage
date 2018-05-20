@@ -14,6 +14,7 @@ class FiledParcelList extends React.Component {
         return (
             <div>
                 <Table
+                    rowKey={record => record.version}
                     locale={{emptyText: 'Aucune parcelle archivée'}}
                     dataSource={this.props.filedParcel}
                     onRowClick={(record) => {}}

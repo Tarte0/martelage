@@ -14,6 +14,7 @@ class TypeList extends React.Component {
         return (
             <Card>
                 <Table
+                    rowKey={record => record.type}
                     locale={{emptyText: 'Aucuns type'}}
                     dataSource={this.props.types}
                     onRowClick={(record) => {

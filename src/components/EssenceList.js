@@ -8,13 +8,13 @@ class EssenceList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        console.log(this.props.etats)
     }
 
     render() {
         return (
             <Card>
                 <Table
+                    rowKey={record => record.essence}
                     locale={{emptyText: 'Aucunes éssences'}}
                     dataSource={this.props.essences}
                     onRowClick={(record) => {

@@ -8,13 +8,13 @@ class EtatsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        console.log(this.props.etats)
     }
 
     render() {
         return (
             <Card>
                 <Table
+                    rowKey={record => record.etat}
                     locale={{emptyText: 'Aucuns état'}}
                     dataSource={this.props.etats}
                     onRowClick={(record) => {

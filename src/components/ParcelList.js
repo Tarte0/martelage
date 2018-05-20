@@ -7,16 +7,24 @@ const data = {
     lieu: "",
     surface: 0.0,
     altitude: 0.0,
-    habitat:""
+    habitat: ""
 };
 
-const EditableCell = (editable, value, onChange, isNumerical) => (
+const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
     <div>
         {editable
             ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => {
                 if (isNumerical) {
                     if (Number(e.target.value)) {
                         onChange(Number(e.target.value))
+                    }
+                } else if (isFloat) {
+                    const fRegex = /^[+-]?\d+(\.\d*)?$/;
+                    if (fRegex.test(e.target.value)) {
+                        onChange(e.target.value)
+                    }
+                    if (e.target.value === '') {
+                        onChange(e.target.value)
                     }
                 } else {
                     onChange(e.target.value)
@@ -26,7 +34,8 @@ const EditableCell = (editable, value, onChange, isNumerical) => (
         }
     </div>
 );
-const numericalKeys = ['surface', 'altitude'];
+const numericalKeys = ['altitude'];
+const floatNumericalKeys = ['surface'];
 
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {
@@ -52,6 +61,7 @@ class ParcelList extends React.Component {
         return (
             <div>
                 <Table
+                    rowKey={record => record.id}
                     locale={{emptyText: 'Aucune parcelle'}}
                     loading={this.props.savingParcel}
                     dataSource={this.props.parcels}
@@ -68,7 +78,7 @@ class ParcelList extends React.Component {
                                         this.state.edit === index ? this.state.editedData[k] : record[k],
                                         (value) => {
                                             this.setState({editedData: {...this.state.editedData, [k]: value}})
-                                        }, numericalKeys.indexOf(k) > -1),
+                                        }, numericalKeys.indexOf(k) > -1, floatNumericalKeys.indexOf(k) > -1),
                                 key: k
                             })).concat([
                             {
@@ -101,6 +111,7 @@ class ParcelList extends React.Component {
                                             /> <Button icon="save"
                                                        onClick={() => {
                                                            this.setState({edit: ind});
+                                                           this.state.editedData.surface = Number(this.state.editedData.surface);
                                                            this.props.editParcel(record.id, this.state.editedData)
                                                        }}
                                         /></div>

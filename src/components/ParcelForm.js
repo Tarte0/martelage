@@ -52,6 +52,8 @@ class ParcelForm extends React.Component {
                             disabled={!this.state.nom || !this.state.lieu || this.state.surface === null
                             || !this.state.altitude || this.state.habitat === null}
                             onClick={() => {
+                                this.state.altitude = Number(this.state.altitude);
+                                this.state.surface = Number(this.state.surface);
                                 this.props.addParcel(this.state);
                                 this.setState({
                                     nom: "",

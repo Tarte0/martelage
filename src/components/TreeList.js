@@ -2,19 +2,15 @@
 import React from "react";
 import {Table, Button, Popconfirm, Input, Icon, Menu, Dropdown} from "antd";
 import {List} from "immutable";
-import TreeView from "../containers/TreeView";
-import {getTreesVolumeAndPrices} from "../selectors/data";
+import TreeView from "./TreeView";
 
-const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
+export const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
     <div>
         {editable
             ? <Input style={{margin: '-5px 0'}} value={value} onChange={e => {
                 if (isNumerical) {
                     if (Number(e.target.value)) {
                         onChange(Number(e.target.value))
-                    }
-                    if (e.target.value === '') {
-                        onChange(0)
                     }
                 } else if (isFloat) {
                     const fRegex = /^[+-]?\d+(\.\d*)?$/;
@@ -24,8 +20,7 @@ const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
                     if (e.target.value === '') {
                         onChange(e.target.value)
                     }
-                }
-                else {
+                } else {
                     onChange(e.target.value)
                 }
             }}/>
@@ -53,7 +48,7 @@ const floatNumericalKeys = ['coord.x', 'coord.y', 'utilisationBois.chauffage', '
 class TreeList extends React.Component {
     componentWillReceiveProps(next) {
         if (next.editingTreeSuccess && !this.props.editingTreeSuccess) {
-            this.setState({success: this.state.edit, edit: null})
+            this.setState({success: this.state.edit, edit: null, editId: null})
         }
     }
 
@@ -62,6 +57,7 @@ class TreeList extends React.Component {
         this.state = {
             success: null,
             edit: null,
+            editId: null,
             editedData: {
                 numero: '',
                 diametre: null,
@@ -179,46 +175,11 @@ class TreeList extends React.Component {
                         key: "volumeCommercial",
                         sorter: (a, b) => a.volumePrix.volume.commercial - b.volumePrix.volume.commercial
                     },
-                    {    title: "valeur économique (€)",
+                    {
+                        title: "valeur économique (€)",
                         dataIndex: "volumePrix.prix.valeurEco",
                         key: "valeurEconomique",
                         sorter: (a, b) => a.volumePrix.prix.valeurEco - b.volumePrix.prix.valeurEco
-                    },
-                    {
-                        title: "x",
-                        dataIndex: "coord.x",
-                        key: "coord.x",
-                        render: (a, record, index) =>
-                            EditableCell(
-                                this.state.edit === index,
-                                this.state.edit === index ? this.state.editedData['coord']['x'] : record['coord']['x'],
-                                (value) => {
-                                    this.setState({
-                                        editedData: {
-                                            ...this.state.editedData,
-                                            ['coord']: {x: value, y: this.state.editedData.coord.y}
-                                        }
-                                    })
-                                }, numericalKeys.indexOf('coord.x') > -1, floatNumericalKeys.indexOf('coord.x') > -1),
-                        sorter: (a, b) => a.coord.x - b.coord.x
-                    },
-                    {
-                        title: "y",
-                        dataIndex: "coord.y",
-                        key: "coord.y",
-                        render: (a, record, index) =>
-                            EditableCell(
-                                this.state.edit === index,
-                                this.state.edit === index ? this.state.editedData['coord']['y'] : record['coord']['y'],
-                                (value) => {
-                                    this.setState({
-                                        editedData: {
-                                            ...this.state.editedData,
-                                            ['coord']: {x: this.state.editedData.coord.x, y: value}
-                                        }
-                                    })
-                                }, numericalKeys.indexOf('coord.y') > -1, floatNumericalKeys.indexOf('coord.y') > -1),
-                        sorter: (a, b) => a.coord.y - b.coord.y
                     },
                     {
                         title: "utilisation bois (sur 100%)",
@@ -300,7 +261,7 @@ class TreeList extends React.Component {
                                 <div>
                                     <Button icon="close"
                                             onClick={() => {
-                                                this.setState({edit: null});
+                                                this.setState({edit: null, editId: null});
                                             }}
                                     /> <Button icon="save"
                                                onClick={() => {
@@ -318,7 +279,7 @@ class TreeList extends React.Component {
                                                    };
 
                                                    console.log(this.state.editedData);
-
+                                                   delete this.state.editedData.volumePrix;
                                                    this.props.editTree(this.props.selectedParcel, record.id, this.state.editedData)
                                                }
                                                }
@@ -327,7 +288,8 @@ class TreeList extends React.Component {
                                 <div>
                                     <Button icon="edit"
                                             onClick={() => {
-                                                this.setState({edit: ind, success: null});
+                                                this.setState({edit: ind, editId: record.id, success: null});
+
                                                 this.setState({editedData: {...record}});
                                             }}
                                     >{this.props.editingTreeSuccess && this.state.success === ind ?
@@ -357,6 +319,7 @@ class TreeList extends React.Component {
             <div>
                 <div>
                     <Table
+                        rowKey={record => record.id}
                         locale={{
                             emptyText: 'Aucun arbre',
                             filterTitle: 'Filtre',
@@ -368,6 +331,17 @@ class TreeList extends React.Component {
                         onRowClick={(record) => {
                             this.props.selectTree(record.id);
                         }}
+                        expandedRowRender={record => <TreeView
+                            edited={this.state.editId === record.id}
+                            valueX={this.state.editId === record.id ? this.state.editedData.coord.x : record.coord.x}
+                            onChangeX={ (value) => {
+                                this.setState({editedData: {...this.state.editedData, coord: {x:value,y:this.state.editedData.coord.y}}})
+                            }}
+                            valueY={this.state.editId === record.id ? this.state.editedData.coord.y : record.coord.y}
+
+                            onChangeY={ (value) => {
+                                this.setState({editedData: {...this.state.editedData, coord: {x:this.state.editedData.coord.x, y:value}}})
+                            }}/>}
                         bordered
                         size='middle'
                     />

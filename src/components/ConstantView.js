@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import {Card, Table, Col, Row} from "antd";
+import {Card, Table, Col, Row, } from "antd";
 
 
 class ConstantView extends React.Component {
@@ -37,6 +37,7 @@ class ConstantView extends React.Component {
                         title={() => 'Hauteurs Moyennes'}
                     />
                 </Row>
+                <hr/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -59,6 +60,7 @@ class ConstantView extends React.Component {
                         title={() => 'Volumes Commerciaux'}
                     />
                 </Row>
+                <hr/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -67,7 +69,7 @@ class ConstantView extends React.Component {
                         }}
                         columns={[
                             {
-                                title: "type",
+                                title: "type / essence",
                                 dataIndex: "key",
                                 key: "chauffage.key"
                             },
@@ -81,6 +83,7 @@ class ConstantView extends React.Component {
                         title={() => 'Prix bois de chauffage'}
                     />
                 </Row>
+                <hr/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -89,7 +92,7 @@ class ConstantView extends React.Component {
                         }}
                         columns={[
                             {
-                                title: "type",
+                                title: "type / essence",
                                 dataIndex: "key",
                                 key: "industrie.key"
                             },
@@ -103,6 +106,7 @@ class ConstantView extends React.Component {
                         title={() => 'Prix bois d\'industrie'}
                     />
                 </Row>
+                <hr/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -111,7 +115,7 @@ class ConstantView extends React.Component {
                         }}
                         columns={[
                             {
-                                title: "type",
+                                title: "type / essence",
                                 dataIndex: "key",
                                 key: "oeuvre.key"
                             },
@@ -125,6 +129,7 @@ class ConstantView extends React.Component {
                         title={() => 'Prix bois d\'oeuvre'}
                     />
                 </Row>
+                <hr/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
