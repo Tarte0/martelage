@@ -382,14 +382,14 @@ export function saveHauteurMoyenneConstThunk(key, value) {
 }
 
 
-export function saveBornesConstThunk(key, value) {
+export function saveBornesConstThunk(parcelId, constantName, values) {
     /**
      * @param {Function} dispatch
      * @param {Function} getState
      */
     return (dispatch, getState) => {
         dispatch(saveConst());
-        database.ref(`/metadata/constantes/prelevement/${key}`).set(value).then((e) => {
+        database.ref(`/parcelles/${parcelId}/constantes/${constantName}`).set(values).then((e) => {
             dispatch(saveConstSuccess())
         }).catch((e) => {
             console.error(e);

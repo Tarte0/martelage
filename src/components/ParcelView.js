@@ -21,13 +21,6 @@ class ParcelView extends React.Component {
                     {selectedParcel ?
                         <div>
                             <Row>
-                                <Col span={24}>
-                                    <p>nom : {selectedParcel.get("nom")}</p>
-                                    <p>lieu : {selectedParcel.get("lieu")}</p>
-                                    <p>surface : {selectedParcel.get("surface")} ha</p>
-                                </Col>
-                            </Row>
-                            <Row>
                                 <Col span={8}>
                                     <Card title="Répartition des arbres sur la parcelle">
                                     <TreeGraph trees={this.props.selectedTrees}/>
@@ -35,7 +28,7 @@ class ParcelView extends React.Component {
                                 </Col>
                                 <span style={{width:'2px',color:'grey',height:"100%"}}/>
                                 <Col span={8}>
-                                    <Card title="Graphique d'arbres">
+                                    <Card title="Divers">
                                     <Tabs defaultActiveKey="1" type="card">
 
                                         <Tabs.TabPane tab="Diametre" key="1">

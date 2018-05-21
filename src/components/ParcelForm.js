@@ -10,7 +10,17 @@ class ParcelForm extends React.Component {
             lieu: "",
             surface: null,
             altitude: null,
-            habitat:"",
+            habitat: "",
+            constantes: {
+                prelevement: {
+                    min: 0,
+                    max: 100
+                },
+                rotation: {
+                    min: 1,
+                    max: 10
+                }
+            },
             version: 0
         };
     }
@@ -60,7 +70,17 @@ class ParcelForm extends React.Component {
                                     lieu: "",
                                     surface: null,
                                     altitude: null,
-                                    habitat:"",
+                                    habitat: "",
+                                    constantes: {
+                                        prelevement: {
+                                            min: 0,
+                                            max: 100
+                                        },
+                                        rotation: {
+                                            min: 1,
+                                            max: 10
+                                        }
+                                    },
                                     version: 0
                                 })
                             }}>Sauvegarder</Button>

@@ -49,15 +49,6 @@ export const selectPrixConstantAsObjectArray = createSelector(
         return prix;
     }
 );
-
-export const selectPrelevementConstantAsArray = createSelector(
-    [getConstants],
-    (constants) => {
-        const prelevement = constants.get('prelevement');
-        return Object.keys(prelevement.toJS()).map(c => ({key:c, value: prelevement.get(c)}))
-    }
-);
-
 export const selectEtatsAsArray = createSelector(
     [getEtats],
     (etats) => {

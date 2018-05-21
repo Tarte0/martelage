@@ -81,6 +81,7 @@ class ConstantView extends React.Component {
                 </Row>
                 <br/>
                 <hr/>
+                <br/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -121,6 +122,7 @@ class ConstantView extends React.Component {
                 </Row>
                 <br/>
                 <hr/>
+                <br/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -195,6 +197,7 @@ class ConstantView extends React.Component {
                 </Row>
                 <br/>
                 <hr/>
+                <br/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -269,7 +272,7 @@ class ConstantView extends React.Component {
                 </Row>
                 <br/>
                 <hr/>
-
+                <br/>
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
@@ -343,46 +346,7 @@ class ConstantView extends React.Component {
                     </Row>
                 </Row>
                 <br/>
-                <hr/>
-                <Row>
-                    <Table
-                        locale={{emptyText: 'Aucunes constantes'}}
-                        dataSource={this.props.prelevementConst}
-                        onRowClick={(record) => {
-                        }}
-                        columns={[
-                            {
-                                title: "bornes",
-                                dataIndex: "key",
-                                key: "key"
-                            },
-                            {
-                                title: "volume à prelever (m3)",
-                                key: "value",
-                                render: (a, record, i) => {
-                                    return <Input defaultValue={record.value} type="number" onChange={(e) => {
-                                        this.setState({prelevement: {...this.state.prelevement, [record.key]: e.target.value}})
-                                    }}/>
-                                }
-                            },
-                            {
-                                title: "Sauvegarder",
-                                key: "save",
-                                render: (a, record, i) => {
-                                    return <Button
-                                        disabled={this.state.prelevement[record.key] === undefined && isNaN(Number(this.state.prelevement[record.key])) }
-                                        icon="save"
-                                        onClick={() => {
-                                            this.props.saveBornesConst(record.key, Number(this.state.prelevement[record.key]))
-                                        }}
-                                        type="primary"/>
-                                }
-                            }
-                        ]}
-                        bordered
-                        title={() => 'Bornes du prelevement'}
-                    />
-                </Row>
+
             </Card>
         );
     }
@@ -391,3 +355,48 @@ class ConstantView extends React.Component {
 ConstantView.propTypes = {};
 
 export default ConstantView;
+
+/*
+
+ <hr/>
+ <Row>
+ <Table
+ locale={{emptyText: 'Aucunes constantes'}}
+ dataSource={this.props.prelevementConst}
+ onRowClick={(record) => {
+ }}
+ columns={[
+ {
+ title: "bornes",
+ dataIndex: "key",
+ key: "key"
+ },
+ {
+ title: "volume à prelever (m3)",
+ key: "value",
+ render: (a, record, i) => {
+ return <Input defaultValue={record.value} type="number" onChange={(e) => {
+ this.setState({prelevement: {...this.state.prelevement, [record.key]: e.target.value}})
+ }}/>
+ }
+ },
+ {
+ title: "Sauvegarder",
+ key: "save",
+ render: (a, record, i) => {
+ return <Button
+ disabled={this.state.prelevement[record.key] === undefined && isNaN(Number(this.state.prelevement[record.key])) }
+ icon="save"
+ onClick={() => {
+ this.props.saveBornesConst(record.key, Number(this.state.prelevement[record.key]))
+ }}
+ type="primary"/>
+ }
+ }
+ ]}
+ bordered
+ title={() => 'Bornes du prelevement'}
+ />
+ </Row>
+
+ */

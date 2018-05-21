@@ -10,6 +10,7 @@ import EtatsList from "../containers/EtatsList";
 import EssenceList from "../containers/EssenceList";
 import TypeList from "../containers/TypeList";
 import EtatsForm from "../containers/EtatsForm";
+import ParcelConstantView from "../containers/ParcelConstantView";
 import EssenceForm from "../containers/EssenceForm";
 import ParcelView from "../containers/ParcelView";
 import FiledParcelView from "../containers/FiledParcelView";
@@ -32,10 +33,13 @@ class Main extends React.Component {
                 <Tabs defaultActiveKey="1" type="card">
                     <Tabs.TabPane tab="Parcelles" key="1">
                         <Collapse>
-                            <Collapse.Panel header="Graphs" key="1">
+                            <Collapse.Panel header="Graphs" key="11">
                                 <ParcelView/>
                             </Collapse.Panel>
-                            <Collapse.Panel header="Ajouter une parcelle" key="2">
+                            <Collapse.Panel header="Constantes" key="12">
+                                <ParcelConstantView/>
+                            </Collapse.Panel>
+                            <Collapse.Panel header="Ajouter une parcelle" key="13">
                                 <ParcelForm />
                             </Collapse.Panel>
                         </Collapse>
@@ -43,12 +47,12 @@ class Main extends React.Component {
 
                     <Tabs.TabPane tab="Arbres" key="2">
                         <Collapse>
-                            <Collapse.Panel header="Arbres" key="1">
+                            <Collapse.Panel header="Arbres" key="21">
                                 <Card>
                                     <TreeList expanded={true}/>
                                 </Card>
                             </Collapse.Panel>
-                            <Collapse.Panel header="Ajouter un arbre" key="3">
+                            <Collapse.Panel header="Ajouter un arbre" key="22">
                                 <TreeForm />
                             </Collapse.Panel>
                         </Collapse>
