@@ -159,7 +159,7 @@ class ParcelConstantView extends React.Component {
                                             }
                                         }
                                         tipFormatter={(value) => {
-                                            return `${value}%`;
+                                            return `${value}ans`;
                                         }}
                                         disabled={!this.state.enabled}/>
                             </Col>
