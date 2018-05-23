@@ -4,7 +4,7 @@
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import ParcelConstantView from "../components/ParcelConstantView";
-import {selectedParcel} from "../selectors/data";
+import {selectedParcel, selectEssencesAsArray} from "../selectors/data";
 import {saveBornesConstThunk} from "../thunks/data";
 
 export default withRouter(
@@ -12,6 +12,7 @@ export default withRouter(
         (state, props) => ({
             selectedParcelID : state.getIn(["data", "selectedParcel"]),
             selectedParcel : selectedParcel(state),
+            essences: selectEssencesAsArray(state).map(r => r.essence),
         }),
         (dispatch, props) => ({
             saveBornesConst (parcelId, constantName, values){

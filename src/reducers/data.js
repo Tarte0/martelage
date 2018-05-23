@@ -15,7 +15,7 @@ import {
     SET_CONSTANTS,
     EDIT_TREE,
     EDIT_TREE_SUCCESS,
-    EDIT_TREE_FAILURE, SET_FILED_PARCELS, SET_SELECTED_FILED_PARCEL, SAVE_CONST
+    EDIT_TREE_FAILURE, SET_FILED_PARCELS, SET_SELECTED_FILED_PARCEL, SAVE_CONST, SET_TARIFS
 } from "../actions/data";
 
 export const initialState = () => {
@@ -26,6 +26,7 @@ export const initialState = () => {
         essences: Map(),
         types: Map(),
         constants: Map(),
+        tarifs: Map(),
         savingParcel: false,
         savingEtat: false,
         savingEssence: false,
@@ -79,6 +80,8 @@ export default (state = initialState(), action) => {
             return state.set('editingTreeSuccess', false);
         case SAVE_CONST:
             return state.set('savedConstant', true);
+        case SET_TARIFS:
+            return state.set('tarifs', fromJS(action.tarifs));
     }
 
     return state;

@@ -38,7 +38,7 @@ const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
 const numericalKeys = ['altitude'];
 const floatNumericalKeys = ['surface'];
 
-const titles = {nom : 'Nom', lieu : 'Lieu', surface: 'Surface (ha)', altitude:'Altitude', habitat:'Habitat'};
+const titles = {nom : 'Nom', lieu : 'Lieu', surface: 'Surface (ha)', altitude:'Altitude (m)', habitat:'Habitat'};
 
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {

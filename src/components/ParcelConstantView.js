@@ -3,20 +3,26 @@
  */
 // @flow
 import React from "react";
-import {Card, Row, Button, Col, Switch, Slider, InputNumber} from "antd";
+import {Card, Row, Button, Col, Switch, Slider, InputNumber, Table} from "antd";
 
 
 class ParcelConstantView extends React.Component {
     componentWillReceiveProps(next) {
         this.setState({
             enabled: false,
+            newExploitation: 0,
+            newExploitationEssence: "",
             prelevement: next.selectedParcel != null ?
                 (next.selectedParcel.toJS().constantes != undefined ?
-                    next.selectedParcel.toJS().constantes.prelevement: null)
+                    next.selectedParcel.toJS().constantes.prelevement : null)
                 : null,
             rotation: next.selectedParcel != null ?
                 (next.selectedParcel.toJS().constantes != undefined ?
-                    next.selectedParcel.toJS().constantes.rotation: null)
+                    next.selectedParcel.toJS().constantes.rotation : null)
+                : null,
+            exploitation: next.selectedParcel != null ?
+                (next.selectedParcel.toJS().constantes != undefined ?
+                    next.selectedParcel.toJS().constantes.exploitation : null)
                 : null,
         })
     }
@@ -25,13 +31,19 @@ class ParcelConstantView extends React.Component {
         super(props);
         let defaultState = {
             enabled: false,
+            newExploitation: 0,
+            newExploitationEssence: "",
             prelevement: this.props.selectedParcel != null ?
                 (this.props.selectedParcel.toJS().constantes != undefined ?
-                    this.props.selectedParcel.toJS().constantes.prelevement: null)
+                    this.props.selectedParcel.toJS().constantes.prelevement : null)
                 : null,
             rotation: this.props.selectedParcel != null ?
                 (this.props.selectedParcel.toJS().constantes != undefined ?
-                    this.props.selectedParcel.toJS().constantes.rotation: null)
+                    this.props.selectedParcel.toJS().constantes.rotation : null)
+                : null,
+            exploitation: this.props.selectedParcel != null ?
+                (this.props.selectedParcel.toJS().constantes != undefined ?
+                    this.props.selectedParcel.toJS().constantes.exploitation : null)
                 : null,
         };
         this.state = defaultState;
@@ -43,18 +55,15 @@ class ParcelConstantView extends React.Component {
 
         let prelevementProp = this.props.selectedParcel != null ?
             (this.props.selectedParcel.toJS().constantes != undefined ?
-                this.props.selectedParcel.toJS().constantes.prelevement: null)
+                this.props.selectedParcel.toJS().constantes.prelevement : null)
             : null;
 
         let rotationProp = this.props.selectedParcel != null ?
             (this.props.selectedParcel.toJS().constantes != undefined ?
-                this.props.selectedParcel.toJS().constantes.rotation: null)
+                this.props.selectedParcel.toJS().constantes.rotation : null)
             : null;
 
-        let isEditable = selectedParcel && prelevementProp!=null && rotationProp!=null;
-        console.log(prelevementProp);
-        console.log(rotationProp);
-        console.log(this.state);
+        let isEditable = selectedParcel && prelevementProp != null && rotationProp != null;
         return (
             <Card>
                 {isEditable ?
@@ -192,6 +201,94 @@ class ParcelConstantView extends React.Component {
                                     }}
                                     type="primary"/>
                             </Col>
+                        </Row>
+                        <br/>
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <br/>
+                        <Row>
+                            <Table
+                                locale={{emptyText: 'Aucunes constantes'}}
+                                dataSource={this.state.exploitation != null && this.state.exploitation != undefined? Object.keys(this.state.exploitation).map(c => ({
+                                        key: c,
+                                        value: this.state.exploitation[c]
+                                    })) : null}
+                                onRowClick={(record) => {
+                                }}
+                                columns={[
+                                    {
+                                        title: "Essence",
+                                        dataIndex: "key",
+                                        key: "key"
+                                    },
+                                    {
+                                        title: "diametre (cm)",
+                                        key: "value",
+                                        render: (a, record, i) => {
+                                            return <InputNumber value={record.value} onChange={(value) => {
+                                                this.setState({
+                                                    exploitation: {
+                                                        ...this.state.exploitation,
+                                                        [record.key]: value
+                                                    }
+                                                })
+                                            }}/>
+                                        }
+                                    }, {
+                                        title: "Sauvegarder",
+                                        key: "save",
+                                        render: (a, record, i) => {
+                                            return <Button
+                                                disabled={!this.state.enabled || this.state.exploitation[record.key] === undefined || isNaN(Number(this.state.exploitation[record.key])) }
+                                                icon="save"
+                                                onClick={() => {
+                                                    this.props.saveBornesConst(this.props.selectedParcelID, 'exploitation', this.state.exploitation);
+                                                }}
+                                                type="primary"/>
+                                        }
+                                    }
+                                ]}
+                                bordered
+                                title={() => "Diametre minimum d'exploitation"}
+                            />
+                        </Row>
+                        <br/>
+                        <Row>
+                            <Col span={6}>
+                                <p>Ajouter : </p>
+                            </Col>
+                            <Col span={6}>
+                                Essence : <select
+                                onChange={(e) => {
+                                    this.setState({newExploitationEssence: e.target.value})
+                                }}>
+                                {[<option key=""
+                                          value=""/>].concat(this.state.exploitation == null ||
+                                this.state.exploitation == undefined ? this.props.essences.map(e =>
+                                        <option key={e} value={e}>{e}</option>)
+                                    : this.props.essences.filter(e => !Object.keys(this.state.exploitation).map(
+                                        c => ({
+                                            key: c,
+                                            value: this.state.exploitation[c]
+                                        })).find(d => d.key === e)).map(e =>
+                                        <option key={e} value={e}>{e}</option>))}
+                            </select>
+                            </Col>
+                            <Col span={6}>
+                                <InputNumber
+                                    value={this.state.newExploitation}
+                                    onChange={(value) => {
+                                        this.setState({newExploitation: value})
+                                    }}
+                                /></Col>
+                            <Col span={6}>
+                                <Button icon="plus" type="primary"
+                                        disabled={this.state.newExploitationEssence === "" || isNaN(Number(this.state.newExploitation)) }
+                                        onClick={() => {
+                                            this.props.saveBornesConst(this.props.selectedParcelID, `exploitation/${this.state.newExploitationEssence}`, this.state.newExploitation);
+                                        }}
+                                /></Col>
                         </Row>
                     </div> : "Merci de selectionner une parcelle"}
             </Card>

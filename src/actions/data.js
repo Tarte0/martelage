@@ -43,6 +43,7 @@ export const ADD_ESSENCE_FAILURE = "ADD_ESSENCE_FAILURE";
 export const SET_ESSENCES = "SET_ESSENCES";
 export const SET_TYPES = "SET_TYPES";
 export const SET_CONSTANTS = "SET_CONSTANTS";
+export const SET_TARIFS = "SET_TARIFS";
 
 export const SAVE_CONST = "SAVE_CONST";
 export const SAVE_CONST_SUCCESS = "SAVE_CONST_SUCCESS";
@@ -69,6 +70,10 @@ export const setEssences = (essences) => (
 );
 export const setConstants = (constants) => (
     {type: SET_CONSTANTS, constants}
+);
+
+export const setTarifs = (tarifs) => (
+    {type: SET_TARIFS, tarifs}
 );
 
 export const addParcel = () => (

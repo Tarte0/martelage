@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {calculateVolumeAndPrices} from "../helpers/calculationHelper";
+import {calculateVolumeAndPrices, printTarif} from "../helpers/calculationHelper";
 const getParcels = state => state.getIn(['data', 'parcels']);
 const getFiledParcels = state => state.getIn(['data', 'filedParcels']);
 const getEtats = state => state.getIn(['data', 'etats']);
@@ -8,6 +8,7 @@ const getTypes = state => state.getIn(['data', 'types']);
 const getSelectedParcel = state => state.getIn(['data', 'selectedParcel']);
 const getSelectedTree = state => state.getIn(['data', 'selectedTree']);
 const getConstants = state => state.getIn(['data', 'constants']);
+const getTarifs = state => state.getIn(['data', 'tarifs']);
 
 export const selectParcelsAsArray = createSelector(
     [getParcels],
@@ -49,6 +50,7 @@ export const selectPrixConstantAsObjectArray = createSelector(
         return prix;
     }
 );
+
 export const selectEtatsAsArray = createSelector(
     [getEtats],
     (etats) => {
@@ -77,6 +79,21 @@ export const selectedParcel = createSelector(
             return parcels.get(selectedParcelId);
         }
         return null;
+    }
+);
+export const getPrintableTarifs = createSelector(
+    [getTarifs],
+    (tarifs) => {
+        console.log('t', tarifs.toJS());
+        const names = Object.keys(tarifs.toJS());
+        console.log('names', names);
+        const printedTarifs = {};
+        names.forEach(k => {
+            console.log(k, tarifs.get(k).toJS());
+            printedTarifs[k] = printTarif(tarifs.get(k).toJS());
+        });
+        console.log('pt', printedTarifs);
+        return printedTarifs;
     }
 );
 

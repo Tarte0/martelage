@@ -62,3 +62,27 @@ export const calculateVolumeAndPrices = (tree, essences, hauteurMoyenneConst, vo
         }
     })
 };
+
+export const printTarif = (tarif) => {
+    const keys = Object.keys(tarif);
+    let tarifVersionKeys;
+    const printedTarifs = [];
+    const printedTarif = {};
+
+    tarifVersionKeys = Object.keys(tarif[1]);
+    tarifVersionKeys.forEach(diametre => {
+        printedTarif[diametre] = {};
+    });
+
+    keys.forEach(version => {
+        if(tarif[version] != null && tarif[version] != undefined){
+            tarifVersionKeys = Object.keys(tarif[version]);
+            tarifVersionKeys.forEach(diametre => {
+                printedTarif[diametre][version] = tarif[version][diametre];
+            });
+            printedTarifs.push(printedTarif);
+        }
+    });
+
+    return printedTarifs;
+};

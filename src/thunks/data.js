@@ -36,9 +36,10 @@ import {
     editTreeSuccess,
     editTreeFailure,
     editTree, updateParcel, updateParcelSuccess, updateParcelFailure, fileParcel, fileParcelSuccess, fileParcelFailure,
-    setFiledParcels, saveConstFailure, saveConstSuccess, saveConst
+    setFiledParcels, saveConstFailure, saveConstSuccess, saveConst, setTarifs
 } from "../actions/data";
 
+//firebase config, change it to plug this app to it
 const config = {
     apiKey: "AIzaSyC7JXmQ0tZDmPu1myxCYwX8L6s39tXhVLk",
     authDomain: "martelage-751df.firebaseapp.com",
@@ -197,6 +198,7 @@ export function getEssences(store) {
         store.dispatch(setEssences(essences));
     });
 }
+
 export function getConstants(store) {
     /**
      * @param {Function} dispatch
@@ -205,6 +207,17 @@ export function getConstants(store) {
     database.ref('/metadata/constantes').on('value', function (snapshot) {
         const constants = snapshot.val();
         store.dispatch(setConstants(constants));
+    });
+}
+
+export function getTarifs(store) {
+    /**
+     * @param {Function} dispatch
+     * @param {Function} getState
+     */
+    database.ref('/metadata/tarifs').on('value', function (snapshot) {
+        const tarifs = snapshot.val();
+        store.dispatch(setTarifs(tarifs));
     });
 }
 

@@ -44,88 +44,6 @@ class ConstantView extends React.Component {
                 <Row>
                     <Table
                         locale={{emptyText: 'Aucunes constantes'}}
-                        dataSource={this.props.hauteurMoyenneConst}
-                        onRowClick={(record) => {
-                        }}
-                        columns={[
-                            {
-                                title: "hauteur moyenne",
-                                dataIndex: "key",
-                                key: "key"
-                            },
-                            {
-                                title: "diametre (cm)",
-                                key: "value",
-                                render: (a, record, i) => {
-                                    return <Input defaultValue={record.value} type="number" onChange={(e) => {
-                                        this.setState({height: {...this.state.height, [record.key]: e.target.value}})
-                                    }}/>
-                                }
-                            }, {
-                                title: "Save",
-                                key: "save",
-                                render: (a, record, i) => {
-                                    return <Button
-                                        disabled={this.state.height[record.key] === undefined && isNaN(Number(this.state.height[record.key])) }
-                                        icon="save"
-                                        onClick={() => {
-                                            this.props.saveHauteurMoyenneConst(record.key, Number(this.state.height[record.key]))
-                                        }}
-                                        type="primary"/>
-                                }
-                            }
-                        ]}
-                        bordered
-                        title={() => 'Hauteurs Moyennes'}
-                    />
-                </Row>
-                <br/>
-                <hr/>
-                <br/>
-                <Row>
-                    <Table
-                        locale={{emptyText: 'Aucunes constantes'}}
-                        dataSource={this.props.volumeCommercialConst}
-                        onRowClick={(record) => {
-                        }}
-                        columns={[
-                            {
-                                title: "type",
-                                dataIndex: "key",
-                                key: "key"
-                            },
-                            {
-                                title: "volume commercial (m³)",
-                                render: (a, record, i) => {
-                                    return <Input defaultValue={record.value} type="number" onChange={(e) => {
-                                        this.setState({volume: {...this.state.volume, [record.key]: e.target.value}})
-                                    }}/>
-                                },
-                                key: "value"
-                            }, {
-                                title: "Sauvegarder",
-                                key: "save",
-                                render: (a, record, i) => {
-                                    return <Button
-                                        disabled={this.state.volume[record.key] === undefined && isNaN(Number(this.state.volume[record.key])) }
-                                        icon="save"
-                                        onClick={() => {
-                                            this.props.saveVolumeConst(record.key, Number(this.state.volume[record.key]))
-                                        }}
-                                        type="primary"/>
-                                }
-                            }
-                        ]}
-                        bordered
-                        title={() => 'Volumes Commerciaux'}
-                    />
-                </Row>
-                <br/>
-                <hr/>
-                <br/>
-                <Row>
-                    <Table
-                        locale={{emptyText: 'Aucunes constantes'}}
                         dataSource={this.props.prixConst.chauffage}
                         onRowClick={(record) => {
                         }}
@@ -136,7 +54,7 @@ class ConstantView extends React.Component {
                                 key: "chauffage.key"
                             },
                             {
-                                title: "prix (€)",
+                                title: "prix (€/m³)",
                                 render: (a, record, i) => {
                                     return <Input defaultValue={record.value} type="number" addonAfter="€"
                                                   onChange={(e) => {
@@ -211,7 +129,7 @@ class ConstantView extends React.Component {
                                 key: "industrie.key"
                             },
                             {
-                                title: "prix (€)",
+                                title: "prix (€/m³)",
                                 render: (a, record, i) => {
                                     return <Input defaultValue={record.value} type="number" addonAfter="€"
                                                   onChange={(e) => {
@@ -286,7 +204,7 @@ class ConstantView extends React.Component {
                                 key: "oeuvre.key"
                             },
                             {
-                                title: "prix (€)",
+                                title: "prix (€/m³)",
                                 render: (a, record, i) => {
                                     return <Input defaultValue={record.value} type="number" addonAfter="€"
                                                   onChange={(e) => {

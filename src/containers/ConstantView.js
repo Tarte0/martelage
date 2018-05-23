@@ -17,7 +17,6 @@ export default withRouter(
             hauteurMoyenneConst: selectHauteurMoyenneConstantAsArray(state),
             volumeCommercialConst: selectVolumeCommercialConstantAsArray(state),
             prixConst: selectPrixConstantAsObjectArray(state),
-            prelevementConst: selectPrelevementConstantAsArray(state),
             savedConstant: state.getIn(['data', 'savedConstant']),
             essences: selectEssencesAsArray(state).map(r => r.essence)
         }),
@@ -30,8 +29,6 @@ export default withRouter(
                 dispatch(savePrixBoisConstThunk(type, key, value))
             }, saveNewPrix (type, key, value){
                 dispatch(savePrixBoisConstThunk(type, key, value))
-            }, saveBornesConst (key, value){
-                dispatch(saveBornesConstThunk(key, value))
             }
         })
     )(ConstantView));

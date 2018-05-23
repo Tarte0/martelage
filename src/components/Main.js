@@ -16,6 +16,7 @@ import ParcelView from "../containers/ParcelView";
 import FiledParcelView from "../containers/FiledParcelView";
 import ConstantView from "../containers/ConstantView";
 import CsvImporter from "../containers/CsvImporter";
+import TarifView from "../containers/TarifView";
 
 
 class Main extends React.Component {
@@ -76,6 +77,9 @@ class Main extends React.Component {
                             </Collapse.Panel>
                             <Collapse.Panel header="Constantes" key="34">
                                 <ConstantView/>
+                            </Collapse.Panel>
+                            <Collapse.Panel header="Tarifs" key="35">
+                                <TarifView/>
                             </Collapse.Panel>
                         </Collapse>
                     </Tabs.TabPane>
