@@ -84,13 +84,13 @@ export const selectedParcel = createSelector(
 export const getPrintableTarifs = createSelector(
     [getTarifs],
     (tarifs) => {
-        console.log('t', tarifs.toJS());
+        //console.log('t', tarifs.toJS());
         const names = Object.keys(tarifs.toJS());
-        console.log('names', names);
+        //console.log('names', names);
         const printedTarifs = {};
         names.forEach(k => {
             console.log(k, tarifs.get(k).toJS());
-            printedTarifs[k] = printTarif(tarifs.get(k).toJS());
+            printedTarifs[k] = tarifs.get(k).toJS();
         });
         console.log('pt', printedTarifs);
         return printedTarifs;
@@ -140,16 +140,30 @@ export const getSelectedTrees = createSelector(
     }
 );
 
+/*
+ (tree, essences, hauteurMoyenneConst, etatVivant,
+ prixBoisConst, tarifs, tarifFeuillus, tarifResineux, versionFeuillus,
+ versionResineux)
+ */
+
 export const getTreesVolumeAndPrices = createSelector(
-    [getParcels, getSelectedParcel, getConstants, getEssences],
-    (parcels, selectedParcelId, constants, essences) => {
+    [getParcels, getSelectedParcel, getConstants, getEssences, getTarifs],
+    (parcels, selectedParcelId, constants, essences, tarifs) => {
         if (selectedParcelId) {
             let treesObject = parcels.getIn([selectedParcelId, 'arbres']);
+            let tarifsParcelle = parcels.getIn([selectedParcelId, 'constantes', 'tarifs']).toJS();
+            console.log(tarifsParcelle)
             if(treesObject != undefined) {
                 console.log(treesObject.toJS());
                 treesObject = treesObject.toJS();
                 return Object.keys(treesObject).map(t => ({
-                    ...treesObject[t], volumePrix : calculateVolumeAndPrices(treesObject[t], essences, constants.get('hauteurMoyenne'), constants.getIn(['volume', 'commercial']), 'v', constants.getIn(['prix', 'bois'])), id: t
+                    ...treesObject[t],
+                    volumePrix : calculateVolumeAndPrices(treesObject[t], essences,
+                        'v', constants.getIn(['prix', 'bois']), tarifs,
+                        Object.keys(tarifsParcelle.feuillus)[0],
+                        Object.keys(tarifsParcelle.resineux)[0],
+                        tarifsParcelle.feuillus[Object.keys(tarifsParcelle.feuillus)[0]]-1,
+                        tarifsParcelle.resineux[Object.keys(tarifsParcelle.resineux)[0]]-1), id: t
                 }));
             }
         }

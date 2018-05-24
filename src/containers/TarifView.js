@@ -4,12 +4,11 @@
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import TarifView from "../components/TarifView";
-import {getPrintableTarifs} from "../selectors/data";
 
 export default withRouter(
     connect(
         (state, props) => ({
-            tarifs : getPrintableTarifs(state),
+            tarifs : state.getIn(["data", "tarifs"]),
         }),
         (dispatch, props) => ({
 

@@ -13,6 +13,7 @@ export default withRouter(
             selectedParcelID : state.getIn(["data", "selectedParcel"]),
             selectedParcel : selectedParcel(state),
             essences: selectEssencesAsArray(state).map(r => r.essence),
+            tarifs : state.getIn(["data", "tarifs"]),
         }),
         (dispatch, props) => ({
             saveBornesConst (parcelId, constantName, values){

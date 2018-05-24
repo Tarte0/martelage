@@ -12,6 +12,10 @@ class ParcelConstantView extends React.Component {
             enabled: false,
             newExploitation: 0,
             newExploitationEssence: "",
+            tarifs: next.selectedParcel != null ?
+                (next.selectedParcel.toJS().constantes != undefined ?
+                    next.selectedParcel.toJS().constantes.tarifs : null)
+                : null,
             prelevement: next.selectedParcel != null ?
                 (next.selectedParcel.toJS().constantes != undefined ?
                     next.selectedParcel.toJS().constantes.prelevement : null)
@@ -33,6 +37,10 @@ class ParcelConstantView extends React.Component {
             enabled: false,
             newExploitation: 0,
             newExploitationEssence: "",
+            tarifs: this.props.selectedParcel != null ?
+                (this.props.selectedParcel.toJS().constantes != undefined ?
+                    this.props.selectedParcel.toJS().constantes.tarifs : null)
+                : null,
             prelevement: this.props.selectedParcel != null ?
                 (this.props.selectedParcel.toJS().constantes != undefined ?
                     this.props.selectedParcel.toJS().constantes.prelevement : null)
@@ -47,11 +55,15 @@ class ParcelConstantView extends React.Component {
                 : null,
         };
         this.state = defaultState;
-        console.log(this.state);
     }
 
     render() {
         const {selectedParcel} = this.props;
+
+        let tarifsProp = this.props.selectedParcel != null ?
+            (this.props.selectedParcel.toJS().constantes != undefined ?
+                this.props.selectedParcel.toJS().constantes.tarifs : null)
+            : null;
 
         let prelevementProp = this.props.selectedParcel != null ?
             (this.props.selectedParcel.toJS().constantes != undefined ?
@@ -63,7 +75,8 @@ class ParcelConstantView extends React.Component {
                 this.props.selectedParcel.toJS().constantes.rotation : null)
             : null;
 
-        let isEditable = selectedParcel && prelevementProp != null && rotationProp != null;
+        let isEditable = selectedParcel && prelevementProp != null && rotationProp != null && tarifsProp != null;
+
         return (
             <Card>
                 {isEditable ?
@@ -210,7 +223,7 @@ class ParcelConstantView extends React.Component {
                         <Row>
                             <Table
                                 locale={{emptyText: 'Aucunes constantes'}}
-                                dataSource={this.state.exploitation != null && this.state.exploitation != undefined? Object.keys(this.state.exploitation).map(c => ({
+                                dataSource={this.state.exploitation != null && this.state.exploitation != undefined ? Object.keys(this.state.exploitation).map(c => ({
                                         key: c,
                                         value: this.state.exploitation[c]
                                     })) : null}
@@ -287,6 +300,82 @@ class ParcelConstantView extends React.Component {
                                         disabled={this.state.newExploitationEssence === "" || isNaN(Number(this.state.newExploitation)) }
                                         onClick={() => {
                                             this.props.saveBornesConst(this.props.selectedParcelID, `exploitation/${this.state.newExploitationEssence}`, this.state.newExploitation);
+                                        }}
+                                /></Col>
+                        </Row>
+                        <br/>
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <br/>
+                        <Row>
+                            <Col span={6}>
+                                <p>Tarifs feuillus : </p>
+                            </Col>
+                            <Col span={6}>
+                                <select
+                                    value={Object.keys(this.state.tarifs.feuillus)[0]}
+                                    onChange={(e) => {
+                                        const newFeuillu = {};
+                                        newFeuillu[e.target.value] = this.state.tarifs.feuillus[Object.keys(this.state.tarifs.feuillus)[0]];
+                                        this.setState({tarifs: {...this.state.tarifs, feuillus: newFeuillu}})
+                                    }}>
+                                    {[<option key=""
+                                              value=""/>].concat(Object.keys(this.props.tarifs.toJS()).map(e =>
+                                        <option key={e} value={e}>{e}</option>))}
+                                </select>
+                            </Col>
+                            <Col span={6}>
+                                version : <InputNumber
+                                value={this.state.tarifs.feuillus[Object.keys(this.state.tarifs.feuillus)[0]]}
+                                onChange={(value) => {
+                                    value < 1 ? value = 1 : '';
+                                    value > 20 ? value = 20 : '';
+                                    const newFeuillu = {};
+                                    newFeuillu[Object.keys(this.state.tarifs.feuillus)[0]] = value;
+                                    this.setState({tarifs: {...this.state.tarifs, feuillus: newFeuillu}});
+                                }}
+                            />
+                            </Col>
+
+                        </Row>
+                        <Row>
+                            <Col span={6}>
+                                <p>Tarifs Résineux : </p>
+                            </Col>
+                            <Col span={6}>
+                                <select
+                                    value={Object.keys(this.state.tarifs.resineux)[0]}
+                                    onChange={(e) => {
+                                        const newResineux = {};
+                                        newResineux[e.target.value] = this.state.tarifs.resineux[Object.keys(this.state.tarifs.resineux)[0]];
+                                        this.setState({tarifs: {...this.state.tarifs, resineux: newResineux}})
+                                    }}>
+                                    {[<option key=""
+                                              value=""/>].concat(Object.keys(this.props.tarifs.toJS()).map(e =>
+                                        <option key={e} value={e}>{e}</option>))}
+                                </select>
+                            </Col>
+                            <Col span={6}>
+                                version : <InputNumber
+                                value={this.state.tarifs.resineux[Object.keys(this.state.tarifs.resineux)[0]]}
+                                onChange={(value) => {
+                                    value < 1 ? value = 1 : '';
+                                    value > 20 ? value = 20 : '';
+                                    const newResineux = {};
+                                    newResineux[Object.keys(this.state.tarifs.resineux)[0]] = value;
+                                    this.setState({tarifs: {...this.state.tarifs, resineux: newResineux}});
+                                }}
+                            />
+                            </Col>
+                            <Col span={6}>
+                                <Button icon="save" type="primary"
+                                        disabled={!this.state.enabled || Object.keys(this.state.tarifs.resineux)[0] === "" ||
+                                        isNaN(Number(this.state.tarifs.resineux[Object.keys(this.state.tarifs.resineux)[0]])) ||
+                                        Object.keys(this.state.tarifs.feuillus)[0] === "" ||
+                                        isNaN(Number(this.state.tarifs.feuillus[Object.keys(this.state.tarifs.feuillus)[0]])) }
+                                        onClick={() => {
+                                            this.props.saveBornesConst(this.props.selectedParcelID, `tarifs`, this.state.tarifs);
                                         }}
                                 /></Col>
                         </Row>

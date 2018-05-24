@@ -19,6 +19,14 @@ class ParcelForm extends React.Component {
                 rotation: {
                     min: 1,
                     max: 10
+                },
+                tarifs: {
+                    feuillus: {
+                        algan : 7
+                    },
+                    resineux: {
+                        schaefferLent : 11
+                    }
                 }
             },
             version: 0
@@ -79,6 +87,14 @@ class ParcelForm extends React.Component {
                                         rotation: {
                                             min: 1,
                                             max: 10
+                                        },
+                                        tarifs: {
+                                            feuillus: {
+                                                algan : 7
+                                            },
+                                            resineux: {
+                                                schaefferLent : 11
+                                            }
                                         }
                                     },
                                     version: 0

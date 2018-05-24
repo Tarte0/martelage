@@ -14,8 +14,6 @@ import {
 export default withRouter(
     connect(
         (state, props) => ({
-            hauteurMoyenneConst: selectHauteurMoyenneConstantAsArray(state),
-            volumeCommercialConst: selectVolumeCommercialConstantAsArray(state),
             prixConst: selectPrixConstantAsObjectArray(state),
             savedConstant: state.getIn(['data', 'savedConstant']),
             essences: selectEssencesAsArray(state).map(r => r.essence)
