@@ -3,7 +3,7 @@
  */
 // @flow
 import React from "react";
-import {Card, Row, Button, Col, Switch, Slider, InputNumber, Table} from "antd";
+import {Card, Row, Button, Col, Switch, Slider, InputNumber, Table, Tabs} from "antd";
 
 
 class ParcelConstantView extends React.Component {
@@ -28,6 +28,24 @@ class ParcelConstantView extends React.Component {
                 (next.selectedParcel.toJS().constantes != undefined ?
                     next.selectedParcel.toJS().constantes.exploitation : null)
                 : null,
+            chauffage: next.selectedParcel != null ?
+                (next.selectedParcel.toJS().constantes != undefined ?
+                    next.selectedParcel.toJS().constantes.prix.bois.chauffage : null)
+                : null,
+            industrie: next.selectedParcel != null ?
+                (next.selectedParcel.toJS().constantes != undefined ?
+                    next.selectedParcel.toJS().constantes.prix.bois.industrie : null)
+                : null,
+            oeuvre: next.selectedParcel != null ?
+                (next.selectedParcel.toJS().constantes != undefined ?
+                    next.selectedParcel.toJS().constantes.prix.bois.oeuvre : null)
+                : null,
+            newPrixIndustrie: 0.0,
+            newPrixIndustrieEssence: "",
+            newPrixChauffage: 0.0,
+            newPrixChauffageEssence: "",
+            newPrixOeuvre: 0.0,
+            newPrixOeuvreEssence: "",
         })
     }
 
@@ -53,6 +71,24 @@ class ParcelConstantView extends React.Component {
                 (this.props.selectedParcel.toJS().constantes != undefined ?
                     this.props.selectedParcel.toJS().constantes.exploitation : null)
                 : null,
+            chauffage: this.props.selectedParcel != null ?
+                (this.props.selectedParcel.toJS().constantes != undefined ?
+                    this.props.selectedParcel.toJS().constantes.prix.bois.chauffage : null)
+                : null,
+            industrie: this.props.selectedParcel != null ?
+                (this.props.selectedParcel.toJS().constantes != undefined ?
+                    this.props.selectedParcel.toJS().constantes.prix.bois.industrie : null)
+                : null,
+            oeuvre: this.props.selectedParcel != null ?
+                (this.props.selectedParcel.toJS().constantes != undefined ?
+                    this.props.selectedParcel.toJS().constantes.prix.bois.oeuvre : null)
+                : null,
+            newPrixIndustrie: 0.0,
+            newPrixIndustrieEssence: "",
+            newPrixChauffage: 0.0,
+            newPrixChauffageEssence: "",
+            newPrixOeuvre: 0.0,
+            newPrixOeuvreEssence: "",
         };
         this.state = defaultState;
     }
@@ -75,7 +111,24 @@ class ParcelConstantView extends React.Component {
                 this.props.selectedParcel.toJS().constantes.rotation : null)
             : null;
 
-        let isEditable = selectedParcel && prelevementProp != null && rotationProp != null && tarifsProp != null;
+        let chauffage = this.props.selectedParcel != null ?
+            (this.props.selectedParcel.toJS().constantes != undefined ?
+                this.props.selectedParcel.toJS().constantes.prix.bois.chauffage : null)
+            : null;
+
+        let industrie = this.props.selectedParcel != null ?
+            (this.props.selectedParcel.toJS().constantes != undefined ?
+                this.props.selectedParcel.toJS().constantes.prix.bois.industrie : null)
+            : null;
+
+        let oeuvre = this.props.selectedParcel != null ?
+            (this.props.selectedParcel.toJS().constantes != undefined ?
+                this.props.selectedParcel.toJS().constantes.prix.bois.oeuvre : null)
+            : null;
+
+        let isEditable = selectedParcel && prelevementProp != null && rotationProp != null && tarifsProp != null
+            && chauffage != null && industrie != null && oeuvre != null;
+
 
         return (
             <Card>
@@ -89,7 +142,7 @@ class ParcelConstantView extends React.Component {
                         <br/>
                         <Row>
                             <Col span={4}>
-                                Bornes du prélevement :
+                                Bornes du prélèvement :
                                 <InputNumber
                                     min={0}
                                     max={100}
@@ -236,7 +289,7 @@ class ParcelConstantView extends React.Component {
                                         key: "key"
                                     },
                                     {
-                                        title: "diametre (cm)",
+                                        title: "diamètre (cm)",
                                         key: "value",
                                         render: (a, record, i) => {
                                             return <InputNumber value={record.value} onChange={(value) => {
@@ -263,7 +316,7 @@ class ParcelConstantView extends React.Component {
                                     }
                                 ]}
                                 bordered
-                                title={() => "Diametre minimum d'exploitation"}
+                                title={() => "Diamètre minimum d'exploitation"}
                             />
                         </Row>
                         <br/>
@@ -310,7 +363,7 @@ class ParcelConstantView extends React.Component {
                         <br/>
                         <Row>
                             <Col span={6}>
-                                <p>Tarifs feuillus : </p>
+                                <p>Tarif feuillus : </p>
                             </Col>
                             <Col span={6}>
                                 <select
@@ -341,7 +394,7 @@ class ParcelConstantView extends React.Component {
                         </Row>
                         <Row>
                             <Col span={6}>
-                                <p>Tarifs Résineux : </p>
+                                <p>Tarif résineux : </p>
                             </Col>
                             <Col span={6}>
                                 <select
@@ -379,9 +432,300 @@ class ParcelConstantView extends React.Component {
                                         }}
                                 /></Col>
                         </Row>
-                    </div> : "Merci de selectionner une parcelle"}
+                        <br/>
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <br/>
+                        <Row>
+                            <Tabs defaultActiveKey="1" type="card">
+
+                                <Tabs.TabPane tab="Chauffage" key="1">
+                                    <Table
+                                        locale={{emptyText: 'Aucunes constantes'}}
+                                        dataSource={
+                                            this.getPrixTable('chauffage')
+                                        }
+                                        onRowClick={(record) => {
+                                        }}
+                                        columns={[
+                                            {
+                                                title: "type / essence",
+                                                dataIndex: "key",
+                                                key: "key"
+                                            },
+                                            {
+                                                title: "prix (€/m³ sur pied)",
+                                                render: (a, record, i) => {
+                                                    return <InputNumber defaultValue={record.value}
+                                                                        min={0}
+                                                                        value={this.state.chauffage[record.key]}
+                                                                        onChange={(value) => {
+                                                                            this.setState({
+                                                                                chauffage: {
+                                                                                    ...this.state.chauffage,
+                                                                                    [record.key]: value
+                                                                                }
+                                                                            })
+                                                                        }}/>
+                                                },
+                                                key: "value"
+                                            }, {
+                                                title: "Sauvegarder",
+                                                key: "save",
+                                                render: (a, record, i) => {
+                                                    return <Button
+                                                        disabled={!this.state.enabled ||
+                                                        this.state.chauffage[record.key] === undefined &&
+                                                        isNaN(Number(this.state.chauffage[record.key])) }
+                                                        icon="save"
+                                                        onClick={() => {
+                                                            this.props.saveBornesConst(this.props.selectedParcelID, `prix/bois/chauffage`, this.state.chauffage);
+                                                        }}
+                                                        type="primary"/>
+                                                }
+                                            }
+                                        ]}
+                                        bordered
+                                        rowKey={record => record.key}
+                                        title={() => 'Prix bois de chauffage'}
+                                    />
+                                    <Row>
+                                        <Col span={6}>
+                                            <p>Ajouter : </p>
+                                        </Col>
+                                        <Col span={6}>
+                                            Essence : <select
+                                            onChange={(e) => {
+                                                this.setState({newPrixChauffageEssence: e.target.value})
+                                            }}>
+                                            {[<option key=""
+                                                      value=""/>].concat(this.props.essences.filter(e => !Object.keys(this.state.chauffage).map(
+                                                c => ({
+                                                    key: c,
+                                                    value: this.state.chauffage[c]
+                                                })).find(d => d.key === e)).map(e =>
+                                                <option key={e} value={e}>{e}</option>))}
+                                        </select>
+                                        </Col>
+                                        <Col span={6}>
+                                            <InputNumber
+                                                min={0}
+                                                value={this.state.newPrixChauffage}
+                                                onChange={(value) => {
+                                                    this.setState({newPrixChauffage: value})
+                                                }}
+                                            /></Col>
+                                        <Col span={6}>
+                                            <Button icon="plus" type="primary"
+                                                    disabled={
+                                                        this.state.newPrixChauffageEssence === "" ||
+                                                        isNaN(Number(this.state.newPrixChauffage))
+                                                    }
+                                                    onClick={() => {
+                                                        this.props.saveBornesConst(this.props.selectedParcelID,
+                                                            `prix/bois/chauffage/${this.state.newPrixChauffageEssence}`,
+                                                            this.state.newPrixChauffage);
+                                                    }}
+                                            /></Col>
+                                    </Row>
+                                </Tabs.TabPane>
+
+                                <Tabs.TabPane tab="Oeuvre" key="2">
+                                    <Table
+                                        locale={{emptyText: 'Aucunes constantes'}}
+                                        dataSource={
+                                            this.getPrixTable('oeuvre')
+                                        }
+                                        onRowClick={(record) => {
+                                        }}
+                                        columns={[
+                                            {
+                                                title: "type / essence",
+                                                dataIndex: "key",
+                                                key: "key"
+                                            },
+                                            {
+                                                title: "prix (€/m³ sur pied)",
+                                                render: (a, record, i) => {
+                                                    return <InputNumber defaultValue={record.value}
+                                                                        min={0}
+                                                                        value={this.state.oeuvre[record.key]}
+                                                                        onChange={(value) => {
+                                                                            this.setState({
+                                                                                oeuvre: {
+                                                                                    ...this.state.oeuvre,
+                                                                                    [record.key]: value
+                                                                                }
+                                                                            })
+                                                                        }}/>
+                                                },
+                                                key: "value"
+                                            }, {
+                                                title: "Sauvegarder",
+                                                key: "save",
+                                                render: (a, record, i) => {
+                                                    return <Button
+                                                        disabled={!this.state.enabled ||
+                                                        this.state.oeuvre[record.key] === undefined &&
+                                                        isNaN(Number(this.state.oeuvre[record.key])) }
+                                                        icon="save"
+                                                        onClick={() => {
+                                                            this.props.saveBornesConst(this.props.selectedParcelID, `prix/bois/oeuvre`, this.state.oeuvre);
+                                                        }}
+                                                        type="primary"/>
+                                                }
+                                            }
+                                        ]}
+                                        bordered
+                                        rowKey={record => record.key}
+                                        title={() => "Prix bois d'oeuvre"}
+                                    />
+                                    <Row>
+                                        <Col span={6}>
+                                            <p>Ajouter : </p>
+                                        </Col>
+                                        <Col span={6}>
+                                            Essence : <select
+                                            onChange={(e) => {
+                                                this.setState({newPrixOeuvreEssence: e.target.value})
+                                            }}>
+                                            {[<option key=""
+                                                      value=""/>].concat(this.props.essences.filter(e => !Object.keys(this.state.oeuvre).map(
+                                                c => ({
+                                                    key: c,
+                                                    value: this.state.oeuvre[c]
+                                                })).find(d => d.key === e)).map(e =>
+                                                <option key={e} value={e}>{e}</option>))}
+                                        </select>
+                                        </Col>
+                                        <Col span={6}>
+                                            <InputNumber
+                                                min={0}
+                                                value={this.state.newPrixOeuvre}
+                                                onChange={(value) => {
+                                                    this.setState({newPrixOeuvre: value})
+                                                }}
+                                            /></Col>
+                                        <Col span={6}>
+                                            <Button icon="plus" type="primary"
+                                                    disabled={
+                                                        this.state.newPrixOeuvreEssence === "" ||
+                                                        isNaN(Number(this.state.newPrixOeuvre))
+                                                    }
+                                                    onClick={() => {
+                                                        this.props.saveBornesConst(this.props.selectedParcelID,
+                                                            `prix/bois/oeuvre/${this.state.newPrixOeuvreEssence}`,
+                                                            this.state.newPrixOeuvre);
+                                                    }}
+                                            /></Col>
+                                    </Row>
+                                </Tabs.TabPane>
+
+                                <Tabs.TabPane tab="Industrie" key="3">
+                                    <Table
+                                        locale={{emptyText: 'Aucunes constantes'}}
+                                        dataSource={
+                                            this.getPrixTable('industrie')
+                                        }
+                                        onRowClick={(record) => {
+                                        }}
+                                        columns={[
+                                            {
+                                                title: "type / essence",
+                                                dataIndex: "key",
+                                                key: "key"
+                                            },
+                                            {
+                                                title: "prix (€/m³ sur pied)",
+                                                render: (a, record, i) => {
+                                                    return <InputNumber defaultValue={record.value}
+                                                                        min={0}
+                                                                        value={this.state.industrie[record.key]}
+                                                                        onChange={(value) => {
+                                                                            this.setState({
+                                                                                industrie: {
+                                                                                    ...this.state.industrie,
+                                                                                    [record.key]: value
+                                                                                }
+                                                                            })
+                                                                        }}/>
+                                                },
+                                                key: "value"
+                                            }, {
+                                                title: "Sauvegarder",
+                                                key: "save",
+                                                render: (a, record, i) => {
+                                                    return <Button
+                                                        disabled={!this.state.enabled ||
+                                                        this.state.industrie[record.key] === undefined &&
+                                                        isNaN(Number(this.state.industrie[record.key])) }
+                                                        icon="save"
+                                                        onClick={() => {
+                                                            this.props.saveBornesConst(this.props.selectedParcelID, `prix/bois/industrie`, this.state.industrie);
+                                                        }}
+                                                        type="primary"/>
+                                                }
+                                            }
+                                        ]}
+                                        bordered
+                                        rowKey={record => record.key}
+                                        title={() => "Prix bois d'industrie"}
+                                    />
+                                    <Row>
+                                        <Col span={6}>
+                                            <p>Ajouter : </p>
+                                        </Col>
+                                        <Col span={6}>
+                                            Essence : <select
+                                            onChange={(e) => {
+                                                this.setState({newPrixIndustrieEssence: e.target.value})
+                                            }}>
+                                            {[<option key=""
+                                                      value=""/>].concat(this.props.essences.filter(e => !Object.keys(this.state.industrie).map(
+                                                c => ({
+                                                    key: c,
+                                                    value: this.state.industrie[c]
+                                                })).find(d => d.key === e)).map(e =>
+                                                <option key={e} value={e}>{e}</option>))}
+                                        </select>
+                                        </Col>
+                                        <Col span={6}>
+                                            <InputNumber
+                                                min={0}
+                                                value={this.state.newPrixIndustrie}
+                                                onChange={(value) => {
+                                                    this.setState({newPrixIndustrie: value})
+                                                }}
+                                            /></Col>
+                                        <Col span={6}>
+                                            <Button icon="plus" type="primary"
+                                                    disabled={
+                                                        this.state.newPrixIndustrieEssence === "" ||
+                                                        isNaN(Number(this.state.newPrixIndustrie))
+                                                    }
+                                                    onClick={() => {
+                                                        this.props.saveBornesConst(this.props.selectedParcelID,
+                                                            `prix/bois/industrie/${this.state.newPrixIndustrieEssence}`,
+                                                            this.state.newPrixIndustrie);
+                                                    }}
+                                            /></Col>
+                                    </Row>
+                                </Tabs.TabPane>
+                            </Tabs>
+                        </Row>
+                    </div> : "Merci de sélectionner une parcelle"}
             </Card>
         );
+    }
+
+    getPrixTable(category) {
+        const table = [];
+        Object.keys(this.state[category]).forEach(e => {
+                table.push({key: e, value: this.state[category][e]});
+            }
+        );
+        return table;
     }
 }
 

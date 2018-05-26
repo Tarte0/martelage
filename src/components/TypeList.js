@@ -21,7 +21,7 @@ class TypeList extends React.Component {
                     }}
                     columns={[
                         {
-                            title: "type",
+                            title: "Type",
                             dataIndex: "type",
                             key: "type"
                         }

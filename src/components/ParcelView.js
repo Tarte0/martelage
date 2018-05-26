@@ -31,30 +31,31 @@ class ParcelView extends React.Component {
                                     <Card title="Divers">
                                     <Tabs defaultActiveKey="1" type="card">
 
-                                        <Tabs.TabPane tab="Diametre" key="1">
-
+                                        <Tabs.TabPane tab="Nombre de tiges" key="1">
                                             <TrunkGraph trees={this.props.selectedTrees} version={["diametre"]}/>
+                                        </Tabs.TabPane>
 
-                                        </Tabs.TabPane>
-                                        <Tabs.TabPane tab="Note ecologique" key="2">
-                                            <TrunkGraph trees={this.props.selectedTrees} version={["noteEcologique"]}/>
-                                        </Tabs.TabPane>
                                         <Tabs.TabPane tab="Volume" key="3">
                                             <VolumeChart trees={this.props.treesWithVolume} />
                                         </Tabs.TabPane>
+
+                                        <Tabs.TabPane tab="Note ecologique" key="2">
+                                            <TrunkGraph trees={this.props.selectedTrees} version={["noteEcologique"]}/>
+                                        </Tabs.TabPane>
+
 
                                     </Tabs>
                                     </Card>
                                 </Col>
                                 <Col span={8}>
-                                    <Card title="Distribution des types est essences des arbres de la parcelle">
+                                    <Card title="Distribution des types et essences des arbres de la parcelle">
                                     <SpecieChart trees={this.props.selectedTrees} species={this.props.essences}
                                                  types={this.props.types}/>
                                      </Card>
                                 </Col>
                             </Row>
                         </div>
-                        : "Merci de choisir une parcelle"}
+                        : "Merci de sélectionner une parcelle"}
 
             </div>
         );

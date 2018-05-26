@@ -54,12 +54,12 @@ class ParcelForm extends React.Component {
                             </Button>
                         </Dropdown>
                     </Form.Item>
-                    <Form.Item label="Numero">
+                    <Form.Item label="Numéro">
                         <Input value={this.state.numero} onChange={(e) => {
                             this.setState({numero: e.target.value})
                         }}/>
                     </Form.Item>
-                    <Form.Item label="Diametre">
+                    <Form.Item label="Diamètre">
                         <InputNumber min={0} value={this.state.diametre} onChange={(e) => {
                             this.setState({diametre: e})
                         }}/>
@@ -78,12 +78,12 @@ class ParcelForm extends React.Component {
                             </Button>
                         </Dropdown>
                     </Form.Item>
-                    <Form.Item label="Note ecologique">
+                    <Form.Item label="Note écologique">
                         <InputNumber min={0} value={this.state.noteEcologique} onChange={(e) => {
                             this.setState({noteEcologique: e})
                         }}/>
                     </Form.Item>
-                    <Form.Item label="Coordonnees">
+                    <Form.Item label="Coordonnées">
                         x: <InputNumber step="0.01" min={0} value={this.state.coord.x} onChange={(e) => {
                         this.setState({coord: {x: e, y: this.state.coord.y}})
                     }}/>
@@ -94,7 +94,7 @@ class ParcelForm extends React.Component {
                     <Form.Item label="Utilisation du bois">
                         <Row>
                             <Col span={20}>
-                                chauffage:
+                                Chauffage:
                                 <Slider
                                     min={0}
                                     max={100}
@@ -163,7 +163,7 @@ class ParcelForm extends React.Component {
                         </Row>
                         <Row>
                             <Col span={20}>
-                                industrie:
+                                Industrie:
                                 <Slider
                                     min={0}
                                     max={100}
@@ -232,7 +232,7 @@ class ParcelForm extends React.Component {
                         </Row>
                         <Row>
                             <Col span={20}>
-                                oeuvre:
+                                Oeuvre:
                                 <Slider
                                     min={0}
                                     max={100}

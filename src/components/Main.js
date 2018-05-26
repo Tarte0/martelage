@@ -9,12 +9,10 @@ import TreeList from "../containers/TreeList";
 import EtatsList from "../containers/EtatsList";
 import EssenceList from "../containers/EssenceList";
 import TypeList from "../containers/TypeList";
-import EtatsForm from "../containers/EtatsForm";
 import ParcelConstantView from "../containers/ParcelConstantView";
 import EssenceForm from "../containers/EssenceForm";
 import ParcelView from "../containers/ParcelView";
 import FiledParcelView from "../containers/FiledParcelView";
-import ConstantView from "../containers/ConstantView";
 import CsvImporter from "../containers/CsvImporter";
 import TarifView from "../containers/TarifView";
 
@@ -32,7 +30,7 @@ class Main extends React.Component {
                     <ParcelList/>
                 </Card>
                 <Tabs defaultActiveKey="1" type="card">
-                    <Tabs.TabPane tab="Parcelles" key="1">
+                    <Tabs.TabPane tab="Parcelle" key="1">
                         <Collapse>
                             <Collapse.Panel header="Graphs" key="11">
                                 <ParcelView/>
@@ -59,7 +57,7 @@ class Main extends React.Component {
                         </Collapse>
                     </Tabs.TabPane>
 
-                    <Tabs.TabPane tab="General" key="3">
+                    <Tabs.TabPane tab="Général" key="3">
                         <Collapse>
                             <Collapse.Panel header="Etats" key="31">
                                 <EtatsList/>
@@ -75,10 +73,7 @@ class Main extends React.Component {
                             <Collapse.Panel header="Types" key="33">
                                 <TypeList/>
                             </Collapse.Panel>
-                            <Collapse.Panel header="Constantes" key="34">
-                                <ConstantView/>
-                            </Collapse.Panel>
-                            <Collapse.Panel header="Tarifs" key="35">
+                            <Collapse.Panel header="Tarifs" key="34">
                                 <TarifView/>
                             </Collapse.Panel>
                         </Collapse>
@@ -86,7 +81,6 @@ class Main extends React.Component {
 
                     <Tabs.TabPane tab="CSV" key="4">
                         <CsvImporter/>
-
                     </Tabs.TabPane>
 
                     <Tabs.TabPane tab="Historique" key="5">

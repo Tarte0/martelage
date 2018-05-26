@@ -48,6 +48,7 @@ class SpreadSheet extends React.Component {
                          <td key={`td${i}`}>{this.props.lineTitle[i]}</td>
                          {tab.map((el,j) => <td
                              key={`${i},${j}`}
+                             className={`version${this.props.colTitle[j]}`}
                              title={`version ${this.props.colTitle[j]}`}>
                              {el}
                          </td>)}
@@ -58,6 +59,7 @@ class SpreadSheet extends React.Component {
             </span>
         );
     }
+
 }
 
 SpreadSheet.propTypes = {};

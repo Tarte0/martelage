@@ -22,10 +22,26 @@ class ParcelForm extends React.Component {
                 },
                 tarifs: {
                     feuillus: {
-                        algan : 7
+                        algan : 6
                     },
                     resineux: {
-                        schaefferLent : 11
+                        schaefferLent : 10
+                    }
+                },
+                prix:{
+                    bois : {
+                        chauffage : {
+                            feuillu : 15,
+                            résineux : 15
+                        },
+                        industrie : {
+                            feuillu : 5,
+                            résineux : 5
+                        },
+                        oeuvre : {
+                            feuillu : 40,
+                            résineux : 40,
+                        }
                     }
                 }
             },
@@ -90,10 +106,26 @@ class ParcelForm extends React.Component {
                                         },
                                         tarifs: {
                                             feuillus: {
-                                                algan : 7
+                                                algan : 6
                                             },
                                             resineux: {
-                                                schaefferLent : 11
+                                                schaefferLent : 10
+                                            }
+                                        },
+                                        prix:{
+                                            bois : {
+                                                chauffage : {
+                                                    feuillu : 15,
+                                                    résineux : 15
+                                                },
+                                                industrie : {
+                                                    feuillu : 5,
+                                                    résineux : 5
+                                                },
+                                                oeuvre : {
+                                                    feuillu : 40,
+                                                    résineux : 40,
+                                                }
                                             }
                                         }
                                     },

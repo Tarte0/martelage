@@ -21,7 +21,7 @@ class EtatsList extends React.Component {
                     }}
                     columns={[
                         {
-                            title: "etat",
+                            title: "Etat",
                             dataIndex: "etat",
                             key: "etat"
                         }

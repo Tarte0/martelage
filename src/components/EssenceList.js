@@ -21,17 +21,17 @@ class EssenceList extends React.Component {
                     }}
                     columns={[
                         {
-                            title: "essence",
+                            title: "Essence",
                             dataIndex: "essence",
                             key: "essence"
                         },
                         {
-                            title: "type",
+                            title: "Type",
                             dataIndex: "type",
                             key: "type"
                         },
                         {
-                            title: "supprimer",
+                            title: "Supprimer",
                             key: "delete",
                             render: (index, record, ind) => (
                                 <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {

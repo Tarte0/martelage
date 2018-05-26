@@ -17,7 +17,7 @@ export const volumeComBois = (tree, volumeCommercial) => {
 
 export const prixBoisAttr = (tree, prixBoisConst, utilisationBois) => {
     //prixBoisConst = this.props.constants.getIn(['prix', 'bois']);
-    return prixBoisConst.getIn([utilisationBois, tree.essence.toLowerCase()]);
+    return prixBoisConst[utilisationBois][tree.essence.toLowerCase()];
 };
 
 export const prixBois = (tree, prixBoisConst, essences) => {
@@ -26,9 +26,9 @@ export const prixBois = (tree, prixBoisConst, essences) => {
     const prixBoisIndustrie = prixBoisAttr(tree, prixBoisConst, 'industrie');
     const prixBoisChauffage = prixBoisAttr(tree, prixBoisConst, 'chauffage');
     return ({
-        oeuvre: prixBoisOeuvre === undefined ? prixBoisConst.getIn(['oeuvre', essences.get(tree.essence.toLowerCase())]) : prixBoisOeuvre,
-        industrie: prixBoisIndustrie === undefined ? prixBoisConst.getIn(['industrie', essences.get(tree.essence.toLowerCase())]) : prixBoisIndustrie,
-        chauffage: prixBoisChauffage === undefined ? prixBoisConst.getIn(['chauffage', essences.get(tree.essence.toLowerCase())]) : prixBoisChauffage
+        oeuvre: prixBoisOeuvre === undefined ? prixBoisConst['oeuvre'][essences.get(tree.essence.toLowerCase())] : prixBoisOeuvre,
+        industrie: prixBoisIndustrie === undefined ? prixBoisConst['industrie'][essences.get(tree.essence.toLowerCase())] : prixBoisIndustrie,
+        chauffage: prixBoisChauffage === undefined ? prixBoisConst['chauffage'][essences.get(tree.essence.toLowerCase())] : prixBoisChauffage
     })
 };
 
@@ -112,38 +112,12 @@ export const getVersion = (tarifMat, version) => {
 export const volumeCommercialFromTarif = (tree, essences, tarifFeuillus, tarifResineux, versionFeuillus, versionResineux, tarifs, etatVivant) => {
     const tarifMatFeuillus = tarifs.get(tarifFeuillus).toJS();
     const tarifMatResineux = tarifs.get(tarifResineux).toJS();
-    if (tree.etat === etatVivant) {
+    //if (tree.etat === etatVivant) {
         if (essences.get(tree.essence.toLowerCase()) == 'feuillu') {
             return getVersionDiametre(tarifMatFeuillus, versionFeuillus, tree.diametre);
         } else {
             return getVersionDiametre(tarifMatResineux, versionResineux, tree.diametre);
         }
 
-    }
-    return 0.0;
+    //}
 };
-
-/*
- export const printTarif = (tarif) => {
- const keys = Object.keys(tarif);
- let tarifVersionKeys;
- const printedTarifs = [];
- const printedTarif = {};
-
- tarifVersionKeys = Object.keys(tarif[1]);
- tarifVersionKeys.forEach(diametre => {
- printedTarif[diametre] = {};
- });
-
- keys.forEach(version => {
- if(tarif[version] != null && tarif[version] != undefined){
- tarifVersionKeys = Object.keys(tarif[version]);
- tarifVersionKeys.forEach(diametre => {
- printedTarif[diametre][version] = tarif[version][diametre];
- });
- printedTarifs.push(printedTarif);
- }
- });
-
- return printedTarifs;
- };*/

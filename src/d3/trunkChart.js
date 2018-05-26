@@ -79,10 +79,9 @@ trunkChart.render = (el, data, version) => {
                     return d;
                 });
         });
-    d3.select(el).select('.titleText').text(version[0] === "diametre" ? "Nombre de tiges par classes de diametre":"Nombre de tiges par note écologique");
+    d3.select(el).select('.titleText').text(version[0] === "diametre" ? "Nombre de tiges par classe de diamètre":"Nombre de tiges par note écologique");
     const versionUpper = version[0].charAt(0).toUpperCase() + version[0].slice(1);
-    d3.select(el).select('.xAxisLabel').text(versionUpper + (versionUpper == "Diametre" ? " (cm)" :""));
-    // .text(version==="diametre"?"Parcel Machin Diametre":version==="note_eco"?"ParcelEcoTruk":"l'autre")
+    d3.select(el).select('.xAxisLabel').text(versionUpper === "Diametre" ? "Diamètre (cm)" :versionUpper);
     const stack = groupTrees(data, version);
 
     const x = d3.scaleBand()

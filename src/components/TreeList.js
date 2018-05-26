@@ -92,7 +92,7 @@ class TreeList extends React.Component {
         );
         return [
             {
-                title: "numero",
+                title: "Numéro",
                 dataIndex: "numero",
                 key: "numero",
                 render: (a, record, index) =>
@@ -105,7 +105,7 @@ class TreeList extends React.Component {
                 sorter: (a, b) => a.numero - b.numero
             },
             {
-                title: "diametre (cm)",
+                title: "Diamètre (cm)",
                 dataIndex: "diametre",
                 key: "diametre",
                 render: (a, record, index) =>
@@ -118,7 +118,7 @@ class TreeList extends React.Component {
                 sorter: (a, b) => a.diametre - b.diametre
             },
             {
-                title: "essence",
+                title: "Essence",
                 dataIndex: "essence",
                 key: "essence",
                 render: (a, record, index) =>
@@ -136,7 +136,7 @@ class TreeList extends React.Component {
                 filterMultiple: true
             },
             {
-                title: "etat",
+                title: "Etat",
                 dataIndex: "etat",
                 key: "etat",
                 render: (a, record, index) =>
@@ -154,7 +154,7 @@ class TreeList extends React.Component {
                 filterMultiple: true
             },
             {
-                title: "note ecologique",
+                title: "Note écologique",
                 dataIndex: "noteEcologique",
                 key: "noteEcologique",
                 render: (a, record, index) =>
@@ -170,22 +170,22 @@ class TreeList extends React.Component {
             this.props.expanded ?
                 [
                     {
-                        title: "volume commercial (m³)",
+                        title: "Volume commercial (m³)",
                         dataIndex: "volumePrix.volume.commercial",
                         key: "volumeCommercial",
                         sorter: (a, b) => a.volumePrix.volume.commercial - b.volumePrix.volume.commercial
                     },
                     {
-                        title: "valeur économique (€)",
+                        title: "Valeur économique (€)",
                         dataIndex: "volumePrix.prix.valeurEco",
                         key: "valeurEconomique",
                         sorter: (a, b) => a.volumePrix.prix.valeurEco - b.volumePrix.prix.valeurEco
                     },
                     {
-                        title: "utilisation bois (sur 100%)",
+                        title: "Utilisation du bois (sur 100%)",
                         children: [
                             {
-                                title: "chauffage (%)",
+                                title: "Chauffage (%)",
                                 dataIndex: "utilisationBois.chauffage",
                                 key: "utilisationBois.chauffage",
                                 render: (a, record, index) =>
@@ -207,7 +207,7 @@ class TreeList extends React.Component {
                                 sorter: (a, b) => a.utilisationBois.chauffage - b.utilisationBois.chauffage
                             },
                             {
-                                title: "industrie (%)",
+                                title: "Industrie (%)",
                                 dataIndex: "utilisationBois.industrie",
                                 key: "utilisationBois.industrie",
                                 render: (a, record, index) =>
@@ -229,7 +229,7 @@ class TreeList extends React.Component {
                                 sorter: (a, b) => a.utilisationBois.industrie - b.utilisationBois.industrie
                             },
                             {
-                                title: "oeuvre (%)",
+                                title: "Oeuvre (%)",
                                 dataIndex: "utilisationBois.oeuvre",
                                 key: "utilisationBois.oeuvre",
                                 render: (a, record, index) =>
@@ -254,7 +254,7 @@ class TreeList extends React.Component {
                         key: 'utilisationBois'
                     },
                     {
-                        title: "modifier",
+                        title: "Modifier",
                         key: "edit",
                         render: (index, record, ind) => (
                             this.state.edit === ind ?
@@ -296,7 +296,7 @@ class TreeList extends React.Component {
                                 </div>)
                     },
                     {
-                        title: "supprimer",
+                        title: "Supprimer",
                         key: "delete",
                         render: (index, record, ind) => (
                             <Popconfirm placement="topLeft" title="Etes-vous sur?" onConfirm={() => {

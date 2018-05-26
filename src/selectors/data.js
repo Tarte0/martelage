@@ -81,21 +81,6 @@ export const selectedParcel = createSelector(
         return null;
     }
 );
-export const getPrintableTarifs = createSelector(
-    [getTarifs],
-    (tarifs) => {
-        //console.log('t', tarifs.toJS());
-        const names = Object.keys(tarifs.toJS());
-        //console.log('names', names);
-        const printedTarifs = {};
-        names.forEach(k => {
-            console.log(k, tarifs.get(k).toJS());
-            printedTarifs[k] = tarifs.get(k).toJS();
-        });
-        console.log('pt', printedTarifs);
-        return printedTarifs;
-    }
-);
 
 export const selectFiledParcel = createSelector(
     [getFiledParcels, getSelectedParcel],
@@ -152,14 +137,13 @@ export const getTreesVolumeAndPrices = createSelector(
         if (selectedParcelId) {
             let treesObject = parcels.getIn([selectedParcelId, 'arbres']);
             let tarifsParcelle = parcels.getIn([selectedParcelId, 'constantes', 'tarifs']).toJS();
-            console.log(tarifsParcelle)
+            let prixBoisConstParcel = parcels.getIn([selectedParcelId, 'constantes', 'prix', 'bois']).toJS();
             if(treesObject != undefined) {
-                console.log(treesObject.toJS());
                 treesObject = treesObject.toJS();
                 return Object.keys(treesObject).map(t => ({
                     ...treesObject[t],
                     volumePrix : calculateVolumeAndPrices(treesObject[t], essences,
-                        'v', constants.getIn(['prix', 'bois']), tarifs,
+                        'v', prixBoisConstParcel, tarifs,
                         Object.keys(tarifsParcelle.feuillus)[0],
                         Object.keys(tarifsParcelle.resineux)[0],
                         tarifsParcelle.feuillus[Object.keys(tarifsParcelle.feuillus)[0]]-1,

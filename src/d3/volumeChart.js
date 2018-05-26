@@ -40,7 +40,7 @@ trunkChart.render = (el, data, version) => {
                 .attr("transform", "translate(" + (width +margin.right) + "," + 25 + ")")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "end")
-                .text("Diametre (cm)");
+                .text("Diamètre (cm)");
 
             g.append("g")
                 .attr("class", "yAxis")
@@ -77,7 +77,7 @@ trunkChart.render = (el, data, version) => {
                     return d;
                 });
         });
-    d3.select(el).select('.titleText').text("Volume par classes de diametre");
+    d3.select(el).select('.titleText').text("Volume par classe de diamètre");
     const stack = groupTreesVolume(data);
 
     const x = d3.scaleBand()
