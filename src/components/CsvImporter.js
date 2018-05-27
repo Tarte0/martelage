@@ -172,6 +172,25 @@ class CsvImporter extends React.Component {
                     </Col>  )
             };
 
+        const download = () => {
+            let element = document.createElement('a');
+            const filename = "exemple.csv";
+            const text = 'numero,essence,diametre,etat,x,y,note_ecologique,bois_oeuvre,bois_chauffage,bois_industrie\n' +
+                '1,épicéa,15,v,"43,47","20,37",3,,,100\n' +
+                '2,sapin,32,ms,"7,8","24,94",0,100,,\n' +
+                '3,épicéa,50,mp,"43,61","18,37",5,,,100';
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        };
+
+
         const
             renderList = () => {
                 this.state.dataList = Object.values(this.state.csvData).concat(this.state.csvConflicts.concat(this.state.csvErrors));
@@ -318,6 +337,10 @@ class CsvImporter extends React.Component {
                 <Row>
                     <Col span={10}>
                         <Form>
+                            <Form.Item label="Exemple de fichier CSV">
+                            <Button size="small"
+                                    onClick={download}> Télécharger l'exemple</Button>
+                            </Form.Item>
                             <Form.Item label="fichier CSV">
                                 <input type="file" onChange={loadFile}/>
                             </Form.Item>

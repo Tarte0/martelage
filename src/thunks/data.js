@@ -38,7 +38,7 @@ import {
     editTree, updateParcel, updateParcelSuccess, updateParcelFailure, fileParcel, fileParcelSuccess, fileParcelFailure,
     setFiledParcels, saveConstFailure, saveConstSuccess, saveConst, setTarifs
 } from "../actions/data";
-
+/*
 //firebase config, change it to plug this app to it
 const config = {
     apiKey: "AIzaSyC7JXmQ0tZDmPu1myxCYwX8L6s39tXhVLk",
@@ -47,10 +47,10 @@ const config = {
     projectId: "martelage-751df",
     storageBucket: "",
     messagingSenderId: "329628247737"
-};
+};*/
 
-/*
- const config = {
+
+ /*const config = {
  apiKey: "AIzaSyD1FBAeh4YmGRkuQF6IrjspJIiDxDHDNhM",
  authDomain: "martelage-5cbf0.firebaseapp.com",
  databaseURL: "https://martelage-5cbf0.firebaseio.com",
@@ -58,6 +58,15 @@ const config = {
  storageBucket: "martelage-5cbf0.appspot.com",
  messagingSenderId: "523646105021"
  };*/
+
+const config = {
+    apiKey: "AIzaSyBKNHTXS2z5LJgnTtkEUvbG-Z554NtPzYE",
+    authDomain: "testfirebase-d5fcc.firebaseapp.com",
+    databaseURL: "https://testfirebase-d5fcc.firebaseio.com/",
+    projectId: "testfirebase-d5fcc",
+    storageBucket: "testfirebase-d5fcc.appspot.com",
+    messagingSenderId: "711040738225"
+};
 
 firebase.initializeApp(config);
 
