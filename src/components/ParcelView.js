@@ -1,8 +1,12 @@
 // @flow
-import React from 'react';
-import {Card, Col, Row, Table, Button} from 'antd';
-import  TreeGraph from './TreeGraph'
-class ParcelList extends React.Component {
+import React from "react";
+import {Card, Col, Row, Tabs} from "antd";
+import TreeGraph from './TreeGraph';
+import TrunkGraph from './TrunkGraph';
+import VolumeChart from './chart/VolumeChart';
+import SpecieChart from './chart/SpecieChart';
+
+class ParcelView extends React.Component {
 
     constructor(props) {
         super(props);
@@ -11,70 +15,53 @@ class ParcelList extends React.Component {
 
     render() {
         const {selectedParcel} = this.props;
-        let arbres = selectedParcel ? selectedParcel.has("arbres") ? selectedParcel.get("arbres").toList().toJS() : [] : [];
         return (
             <div>
-                <Card>
+
                     {selectedParcel ?
                         <div>
                             <Row>
-                                <Col span={10}>
-                                    <p>nom : {selectedParcel.get("nom")}</p>
-                                    <p>lieu : {selectedParcel.get("lieu")}</p>
-                                    <p>surface : {selectedParcel.get("surface")}</p>
-                                    <TreeGraph trees={arbres}/>
+                                <Col span={8}>
+                                    <Card title="Répartition des arbres sur la parcelle">
+                                    <TreeGraph trees={this.props.selectedTrees}/>
+                                    </Card>
                                 </Col>
-                                <Col span={14}>
-                                    <Table
-                                        locale={{emptyText: 'Aucun arbre'}}
-                                        dataSource={arbres}
-                                        columns={
-                                            [
-                                                {
-                                                    title: "numero",
-                                                    dataIndex: "numero",
-                                                    key: "numero",
-                                                    sorter: (a, b) => a.numero - b.numero
-                                                },
-                                                {
-                                                    title: "diametre",
-                                                    dataIndex: "diametre",
-                                                    key: "diametre",
-                                                    sorter: (a, b) => a.diametre - b.diametre
-                                                },
-                                                {
-                                                    title: "essence",
-                                                    dataIndex: "essence",
-                                                    key: "essence",
-                                                    sorter: (a, b) => a.essence - b.essence
-                                                },
-                                                {
-                                                    title: "etat",
-                                                    dataIndex: "etat",
-                                                    key: "etat",
-                                                    sorter: (a, b) => a.etat - b.etat
-                                                },
-                                                {
-                                                    title: "noteEcologique",
-                                                    dataIndex: "noteEcologique",
-                                                    key: "noteEcologique",
-                                                    sorter: (a, b) => a.noteEcologique - b.noteEcologique
-                                                },
-                                            ]
+                                <span style={{width:'2px',color:'grey',height:"100%"}}/>
+                                <Col span={8}>
+                                    <Card title="Divers">
+                                    <Tabs defaultActiveKey="1" type="card">
 
-                                        }/>
+                                        <Tabs.TabPane tab="Nombre de tiges" key="1">
+                                            <TrunkGraph trees={this.props.selectedTrees} version={["diametre"]}/>
+                                        </Tabs.TabPane>
+
+                                        <Tabs.TabPane tab="Volume" key="3">
+                                            <VolumeChart trees={this.props.treesWithVolume} />
+                                        </Tabs.TabPane>
+
+                                        <Tabs.TabPane tab="Note ecologique" key="2">
+                                            <TrunkGraph trees={this.props.selectedTrees} version={["noteEcologique"]}/>
+                                        </Tabs.TabPane>
+
+
+                                    </Tabs>
+                                    </Card>
+                                </Col>
+                                <Col span={8}>
+                                    <Card title="Distribution des types et essences des arbres de la parcelle">
+                                    <SpecieChart trees={this.props.selectedTrees} species={this.props.essences}
+                                                 types={this.props.types}/>
+                                     </Card>
                                 </Col>
                             </Row>
-
-
                         </div>
-                        : "please select a parcel"}
-                </Card>
+                        : "Merci de sélectionner une parcelle"}
+
             </div>
         );
     }
 }
 
-ParcelList.propTypes = {};
+ParcelView.propTypes = {};
 
-export default ParcelList;
+export default ParcelView;

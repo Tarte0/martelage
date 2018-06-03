@@ -1,10 +1,9 @@
-// @flow
 import {combineReducers} from "redux-immutable";
-import { routerReducer as router } from 'react-router-redux';
 import data from './data';
+import route from './route';
 
 const rootReducer = combineReducers({
-  router,data
+  data,route
 });
 
 export default rootReducer;

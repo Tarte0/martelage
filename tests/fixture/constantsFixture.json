@@ -1,0 +1,33 @@
+{
+    "hauteurMoyenne" : {
+        "feuillu": 10,
+        "petitBois": 15,
+        "résineux": 20
+    },
+    "prix" :{
+        "bois" : {
+            "chauffage" : {
+                "feuillu": 15,
+                "résineux": 15
+            },
+
+            "industrie" : {
+                "feuillu": 5,
+                "résineux": 5
+            },
+
+            "oeuvre" : {
+                "epicéa": 45,
+                 "feuillu": 40,
+                 "résineux": 40,
+                 "sapin": 40
+            }
+        }
+    },
+    "volume" : {
+        "commercial" : {
+            "feuillu": 0.55,
+            "résineux": 0.42
+        }
+    }
+}

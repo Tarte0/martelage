@@ -1,0 +1,266 @@
+{
+  "parcelleMartelapp": {
+    "arbres": {
+      "-L54LXjL2VE6Gqe8s6bU": {
+        "coord": {
+          "x": 50.26076408903069,
+          "y": 59.188714017727676
+        },
+        "diametre": 55,
+        "essence": "Chêne",
+        "etat": "ms",
+        "noteEcologique": 5,
+        "numero": 33,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjL2VE6Gqe8s6bV": {
+        "coord": {
+          "x": 14.301967788324376,
+          "y": 40.31745995760705
+        },
+        "diametre": 20,
+        "essence": "Hêtre",
+        "etat": "mp",
+        "noteEcologique": 5,
+        "numero": 34,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjMERp8e3mYCUgO": {
+        "coord": {
+          "x": 86.22355093358402,
+          "y": 62.45954437193291
+        },
+        "diametre": 40,
+        "essence": "Epicéa",
+        "etat": "mp",
+        "noteEcologique": 6,
+        "numero": 35,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjMERp8e3mYCUgP": {
+        "coord": {
+          "x": 42.550949210384914,
+          "y": 71.5497297652842
+        },
+        "diametre": 55,
+        "essence": "Sapin",
+        "etat": "mp",
+        "noteEcologique": 10,
+        "numero": 36,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjMERp8e3mYCUgQ": {
+        "coord": {
+          "x": 45.74665971106504,
+          "y": 6.872789971158477
+        },
+        "diametre": 30,
+        "essence": "Chataignier",
+        "etat": "ms",
+        "noteEcologique": 7,
+        "numero": 37,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjN7KCcApw_5qIg": {
+        "coord": {
+          "x": 36.667050038092185,
+          "y": 13.911280957277071
+        },
+        "diametre": 65,
+        "essence": "Sapin",
+        "etat": "v",
+        "noteEcologique": 5,
+        "numero": 38,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjN7KCcApw_5qIh": {
+        "coord": {
+          "x": 1.8702575217848016,
+          "y": 92.65275934139763
+        },
+        "diametre": 5,
+        "essence": "Epicéa",
+        "etat": "mp",
+        "noteEcologique": 9,
+        "numero": 39,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjP3fu8ZHRUwCl6": {
+        "coord": {
+          "x": 95.44153216600371,
+          "y": 17.30963522365736
+        },
+        "diametre": 30,
+        "essence": "Chataignier",
+        "etat": "mp",
+        "noteEcologique": 5,
+        "numero": 40,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjP3fu8ZHRUwCl7": {
+        "coord": {
+          "x": 88.79734248289897,
+          "y": 21.443676860759652
+        },
+        "diametre": 65,
+        "essence": "Tilleul",
+        "etat": "ms",
+        "noteEcologique": 1,
+        "numero": 41,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjQx4-0Ee_YqYKK": {
+        "coord": {
+          "x": 75.24352587493172,
+          "y": 40.6332232273769
+        },
+        "diametre": 55,
+        "essence": "If",
+        "etat": "v",
+        "noteEcologique": 2,
+        "numero": 42,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjQx4-0Ee_YqYKL": {
+        "coord": {
+          "x": 37.65407454719578,
+          "y": 70.49794982247562
+        },
+        "diametre": 50,
+        "essence": "Epicéa",
+        "etat": "v",
+        "noteEcologique": 4,
+        "numero": 43,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjQx4-0Ee_YqYKM": {
+        "coord": {
+          "x": 59.35818218866533,
+          "y": 29.29134249331846
+        },
+        "diametre": 65,
+        "essence": "Merisier",
+        "etat": "v",
+        "noteEcologique": 2,
+        "numero": 44,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjQx4-0Ee_YqYKN": {
+        "coord": {
+          "x": 58.50902118618484,
+          "y": 62.40259229950005
+        },
+        "diametre": 25,
+        "essence": "Frêne",
+        "etat": "ms",
+        "noteEcologique": 8,
+        "numero": 45,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjQx4-0Ee_YqYKO": {
+        "coord": {
+          "x": 87.93874965514334,
+          "y": 66.33630721421618
+        },
+        "diametre": 10,
+        "essence": "Alisier blanc",
+        "etat": "ms",
+        "noteEcologique": 2,
+        "numero": 46,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjQx4-0Ee_YqYKP": {
+        "coord": {
+          "x": 82.7009895806734,
+          "y": 82.4786724350526
+        },
+        "diametre": 60,
+        "essence": "Hêtre",
+        "etat": "mp",
+        "noteEcologique": 7,
+        "numero": 47,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      },
+      "-L54LXjRbnDyr-ZzE5Gv": {
+        "coord": {
+          "x": 39.74591826470084,
+          "y": 92.1259464185286
+        },
+        "diametre": 35,
+        "essence": "Alisier blanc",
+        "etat": "ms",
+        "noteEcologique": 4,
+        "numero": 48,
+        "utilisationBois": {
+          "chauffage": "",
+          "industrie": "",
+          "oeuvre": ""
+        }
+      }
+    },
+    "id": "test2",
+    "lieu": "Gruffy",
+    "nom": "parcelleDeTest",
+    "surface": "1.429"
+  }
+}

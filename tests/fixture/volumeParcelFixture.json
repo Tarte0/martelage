@@ -1,0 +1,14 @@
+{"parcelleMartelapp":{
+    "arbres":{
+        "-L54MkZqyAsRT-Ehc4_H":{
+            "coord":{"x":43.47,"y":20.37},"diametre":"15","essence":"Epicéa","etat":"v","noteEcologique":"3","numero":"1","utilisationBois":{"chauffage":"","industrie":"100","oeuvre":""}
+        },
+        "-L54MkZypDOVkF-Hma7O":{
+            "coord":{"x":43.61,"y":18.37},"diametre":"15","essence":"Epicéa","etat":"v","noteEcologique":"5","numero":"2","utilisationBois":{"chauffage":"","industrie":"100","oeuvre":""}
+        },
+        "-L54Mk_0m3q_bpaeWKaG":{
+        "coord":{"x":64.16,"y":7.74},"diametre":"55","essence":"Sapin","etat":"v","noteEcologique":"5","numero":"3","utilisationBois":{"chauffage":"","industrie":"34","oeuvre":"66"}
+        }
+     }
+}
+}
