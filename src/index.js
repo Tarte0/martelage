@@ -8,15 +8,18 @@ import Root from './containers/Root'
 import rootReducer from './reducers';
 
 import { Provider } from 'react-redux';
-import {getParcels, getEtats, getEssences, getTypes, getConstants, getFiledParcels, getTarifs} from "./thunks/data";
-
-function configureStore() {
+import {
+    getParcels, getEtats, getEssences, getTypes, getConstants, getFiledParcels, getTarifs,
+    checkIntegrityThunk
+} from "./thunks/data";
+import * as firebase from 'firebase';
+function configureStore(database) {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
 
   // Thunk Middleware
-  middleware.push(thunk.withExtraArgument());
+  middleware.push(thunk.withExtraArgument(database));
 
   // Logging Middleware
   const logger = createLogger({
@@ -52,26 +55,26 @@ function configureStore() {
 
   return store;
 }
-const store = configureStore();
-getParcels(store);
-getFiledParcels(store);
-getEtats(store);
-getEssences(store);
-getTypes(store);
-getConstants(store);
-getTarifs(store);
+// const store = configureStore({});
+// getParcels(store);
+// getFiledParcels(store);
+// getEtats(store);
+// getEssences(store);
+// getTypes(store);
+// getConstants(store);
+// getTarifs(store);
+//
+// const rootEl = document.getElementById('root');
+// const render = Component => {
+//     ReactDOM.render(
+//         <AppContainer>
+//           <Provider store={store}>
+//               <Root />
+//           </Provider>
+//         </AppContainer>,rootEl)
+// };
 
-const rootEl = document.getElementById('root');
-const render = Component => {
-    ReactDOM.render(
-        <AppContainer>
-          <Provider store={store}>
-              <Root />
-          </Provider>
-        </AppContainer>,rootEl)
-};
-
-render(Root);
+// render(Root);
 
 if (module.hot) {
     // Require the new version and render it instead
@@ -81,3 +84,27 @@ if (module.hot) {
         ReactDOM.render(<NextApp />, rootEl)
     })
 }
+
+
+global.MartelApp = global.MartelApp || {
+    initApp : (config)=> {
+        firebase.initializeApp(config);
+
+        const database = firebase.database();
+        const store = configureStore(database);
+        store.dispatch(checkIntegrityThunk());
+        const rootEl = document.getElementById('root');
+        const render = Component => {
+            ReactDOM.render(
+                <AppContainer>
+                    <Provider store={store}>
+                        <Root />
+                    </Provider>
+                </AppContainer>,rootEl)
+        };
+
+        render(Root);
+
+    }
+
+    }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --history-api-fallback --open",
-    "prog": "webpack --progress -p",
+    "prog": "webpack --progress -p --mode=development",
     "test:win": "mocha --compilers js:babel-core/register tests/**/*.js"
   },
   "keywords": [],
@@ -23,11 +23,12 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
-    "store": "^2.0.12"
+    "store": "^2.0.12",
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-loader": "^6.3.2",
+    "babel-loader": "^7.1.4",
     "babel-plugin-import": "^1.4.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
@@ -42,7 +43,8 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "style-loader": "^0.18.1",
     "url-loader": "^0.5.9",
-    "webpack": "^2.2.1",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^3.0.1",
     "webpack-dev-server": "^2.4.1"
   }
 }

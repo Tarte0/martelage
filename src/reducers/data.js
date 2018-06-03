@@ -15,7 +15,8 @@ import {
     SET_CONSTANTS,
     EDIT_TREE,
     EDIT_TREE_SUCCESS,
-    EDIT_TREE_FAILURE, SET_FILED_PARCELS, SET_SELECTED_FILED_PARCEL, SAVE_CONST, SET_TARIFS
+    EDIT_TREE_FAILURE, SET_FILED_PARCELS, SET_SELECTED_FILED_PARCEL, SAVE_CONST, SET_TARIFS, DATABASE_INIT_FAIL,
+    DATABASE_INIT_START
 } from "../actions/data";
 
 export const initialState = () => {
@@ -37,13 +38,15 @@ export const initialState = () => {
         savingTree: false,
         editingTreeSuccess: false,
         savedConstant: false,
+        initStart : false,
+        initFail : false
     });
 };
 
 export default (state = initialState(), action) => {
     switch (action.type) {
         case SET_PARCELS:
-            return state.set('parcels', fromJS(action.parcels));
+            return state.set('parcels', action.parcels ? fromJS(action.parcels) : Map());
         case SET_FILED_PARCELS:
             return state.set('filedParcels', fromJS(action.filedParcels));
         case SET_ETATS:
@@ -82,6 +85,10 @@ export default (state = initialState(), action) => {
             return state.set('savedConstant', true);
         case SET_TARIFS:
             return state.set('tarifs', fromJS(action.tarifs));
+        case DATABASE_INIT_FAIL:
+            return state.set('initFail',true);
+        case DATABASE_INIT_START:
+            return state.set('initStart',true);
     }
 
     return state;

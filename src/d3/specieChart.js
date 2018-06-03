@@ -93,7 +93,7 @@ specieChart.render = (el, data, species, types) => {
         d3.selectAll(".tarc")
             .style("opacity",(t)=>t.data.type === d.data.type?1:0.5);
 
-        const percentage = (100 * d.data.count / data.length).toPrecision(2);
+        const percentage = (100 * d.data.count / data.length).toFixed(2);
         const percentageString = percentage + "%";
         const treesOnTotal = d.data.count + " / " +data.length;
 

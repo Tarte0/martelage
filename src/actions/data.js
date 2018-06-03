@@ -49,6 +49,10 @@ export const SAVE_CONST = "SAVE_CONST";
 export const SAVE_CONST_SUCCESS = "SAVE_CONST_SUCCESS";
 export const SAVE_CONST_FAILURE = "SAVE_CONST_FAILURE";
 
+export const DATABASE_INIT_START = "DATABASE_INIT_START";
+export const DATABASE_INIT_FAIL = "DATABASE_INIT_FAIL";
+
+
 export const setParcels = (parcels) => (
     {type: SET_PARCELS, parcels}
 );
@@ -236,4 +240,10 @@ export const saveConstSuccess  = () => (
 );
 export const saveConstFailure = () => (
     {type: SAVE_CONST_FAILURE }
+);
+export const initFail = () => (
+    {type: DATABASE_INIT_FAIL }
+);
+export const initStart = () => (
+    {type: DATABASE_INIT_START }
 );

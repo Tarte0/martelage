@@ -1,6 +1,13 @@
 import {connect} from "react-redux";
-import Main from "../components/Main";
+import LandingPage from "../components/LandingPage";
+import {initDbThunk} from "../thunks/data";
 
 export default connect((state, props) => ({
+    route : state.getIn(['route','route']),
+    initStart : state.getIn(['data','initStart']),
+    initFail : state.getIn(['data','initFail'])
 }),(dispatch, props) => ({
-}))(Main);
+    initDB : ()=>{
+        dispatch(initDbThunk())
+    }
+}))(LandingPage);
