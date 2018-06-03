@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import TreeList from "../components/TreeList";
 import {selectedParcel, getSelectedTrees, selectedTree, selectEtatsAsArray, selectEssencesAsArray,
     getTreesVolumeAndPrices
@@ -7,7 +6,7 @@ import {selectedParcel, getSelectedTrees, selectedTree, selectEtatsAsArray, sele
 import {deleteTreeByIdThunk, editTreeByIdThunk} from "../thunks/data";
 import {setSelectedTree} from "../actions/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             selectedParcel: state.getIn(['data', 'selectedParcel']),
@@ -30,4 +29,4 @@ export default withRouter(
                 dispatch(editTreeByIdThunk(parcelId, treeId, selectedTreeAttr))
             }
         })
-    )(TreeList));
+    )(TreeList);

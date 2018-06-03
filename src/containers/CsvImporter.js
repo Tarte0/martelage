@@ -1,11 +1,10 @@
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import CsvImporter from "../components/CsvImporter";
 import {selectParcelsAsArray, selectEtatsAsArray, selectEssencesAsArray, getSelectedTrees} from "../selectors/data";
 import {setSelectedParcel} from "../actions/data";
 import {addTreeThunk} from "../thunks/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             parcels : selectParcelsAsArray(state),
@@ -22,4 +21,4 @@ export default withRouter(
                 dispatch(addTreeThunk(tree))
             },
         })
-    )(CsvImporter));
+    )(CsvImporter);

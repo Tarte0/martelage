@@ -1,10 +1,9 @@
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import TypeList from "../components/TypeList";
 import {selectTypesAsArray} from "../selectors/data";
 //import {deleteEtatByIdThunk} from "../thunks/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             types: selectTypesAsArray(state)
@@ -14,4 +13,4 @@ export default withRouter(
                 dispatch(deleteEtatByIdThunk(etatId))
             }*/
         })
-    )(TypeList));
+    )(TypeList);

@@ -6,14 +6,10 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {createLogger} from 'redux-logger';
 import Root from './containers/Root'
 import rootReducer from './reducers';
-import {routerMiddleware, routerActions} from 'react-router-redux';
 
-import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
-import { createHashHistory } from 'history';
 import {getParcels, getEtats, getEssences, getTypes, getConstants, getFiledParcels, getTarifs} from "./thunks/data";
 
-const history = createHashHistory();
 function configureStore() {
   // Redux Configuration
   const middleware = [];
@@ -28,10 +24,6 @@ function configureStore() {
     collapsed: true
   });
   middleware.push(logger);
-
-  // Router Middleware
-  const router = routerMiddleware(history);
-  middleware.push(router);
 
   // Redux DevTools Configuration
   const actionCreators = {};
@@ -74,9 +66,7 @@ const render = Component => {
     ReactDOM.render(
         <AppContainer>
           <Provider store={store}>
-            <ConnectedRouter history={history}>
-              <Root history={history} />
-            </ConnectedRouter>
+              <Root />
           </Provider>
         </AppContainer>,rootEl)
 };

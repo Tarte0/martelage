@@ -2,12 +2,11 @@
  * Created by cimin on 21/05/2018.
  */
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import ParcelConstantView from "../components/ParcelConstantView";
 import {selectedParcel, selectEssencesAsArray} from "../selectors/data";
 import {saveBornesConstThunk} from "../thunks/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             selectedParcelID : state.getIn(["data", "selectedParcel"]),
@@ -20,4 +19,4 @@ export default withRouter(
                 dispatch(saveBornesConstThunk(parcelId, constantName, values))
             }
         })
-    )(ParcelConstantView));
+    )(ParcelConstantView);

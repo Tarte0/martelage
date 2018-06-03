@@ -18,16 +18,12 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.5",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.1",
     "redux-immutable": "^3.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
-    "store": "^2.0.12",
-    "uuid": "https://registry.npmjs.org/uuid/-/uuid-2.0.3.tgz"
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

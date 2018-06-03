@@ -1,11 +1,10 @@
 import {connect} from "react-redux";
-import {withRouter} from 'react-router';
 import ParcelList from "../components/ParcelList";
 import {selectParcelsAsArray, selectedParcel, selectFiledParcelsAsArray} from "../selectors/data";
 import {deleteParcelByIdThunk, editParcelByIdThunk, fileParcelThunk} from "../thunks/data";
 import {setSelectedParcel} from "../actions/data";
 
-export default withRouter(connect((state, props) => ({
+export default connect((state, props) => ({
     parcels: selectParcelsAsArray(state),
     savingParcel: state.getIn(['data', 'savingParcel']),
     selectedParcel: state.getIn(['data', 'selectedParcel']),
@@ -23,4 +22,4 @@ export default withRouter(connect((state, props) => ({
     fileParcel(parcelId){
         dispatch(fileParcelThunk(parcelId))
     }
-}))(ParcelList));
+}))(ParcelList);

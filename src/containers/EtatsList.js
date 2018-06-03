@@ -1,9 +1,8 @@
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import EtatsList from "../components/EtatsList";
 import {selectEtatsAsArray} from "../selectors/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             etats: selectEtatsAsArray(state)
@@ -11,4 +10,4 @@ export default withRouter(
         (dispatch, props) => ({
 
         })
-    )(EtatsList));
+    )(EtatsList);

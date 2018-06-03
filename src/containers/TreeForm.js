@@ -1,10 +1,9 @@
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import TreeForm from "../components/TreeForm";
 import {addTreeThunk} from "../thunks/data";
 import {selectParcelsAsArray, selectEtatsAsArray, selectEssencesAsArray} from "../selectors/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             parcels : selectParcelsAsArray(state),
@@ -17,4 +16,4 @@ export default withRouter(
                 dispatch(addTreeThunk(tree))
             }
         })
-    )(TreeForm));
+    )(TreeForm);

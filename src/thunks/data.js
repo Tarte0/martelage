@@ -1,5 +1,4 @@
 import * as firebase from 'firebase';
-import * as uuid from "uuid";
 import {
     addParcelSuccess,
     addParcelFailure,

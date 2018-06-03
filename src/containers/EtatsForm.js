@@ -1,9 +1,8 @@
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 import EtatsForm from "../components/EtatsForm";
 import {addEtatThunk} from "../thunks/data";
 
-export default withRouter(
+export default
     connect(
         (state, props) => ({
             savingEtat: state.getIn(['data', 'savingEtat'])
@@ -13,4 +12,4 @@ export default withRouter(
                 dispatch(addEtatThunk(etat))
             }
         })
-    )(EtatsForm));
+    )(EtatsForm);
