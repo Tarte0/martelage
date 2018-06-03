@@ -41,39 +41,6 @@ import {
 } from "../actions/data";
 import {goToInitPage, goToMainPage} from "../actions/route";
 
-//firebase config, change it to plug this app to it
-// const config = {
-//     apiKey: "AIzaSyC7JXmQ0tZDmPu1myxCYwX8L6s39tXhVLk",
-//     authDomain: "martelage-751df.firebaseapp.com",
-//     databaseURL: "https://martelage-751df.firebaseio.com",
-//     projectId: "martelage-751df",
-//     storageBucket: "",
-//     messagingSenderId: "329628247737"
-// };
-
-
-/*const config = {
- apiKey: "AIzaSyD1FBAeh4YmGRkuQF6IrjspJIiDxDHDNhM",
- authDomain: "martelage-5cbf0.firebaseapp.com",
- databaseURL: "https://martelage-5cbf0.firebaseio.com",
- projectId: "martelage-5cbf0",
- storageBucket: "martelage-5cbf0.appspot.com",
- messagingSenderId: "523646105021"
- };*/
-
-// const config = {
-//     apiKey: "AIzaSyBKNHTXS2z5LJgnTtkEUvbG-Z554NtPzYE",
-//     authDomain: "testfirebase-d5fcc.firebaseapp.com",
-//     databaseURL: "https://testfirebase-d5fcc.firebaseio.com/",
-//     projectId: "testfirebase-d5fcc",
-//     storageBucket: "testfirebase-d5fcc.appspot.com",
-//     messagingSenderId: "711040738225"
-// };
-
-// firebase.initializeApp(config);
-
-// const database = firebase.database();
-
 export function addParcelThunk(parcel) {
     /**
      * @param {Function} dispatch
@@ -494,7 +461,7 @@ export function checkIntegrityThunk() {
 
 export function initDbThunk( ) {
     return (dispatch, getState, database) => {
-        dispatch(initStart())
+        dispatch(initStart());
             return database.ref()
                 .set(initDbData).then((e) => {
                     dispatch(retrieveBaseDataThunk())

@@ -77,14 +77,41 @@ function configureStore(database) {
 // render(Root);
 
 if (module.hot) {
+
+    // when running dev serveer 'npm run dev'
+    firebase.initializeApp(   {
+        apiKey: "AIzaSyAJrxRDiqgS-gClf4KBNiYUhG_NnJocuhw",
+        authDomain: "notice-46220.firebaseapp.com",
+        databaseURL: "https://notice-46220.firebaseio.com",
+        projectId: "notice-46220",
+        storageBucket: "notice-46220.appspot.com",
+        messagingSenderId: "94269562342"
+    });
+
+    const database = firebase.database();
+    const store = configureStore(database);
+    store.dispatch(checkIntegrityThunk());
+    const rootEl = document.getElementById('root');
+    const render = Component => {
+        ReactDOM.render(
+            <AppContainer>
+                <Provider store={store}>
+                    <Root />
+                </Provider>
+            </AppContainer>,rootEl)
+    };
+
+    render(Root);
     // Require the new version and render it instead
     module.hot.accept('./containers/Root', function () {
+
         // Require the new version and render it instead
         const NextApp = require('./containers/Root');
         ReactDOM.render(<NextApp />, rootEl)
     })
 }
 
+// when running 'npm run prog'
 
 global.MartelApp = global.MartelApp || {
     initApp : (config)=> {

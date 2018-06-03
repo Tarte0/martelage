@@ -78,7 +78,6 @@ class Main extends React.Component {
                             </Collapse.Panel>
                         </Collapse>
                     </Tabs.TabPane>
-
                     <Tabs.TabPane tab="CSV" key="4">
                         <CsvImporter/>
                     </Tabs.TabPane>

@@ -1,6 +1,5 @@
-
 import React from "react";
-import {Card,Button} from "antd";
+import {Card, Button, Row} from "antd";
 
 
 class Init extends React.Component {
@@ -12,18 +11,23 @@ class Init extends React.Component {
 
         return (
             <div>
-              <Card title="Initialisation de la base de donnée">
-                  La base de données ne semble pas initialisée, voulez vous l'initialiser ?
-                  <Button type="primary"
-                          loading={this.props.initStart}
-                          onClick={()=>{
-                            this.props.initDB()
-                          }} >
-                      INITIALISEROKZ EIO
+                <Card title="Initialisation de la base de donnée">
+                    <Row>
+                        La base de données ne semble pas initialisée, voulez vous le faire ?
+                    </Row>
+                    <br/>
+                    <Row>
+                        <Button type="primary"
+                                size="large"
+                                loading={this.props.initStart}
+                                onClick={() => {
+                                    this.props.initDB()
+                                }}>
+                            INITIALISER
 
-                  </Button>
-
-              </Card>
+                        </Button>
+                    </Row>
+                </Card>
 
 
             </div>

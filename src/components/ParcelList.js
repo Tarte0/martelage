@@ -38,7 +38,7 @@ const EditableCell = (editable, value, onChange, isNumerical, isFloat) => (
 const numericalKeys = ['altitude'];
 const floatNumericalKeys = ['surface'];
 
-const titles = {nom : 'Nom', lieu : 'Lieu', surface: 'Surface (ha)', altitude:'Altitude (m)', habitat:'Habitat'};
+const titles = {nom: 'Nom', lieu: 'Lieu', surface: 'Surface (ha)', altitude: 'Altitude (m)', habitat: 'Habitat'};
 
 class ParcelList extends React.Component {
     componentWillReceiveProps(next) {
@@ -61,7 +61,6 @@ class ParcelList extends React.Component {
     }
 
 
-
     render() {
         return (
             <div>
@@ -73,7 +72,7 @@ class ParcelList extends React.Component {
                     onRowClick={(record) => {
                         this.props.selectParcel(record.id);
                     }}
-                    rowClassName={(record, index) => this.props.selectedParcel === record.id?'selectedRow':''}
+                    rowClassName={(record, index) => this.props.selectedParcel === record.id ? 'selectedRow' : ''}
 
                     columns={
                         Object.keys(data)
@@ -86,14 +85,18 @@ class ParcelList extends React.Component {
                                         (value) => {
                                             this.setState({editedData: {...this.state.editedData, [k]: value}})
                                         }, numericalKeys.indexOf(k) > -1, floatNumericalKeys.indexOf(k) > -1),
-                                key: k
+                                key: k,
+                                sorter: (a, b) =>
+                                    numericalKeys.indexOf(k) > -1 || floatNumericalKeys.indexOf(k) > -1 ?
+                                    a[k] - b[k] : a[k].localeCompare(b[k])
                             })).concat([
                             {
                                 title: "Arbres",
                                 key: 'trees',
                                 render: (a, r, i) => {
                                     return (<div>{Object.keys(r.arbres || []).length}</div>)
-                                }
+                                },
+                                sorter: (a, b) => Object.keys(a.arbres || []).length - Object.keys(b.arbres || []).length
                             },
                             {
                                 title: "Supprimer",
